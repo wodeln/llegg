@@ -1,0 +1,509 @@
+[ 2017-07-17T08:52:09+08:00 ] 127.0.0.1 /admin
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000127s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001199s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000892s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001560s ]
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001370s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.002035s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000264s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000936s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.023902s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.024584s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000663s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.001241s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002898s ]
+
+[ 2017-07-17T08:52:13+08:00 ] 127.0.0.1 /index.php/Admin/Admin/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000180s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001592s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000911s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001631s ]
+NOTIC: [8] Undefined index: login D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] file_get_contents(http://service.tp-shop.cn/index.php?m=Home&amp;c=Index&amp;a=user_push&amp;domain=b.com&amp;last_domain=b.com&amp;key_num=v1.3.2&amp;install_time=1496807845&amp;cpu=0001&amp;mac=0002&amp;serial_number=20170607115725eEZgv4): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ D:\wamp\www\tp\Application\Admin\Common\function.php 第 55 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.005134s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.007972s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000493s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001604s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.037856s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.039810s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000925s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.001430s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003693s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001065s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001785s ]
+
+[ 2017-07-17T08:52:13+08:00 ] 127.0.0.1 /index.php/Admin/Admin/vertify
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000298s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002645s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000986s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001731s ]
+NOTIC: [8] Undefined index: vertify D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001167s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002124s ]
+
+[ 2017-07-17T08:52:19+08:00 ] 127.0.0.1 /index.php?m=Admin&c=Admin&a=login&t=0.5509598529927708
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000140s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001289s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000845s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001453s ]
+NOTIC: [8] Undefined index: login D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+
+[ 2017-07-17T08:52:20+08:00 ] 127.0.0.1 /index.php/Admin/Index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000181s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001558s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000874s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001541s ]
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001603s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.002393s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000303s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000966s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.108545s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.109218s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000788s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.001603s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003389s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000849s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001501s ]
+
+[ 2017-07-17T08:52:20+08:00 ] 127.0.0.1 /index.php/Admin/System/login_task
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000132s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001194s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000789s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001326s ]
+NOTIC: [8] Undefined index: login_task D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Admin\Controller\SystemController.class.php 第 255 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001166s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001982s ]
+
+[ 2017-07-17T08:52:21+08:00 ] 127.0.0.1 /index.php/Admin/Index/welcome
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000147s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001364s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001600s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002706s ]
+NOTIC: [8] Undefined index: welcome D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [8] Undefined index: version D:\wamp\www\tp\Application\Admin\Controller\IndexController.class.php 第 62 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.003567s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.006220s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000300s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001177s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.083125s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.084142s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000743s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.001576s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003539s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001091s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001956s ]
+
+[ 2017-07-17T08:52:25+08:00 ] 127.0.0.1 /index.php/Admin/Order/delivery_list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000180s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001915s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000845s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001605s ]
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001276s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.001943s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000282s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000940s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.032207s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.032874s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000717s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.000896s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002626s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001254s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002062s ]
+
+[ 2017-07-17T08:52:25+08:00 ] 127.0.0.1 /index.php/Admin/order/ajaxdelivery/p/1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000144s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001356s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000780s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001371s ]
+NOTIC: [8] Undefined index: ajaxdelivery D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 101 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 101 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001325s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.001863s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000367s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001411s ]
+NOTIC: [8] Use of undefined constant pay_time - assumed 'pay_time' D:\wamp\www\tp\Application\Runtime\Cache\Admin\46d890efdbb054ab97ffea3acb18076f.php 第 46 行.
+NOTIC: [8] Use of undefined constant pay_time - assumed 'pay_time' D:\wamp\www\tp\Application\Runtime\Cache\Admin\46d890efdbb054ab97ffea3acb18076f.php 第 46 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.035375s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.035925s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000991s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.000725s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002548s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000821s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001349s ]
+
+[ 2017-07-17T08:52:28+08:00 ] 127.0.0.1 /index.php/Admin/Order/delivery_print
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000124s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001121s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001351s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002338s ]
+NOTIC: [8] Undefined index: delivery_print D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001474s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.002207s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000454s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001387s ]
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Runtime\Cache\Admin\6294234c40a1226ebe606955e5bd13b6.php 第 190 行.
+NOTIC: [8] Undefined index: user_id D:\wamp\www\tp\Application\Runtime\Cache\Admin\6294234c40a1226ebe606955e5bd13b6.php 第 190 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.074619s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.075982s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002251s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.001076s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005025s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000925s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001604s ]
+
+[ 2017-07-17T08:52:28+08:00 ] 127.0.0.1 /index.php/Admin/order/ajaxdeliveryprint/p/1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000130s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001379s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000854s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001397s ]
+NOTIC: [8] Undefined index: ajaxdeliveryprint D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 902 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001381s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.002090s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000284s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000796s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.035234s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.035778s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000695s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.000719s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002188s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000726s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001228s ]
+
+[ 2017-07-17T08:52:30+08:00 ] 127.0.0.1 /index.php/Admin/order/ajaxdeliveryprint/p/1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000143s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001340s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000778s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001308s ]
+NOTIC: [8] Undefined index: ajaxdeliveryprint D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 902 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001326s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.001860s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000282s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000798s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.031198s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.031812s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000754s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.000780s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002355s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000745s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001255s ]
+
+[ 2017-07-17T08:52:42+08:00 ] 127.0.0.1 /index.php/Admin/order/ajaxdeliveryprint/p/1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000137s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001216s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000775s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001321s ]
+NOTIC: [8] Undefined index: ajaxdeliveryprint D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 902 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001309s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.001863s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000280s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000809s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.031238s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.031852s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000912s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.001041s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003071s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000858s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001429s ]
+
+[ 2017-07-17T08:52:50+08:00 ] 127.0.0.1 /index.php/Admin/order/ajaxdeliveryprint/p/1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000130s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001192s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000771s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001299s ]
+NOTIC: [8] Undefined index: ajaxdeliveryprint D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 902 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001326s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.001861s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000315s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000880s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.030966s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.031526s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000823s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.000823s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002475s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001050s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001571s ]
+
+[ 2017-07-17T08:53:01+08:00 ] 127.0.0.1 /index.php/Admin/order/ajaxdeliveryprint/p/1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000175s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001521s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000821s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001412s ]
+NOTIC: [8] Undefined index: ajaxdeliveryprint D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 902 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001411s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.001970s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000328s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000927s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.038528s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.039056s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000767s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.001177s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002731s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000776s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001285s ]
+
+[ 2017-07-17T08:55:05+08:00 ] 127.0.0.1 /index.php/Admin/order/ajaxdeliveryprint/p/1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000124s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001087s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000774s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001347s ]
+NOTIC: [8] Undefined index: ajaxdeliveryprint D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 902 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.003397s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.004214s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000274s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000794s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.043979s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.044661s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000818s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.001224s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002857s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000805s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001322s ]
+
+[ 2017-07-17T09:02:37+08:00 ] 127.0.0.1 /index.php/Admin/order/ajaxdeliveryprint/p/1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000137s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001354s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000846s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001391s ]
+NOTIC: [8] Undefined index: ajaxdeliveryprint D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 902 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001586s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.002219s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000294s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000842s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.032181s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.032726s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000716s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.000718s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002221s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000729s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001241s ]
+
+[ 2017-07-17T09:03:06+08:00 ] 127.0.0.1 /index.php/Admin/order/ajaxdeliveryprint/p/1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000181s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001716s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000842s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001403s ]
+NOTIC: [8] Undefined index: ajaxdeliveryprint D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 902 行.
+ERR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'r1.name' in 'field list'
+
+[ 2017-07-17T09:04:15+08:00 ] 127.0.0.1 /index.php/Admin/order/ajaxdeliveryprint/p/1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000176s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001520s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000882s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001576s ]
+NOTIC: [8] Undefined index: ajaxdeliveryprint D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 902 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.002369s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.003304s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000281s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000807s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.040651s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.041200s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001071s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.001906s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.004129s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000828s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001373s ]
+
+[ 2017-07-17T09:06:37+08:00 ] 127.0.0.1 /index.php/Admin/order/ajaxdeliveryprint/p/1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000140s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001282s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000896s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001480s ]
+NOTIC: [8] Undefined index: ajaxdeliveryprint D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 902 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001525s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.002172s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000276s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000798s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.031171s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.031710s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000710s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.000866s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002484s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000757s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001278s ]
+
+[ 2017-07-17T09:09:04+08:00 ] 127.0.0.1 /index.php/Admin/order/ajaxdeliveryprint/p/1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000130s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001197s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000778s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001306s ]
+NOTIC: [8] Undefined index: ajaxdeliveryprint D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 902 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001387s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.001916s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000278s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000790s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.040452s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.040981s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000771s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.001728s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003357s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000878s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001468s ]
+
+[ 2017-07-17T09:09:22+08:00 ] 127.0.0.1 /index.php/Admin/order/ajaxdeliveryprint/p/1
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000128s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001113s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000730s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001244s ]
+NOTIC: [8] Undefined index: ajaxdeliveryprint D:\wamp\www\tp\Application\Admin\Common\function.php 第 69 行.
+NOTIC: [2] urlencode() expects parameter 1 to be string, array given D:\wamp\www\tp\Application\Admin\Controller\OrderController.class.php 第 902 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.002053s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.002866s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000306s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000857s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.047258s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.047941s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000846s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.001270s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002944s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001019s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001544s ]
+

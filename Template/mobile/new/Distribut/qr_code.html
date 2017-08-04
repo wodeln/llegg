@@ -1,0 +1,36 @@
+<include file="Public/header"/>
+<body>      
+<div id="tbh5v0">
+<div class="user_com">
+
+<include file="Public/uer_topnav"/>
+	<div class="endorse_hend">
+		<p>推广二维码</p>
+	</div>
+	<div class="Wallet" style="text-align:center;">
+		<div id="qrcode" style="margin:0 auto; width: 200px;"></div>
+	</div>
+
+</div>
+</div>
+<include file="Public/footer"/>
+</div>
+<include file="Public/footer_nav"/>
+</body>
+<script type="text/javascript" src="__STATIC__/js/qrcode.js"></script>
+<script type="text/javascript">
+	// 设置参数方式
+	var qrcode = new QRCode('qrcode', {
+		text:"菜道生鲜",
+		width: 200,
+		height: 200,
+		colorDark : '#000000',
+		colorLight : '#ffffff',
+		correctLevel : QRCode.CorrectLevel.H
+	});
+
+	// 使用 API
+	qrcode.clear();
+	qrcode.makeCode('http://n.caidao365.cn/index.php?m=Mobile&c=Index&a=index&first_leader='+{$user_id});
+</script>
+</html>

@@ -1,0 +1,73 @@
+<include file="Public/header"/>
+<body>      
+<div id="tbh5v0">
+<div class="user_com">
+
+<include file="Public/uer_topnav"/>
+
+	<div class="Wallet">
+		<ul>
+			<li class="bain1 sell_cost"><strong>￥{$total_order_amount}元</strong><span>销售额</span></li>
+			<li class="sell_cost"><strong>￥{$total_distribut_amount}元</strong><span>我的奖励</span></li>
+		</ul>
+
+	</div>
+
+
+	<div class="Wallet">
+		<div class="ss_million">
+			<a class="dj_mill"><em class="Icon j_million"></em><dl class="b"><dt>我的分销商</dt><dd><span class="million_num">{$total_lower_count}人</span></dd></dl></a>
+			<div class="show_million">
+				<a href="{:U('Mobile/Distribut/lower_list/level/1')}"><em class="Icon"></em><dl class="b"><dt>我的一级分销</dt><dd style="color:#aaaaaa;"><span>{$first_lower_count}人</span></dd></dl></a>
+				<a href="{:U('Mobile/Distribut/lower_list/level/2')}"><em class="Icon"></em><dl class="b"><dt>我的二级分销</dt><dd style="color:#aaaaaa;"><span>{$second_lower_count}人</span></dd></dl></a>
+				<a href="{:U('Mobile/Distribut/lower_list/level/3')}"><em class="Icon"></em><dl class="b"><dt>我的三级分销</dt><dd style="color:#aaaaaa;"><span>{$third_lower_count}人</span></dd></dl></a>
+			</div>
+		</div>
+		<div class="ss_million">
+			<a class="dj_mill">
+				<em class="Icon j_million"></em>
+				<dl class="b">
+					<dt>我的推广</dt>
+					<dd>
+                      <span class="million_num">
+	                      {$total_order_count}单
+                          （￥{$total_order_amount}）
+                      </span>
+					</dd>
+				</dl>
+			</a>
+			<div class="show_million">
+				<a href="{:U('Mobile/Distribut/order_list/status/0')}"><em class="Icon"></em><dl class="b"><dt>下单未付款</dt><dd style="color:#aaaaaa;"><span>{$no_pay_order_count}单（￥{$no_pay_order_amount}）</span></dd></dl></a>
+				<a href="{:U('Mobile/Distribut/order_list/status/1')}"><em class="Icon"></em><dl class="b"><dt>下单已付款</dt><dd style="color:#aaaaaa;"><span>{$pay_order_count}单（￥{$pay_order_amount}）</span></dd></dl></a>
+			</div>
+		</div>
+		<div class="ss_million">
+			<a class="dj_mill"><em class="Icon j_million"></em><dl class="b"><dt>我的财富</dt><dd><span class="million_num">￥{$total_distribut_amount}</span></dd></dl></a>
+			<div class="show_million">
+				<a href="{:U('Mobile/Distribut/order_list/status/0')}"><em class="Icon"></em><dl class="b"><dt>未付款订单财富</dt><dd style="color:#aaaaaa;"><span>￥{$no_pay_distribut_amount}</span></dd></dl></a>
+				<a href="{:U('Mobile/Distribut/order_list/status/1')}"><em class="Icon"></em><dl class="b"><dt>已付款订单财富</dt><dd style="color:#aaaaaa;"><span>￥{$pay_distribut_amount}</span></dd></dl></a>
+				<a href="{:U('Mobile/Distribut/order_list/status/2')}"><em class="Icon"></em><dl class="b"><dt>已收货订单财富</dt><dd style="color:#aaaaaa;"><span>￥{$complete_distribut_amount}</span></dd></dl></a>
+				<a href="{:U('Mobile/Distribut/order_list/status/3')}"><em class="Icon"></em><dl class="b"><dt>已分成订单财富</dt><dd style="color:#aaaaaa;"><span>￥{$distribut_amount}</span></dd></dl></a>
+				<a href="javascript:void(0);"><em class="Icon"></em><dl class="b"><dt>已提现财富</dt><dd style="color:#aaaaaa;"><span>￥0</span></dd></dl></a>
+				<a href="javascript:void(0);"><em class="Icon"></em><dl class="b"><dt>可提现财富</dt><dd style="color:#aaaaaa;"><span>￥0.00</span></dd></dl></a>
+			</div>
+		</div>
+		<div>
+			<a href="{:U('Mobile/Distribut/qr_code')}"><em class="Icon j_million"></em><dl class="b"><dt>我的推广二维码</dt><dd>&nbsp;</dd></dl></a>
+		</div>
+	</div>
+</div>
+<include file="Public/footer"/>
+</div>
+<include file="Public/footer_nav"/>
+</body>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		// 收缩展开节点
+		$('.dj_mill').click(function(){
+			$(this).siblings('.show_million').toggle(300);
+		});
+	});
+</script>
+</html>

@@ -1,0 +1,369 @@
+[ 2017-07-28T12:58:01+08:00 ] 127.0.0.1 /index.php?m=Home&c=Cart&a=header_cart_list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000211s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002262s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001559s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002387s ]
+NOTIC: [8] Undefined variable: arr D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 160 行.
+NOTIC: [8] Undefined index: user_id D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 160 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 168 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.002003s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.002834s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000557s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001804s ]
+NOTIC: [8] Use of undefined constant num - assumed 'num' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant total_fee - assumed 'total_fee' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant anum - assumed 'anum' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+NOTIC: [8] Undefined index: anum D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.066243s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.067128s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001201s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.002175s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005369s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001315s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002133s ]
+
+[ 2017-07-28T12:58:17+08:00 ] 127.0.0.1 /index.php?m=Home&c=Cart&a=header_cart_list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000130s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001200s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001557s ]
+NOTIC: [8] Undefined variable: arr D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 160 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001086s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.001621s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000389s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000947s ]
+NOTIC: [8] Use of undefined constant goods_name - assumed 'goods_name' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 15 行.
+NOTIC: [8] Use of undefined constant member_goods_price - assumed 'member_goods_price' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 21 行.
+NOTIC: [8] Use of undefined constant goods_num - assumed 'goods_num' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 23 行.
+NOTIC: [8] Use of undefined constant goods_name - assumed 'goods_name' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 15 行.
+NOTIC: [8] Use of undefined constant member_goods_price - assumed 'member_goods_price' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 21 行.
+NOTIC: [8] Use of undefined constant goods_num - assumed 'goods_num' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 23 行.
+NOTIC: [8] Use of undefined constant num - assumed 'num' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant total_fee - assumed 'total_fee' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant anum - assumed 'anum' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+NOTIC: [8] Undefined index: anum D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.030094s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.030671s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000674s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.001079s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002681s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000914s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001453s ]
+
+[ 2017-07-28T13:10:22+08:00 ] 127.0.0.1 /index.php?m=Home&c=Cart&a=ajaxAddCart
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000157s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001397s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000898s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001602s ]
+NOTIC: [8] Undefined variable: arr D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+
+[ 2017-07-28T13:10:25+08:00 ] 127.0.0.1 /index.php?m=Home&c=Cart&a=ajaxAddCart
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000132s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001281s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000741s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001283s ]
+NOTIC: [8] Undefined variable: arr D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+
+[ 2017-07-28T13:10:38+08:00 ] 127.0.0.1 /index.php?m=Home&c=Cart&a=ajaxAddCart
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000130s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001174s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000720s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001246s ]
+NOTIC: [8] Undefined variable: arr D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 77 行.
+NOTIC: [8] Undefined variable: spec_key D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 88 行.
+NOTIC: [8] Undefined variable: spec_price D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 95 行.
+NOTIC: [8] Undefined variable: spec_key D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 116 行.
+NOTIC: [8] Undefined variable: spec_key D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 117 行.
+NOTIC: [8] Undefined variable: spec_key D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 118 行.
+
+[ 2017-07-28T13:12:10+08:00 ] 127.0.0.1 /index.php?m=Home&c=Cart&a=header_cart_list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000128s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001105s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001219s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001895s ]
+NOTIC: [8] Undefined variable: arr D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 160 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001268s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.001809s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000371s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000904s ]
+NOTIC: [8] Use of undefined constant goods_name - assumed 'goods_name' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 15 行.
+NOTIC: [8] Use of undefined constant member_goods_price - assumed 'member_goods_price' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 21 行.
+NOTIC: [8] Use of undefined constant goods_num - assumed 'goods_num' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 23 行.
+NOTIC: [8] Use of undefined constant num - assumed 'num' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant total_fee - assumed 'total_fee' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant anum - assumed 'anum' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+NOTIC: [8] Undefined index: anum D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.027071s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.027580s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000741s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.000993s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002534s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000760s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001272s ]
+
+[ 2017-07-28T13:12:27+08:00 ] 127.0.0.1 /index.php?m=Home&c=Cart&a=header_cart_list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000129s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001170s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001051s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001627s ]
+NOTIC: [8] Undefined variable: arr D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 160 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001490s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.002028s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000386s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000996s ]
+NOTIC: [8] Use of undefined constant goods_name - assumed 'goods_name' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 15 行.
+NOTIC: [8] Use of undefined constant member_goods_price - assumed 'member_goods_price' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 21 行.
+NOTIC: [8] Use of undefined constant goods_num - assumed 'goods_num' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 23 行.
+NOTIC: [8] Use of undefined constant num - assumed 'num' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant total_fee - assumed 'total_fee' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant anum - assumed 'anum' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+NOTIC: [8] Undefined index: anum D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.027125s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.027644s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000825s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.000944s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002557s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000739s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001260s ]
+
+[ 2017-07-28T13:12:39+08:00 ] 127.0.0.1 /index.php?m=Home&c=Cart&a=header_cart_list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000207s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002002s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001041s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001668s ]
+NOTIC: [8] Undefined variable: arr D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 160 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001164s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.001770s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000347s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000887s ]
+NOTIC: [8] Use of undefined constant num - assumed 'num' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant total_fee - assumed 'total_fee' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant anum - assumed 'anum' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+NOTIC: [8] Undefined index: anum D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.022886s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023402s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001013s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.000947s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002758s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000730s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001248s ]
+
+[ 2017-07-28T13:12:44+08:00 ] 127.0.0.1 /index.php?m=Home&c=Cart&a=header_cart_list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000128s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001175s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000966s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001488s ]
+NOTIC: [8] Undefined variable: arr D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 160 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001264s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.001782s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000421s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001023s ]
+NOTIC: [8] Use of undefined constant num - assumed 'num' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant total_fee - assumed 'total_fee' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant anum - assumed 'anum' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+NOTIC: [8] Undefined index: anum D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.023782s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.024292s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000683s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.000940s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002544s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001199s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001936s ]
+
+[ 2017-07-28T13:17:53+08:00 ] 127.0.0.1 /index.php?m=Home&c=Cart&a=header_cart_list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000128s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001127s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001261s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001936s ]
+NOTIC: [8] Undefined variable: arr D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 160 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001316s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.001841s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000356s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000885s ]
+NOTIC: [8] Use of undefined constant num - assumed 'num' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant total_fee - assumed 'total_fee' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant anum - assumed 'anum' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+NOTIC: [8] Undefined index: anum D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.023901s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.024413s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001209s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.001306s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003339s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000876s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001488s ]
+
+[ 2017-07-28T13:18:18+08:00 ] 127.0.0.1 /index.php?m=Home&c=Cart&a=header_cart_list
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000132s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001175s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001080s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001729s ]
+NOTIC: [8] Undefined variable: arr D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 160 行.
+INFO: [ view_begin ] --START--
+INFO: Run Home\Behaviors\testBehavior [ RunTime:0.001274s ]
+INFO: [ view_begin ] --END-- [ RunTime:0.001789s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000478s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001221s ]
+NOTIC: [8] Use of undefined constant num - assumed 'num' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant total_fee - assumed 'total_fee' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 35 行.
+NOTIC: [8] Use of undefined constant anum - assumed 'anum' D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+NOTIC: [8] Undefined index: anum D:\wamp\www\tp\Application\Runtime\Cache\Home\ecd6c5bea5115879e25bfec4026f713b.php 第 39 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.024438s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.024963s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000809s ]
+INFO: Run Behavior\TokenBuildBehavior [ RunTime:0.000953s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002575s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000770s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001287s ]
+
+[ 2017-07-28T13:18:21+08:00 ] 127.0.0.1 /index.php?m=Home&c=Cart&a=ajaxAddCart
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000130s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001170s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000760s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001383s ]
+NOTIC: [8] Undefined variable: arr D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Common\Common\common.php 第 1116 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 37 行.
+NOTIC: [8] Use of undefined constant discount - assumed 'discount' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [8] Use of undefined constant user_id - assumed 'user_id' D:\wamp\www\tp\Application\Home\Controller\CartController.class.php 第 38 行.
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 77 行.
+NOTIC: [8] Undefined variable: spec_key D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 88 行.
+NOTIC: [8] Undefined variable: spec_price D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 95 行.
+NOTIC: [8] Undefined variable: spec_key D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 116 行.
+NOTIC: [8] Undefined variable: spec_key D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 117 行.
+NOTIC: [8] Undefined variable: spec_key D:\wamp\www\tp\Application\Home\Logic\CartLogic.class.php 第 118 行.
+
