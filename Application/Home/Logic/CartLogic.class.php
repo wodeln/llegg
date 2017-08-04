@@ -37,6 +37,13 @@ class CartLogic extends RelationModel
         $goods = M('Goods')->where("goods_id = $goods_id")->find(); // 找出这个商品        
         $specGoodsPriceList = M('SpecGoodsPrice')->where("goods_id = $goods_id")->getField("key,key_name,price,store_count,sku"); // 获取商品对应的规格价钱 库存 条码
 
+        if(count($specGoodsPriceList)==1){
+            foreach ($specGoodsPriceList as $k=>$v){
+                $arr = explode(":",$v['key_name']);
+                $goods_spec[$arr[0]] = $k;
+            }
+        }
+
 		$where = " session_id = '$session_id' ";
         $user_id = $user_id ? $user_id : 0;
 		if($user_id)

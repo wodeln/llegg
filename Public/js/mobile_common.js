@@ -9,7 +9,9 @@
 function AjaxAddCart(goods_id,num,to_catr)
 {
     //如果有商品规格 说明是商品详情页提交
-    if($("#buy_goods_form").length > 0){        
+	var numberKey = "number_"+goods_id;
+	num = $("#"+numberKey).val();
+    if($("#buy_goods_form").length > 0){
         $.ajax({
             type : "POST",
             url:"/index.php?m=Home&c=Cart&a=ajaxAddCart",

@@ -16,7 +16,7 @@
            <div style="width:60%; float:left; height:98px;">
              <div class="check-wrapper">
               <span  class="cart-checkbox  <if condition="$v[selected] eq 1" >checked</if>">
-                 <input type="checkbox" autocomplete="off" name="cart_select[{$v.id}]" <if condition="$v[selected] eq 1" >checked="checked"</if>  style="display:none;" value="1" onclick="ajax_cart_list();">
+                 <input type="checkbox" gid="[{$v.id}]" class="mycheckbox" autocomplete="off" name="cart_select[{$v.id}]" <if condition="$v[selected] eq 1" >checked="checked"</if>  style="display:none;" value="1" onclick="ajax_cart_list();">
               </span>
              </div>
              <div  class="pic">
@@ -85,10 +85,14 @@
 	     <span class="hot_text">不含运费</span>
 	   </div>
 	   <div class="right">
-	     <input type="button" href="javascript:void();"  onclick="return selcart_submit();" class="xm-button " value="去结算"></div>
+	     <input type="button" href="javascript:void();" id="submit_button"  onclick="return selcart_submit();" class="xm-button " value="去结算"></div>
 	</div>
 </if> 
 <script type="text/javascript">
+
+    var total_product = 10; // 规定可以下单产品数量
+    var sum_product = 0; //购物车产品总数量
+
 $(".check-wrapper .cart-checkbox").click(function(){
 	if($(this).hasClass('checked')){
 		$(this).removeClass('checked');
@@ -160,4 +164,23 @@ function selcart_submit()
 	     return false;
     }
 }
+
+$(function () {
+    $(".mycheckbox").each(function () {
+        if($(this).get(0).checked){
+            var goodsNum = $(this).attr("gid");
+            sum_product = parseInt($("input[name='goods_num"+goodsNum+"']").val())+sum_product;
+        }
+    });
+
+    if(total_product>sum_product){
+        $("#submit_button").css("background-color","#bfbab7");
+        $("#submit_button").css("color","#565151");
+        $("#submit_button").attr("disabled",true);
+    }else {
+        $("#submit_button").css("background-color","#FF2233");
+        $("#submit_button").css("color","#fff");
+        $("#submit_button").attr("disabled",false);
+    }
+});
 </script>
