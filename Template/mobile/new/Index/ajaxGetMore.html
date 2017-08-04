@@ -6,6 +6,7 @@
 	         <img src="{$v.goods_id|goods_thum_images=400,400}"></div>
 	       <div class="goods_name">{$v.goods_name}</div>
 	       <div class="price">
+			   <input id="number_{$v[goods_id]}" type="hidden" value="1">
 	         <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
 	             <img src="__STATIC__/images/index_flow.png">
 	         </a>
