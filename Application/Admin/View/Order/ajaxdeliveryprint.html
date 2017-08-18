@@ -112,9 +112,10 @@
         <div class="info_right">
             <div class="customer">订单号: {$list.order_sn}</div>
             <div class="customer">下单时间: {$list.add_time|date='Y-m-d H:i',###} </div>
-            <div class="memo">
+           <!-- <div class="memo">
                 {$list.user_note}
-            </div>
+            </div>--><br />
+            <div class="system_memo">备注：{$list.action_note}</div>
         </div>
         <div class="product">
             <table border="1">

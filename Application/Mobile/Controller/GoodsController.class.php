@@ -36,7 +36,7 @@ class GoodsController extends MobileBaseController {
     	$brand_id = I('brand_id',0);
     	$spec = I('spec',0); // 规格
     	$attr = I('attr',''); // 属性
-    	$sort = I('sort','goods_id'); // 排序
+    	$sort = I('sort','sort'); // 排序
     	$sort_asc = I('sort_asc','asc'); // 排序
     	$price = I('price',''); // 价钱
     	$start_price = trim(I('start_price','0')); // 输入框价钱
@@ -256,7 +256,7 @@ class GoodsController extends MobileBaseController {
     	$filter_param = array(); // 帅选数组
     	$id = I('get.id',0); // 当前分类id
     	$brand_id = I('brand_id',0);    	    	
-    	$sort = I('sort','goods_id'); // 排序
+    	$sort = I('sort','sort'); // 排序
     	$sort_asc = I('sort_asc','asc'); // 排序
     	$price = I('price',''); // 价钱
     	$start_price = trim(I('start_price','0')); // 输入框价钱

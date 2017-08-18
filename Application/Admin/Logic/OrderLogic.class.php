@@ -45,6 +45,13 @@ class OrderLogic extends RelationModel
         return $res;
     }
 
+    public function getConfirmNote($order_id){
+        $condition['order_id'] = $order_id;
+        $condition['status_desc'] = 'confirm';
+        $actionNote = M('order_action')->where($condition)->getField('action_note');
+        return $actionNote;
+    }
+
     /*
      * 获取订单信息
      */

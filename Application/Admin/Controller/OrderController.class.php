@@ -898,6 +898,7 @@ class OrderController extends BaseController {
         I('pay_code') != '' ? $condition['pay_code'] = I('pay_code') : false;
         I('shipping_status') != '' ? $condition['shipping_status'] = I('shipping_status') : false;
         I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
+        I('shipping_code') ? $condition['shipping_code'] = trim(I('shipping_code')) : false;
         $sort_order = I('order_by','DESC').' '.I('sort');
         $count = M('order')->where($condition)->count();
         $Page  = new AjaxPage($count,100);
@@ -910,6 +911,7 @@ class OrderController extends BaseController {
         $orderList = $orderLogic->getOrderList($condition,$sort_order,$Page->firstRow,$Page->listRows);
         foreach ($orderList as $k=>$v){
             $orderList[$k]['products'] = $orderLogic->getOrderGoods($v['order_id']);
+            $orderList[$k]['action_note'] = $orderLogic->getConfirmNote($v['order_id']);
         }
         $this->assign("now_time",time());
         $this->assign('orderList',$orderList);

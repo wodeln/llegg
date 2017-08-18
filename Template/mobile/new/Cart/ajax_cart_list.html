@@ -91,7 +91,6 @@
 <script type="text/javascript">
 
     var total_product = 10; // 规定可以下单产品数量
-    var sum_product = 0; //购物车产品总数量
 
 $(".check-wrapper .cart-checkbox").click(function(){
 	if($(this).hasClass('checked')){
@@ -150,6 +149,18 @@ function del_cart_goods(goods_id)
 
 function selcart_submit()
 {
+    var sum_product = 0; //购物车产品总数量
+    $(".mycheckbox").each(function () {
+        if($(this).get(0).checked){
+            var goodsNum = $(this).attr("gid");
+            sum_product = parseInt($("input[name='goods_num"+goodsNum+"']").val())+sum_product;
+        }
+    });
+
+    if(total_product>sum_product){
+        alert("超过"+total_product+"才能下单");
+        return false;
+    }
      var j=0;
 	 $('input[name^="cart_select"]:checked').each(function(){
 	       j++;
@@ -164,7 +175,7 @@ function selcart_submit()
 	     return false;
     }
 }
-
+/*
 $(function () {
     $(".mycheckbox").each(function () {
         if($(this).get(0).checked){
@@ -183,4 +194,5 @@ $(function () {
         $("#submit_button").attr("disabled",false);
     }
 });
+*/
 </script>
