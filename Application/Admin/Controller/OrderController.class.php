@@ -860,8 +860,10 @@ class OrderController extends BaseController {
     public function delivery_print(){
         $begin = date('Y/m/d',(time()-1*60*60*24));
         $end = date('Y/m/d');
+        $shippingList = M('Plugin')->where("`type` = 'shipping' and status = 1")->select();
         $this->assign('timegap',$begin.'-'.$end);
         $this->assign('start_time',$begin);
+        $this->assign('shippingList', $shippingList); // 物流公司
         $this->display();
     }
 
