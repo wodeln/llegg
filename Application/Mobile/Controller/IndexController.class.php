@@ -40,6 +40,10 @@ class IndexController extends MobileBaseController {
         $this->display();
     }
 
+    public function dayPrice(){
+        $this->display();
+    }
+
     /**
      * 模板列表
      */

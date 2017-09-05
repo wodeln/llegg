@@ -3,7 +3,7 @@
     .paper {
         width: 217mm;
         padding: 0mm;
-        font-size:11pt;
+        font-size:9pt;
         background: #ffffff;
     }
     .stick {
@@ -16,42 +16,42 @@
     }
     .stick .qrcode img{
         position: absolute;
-        width: 100px;
+        width: 85px;
     }
     .stick .title{
         position: absolute;
-        font-size: 40pt;
-        top: 2mm;
-        left: 60mm;
+        font-size: 32pt;
+        top: 0mm;
+        left: 70mm;
     }
     .stick .print_time{
         position: absolute;
-        top: 15mm;
+        top: 12mm;
         left: 155mm;
     }
     .stick .cut-off{
         position: absolute;
         width: 70%;
         border-bottom: 1px dashed black;
-        top: 25mm;
+        top: 21mm;
         left: 30mm;
 
     }
     .stick .info_left{
         position: absolute;
         width: 60%;
-        top: 30mm;
+        top: 25mm;
     }
     .stick .info_right{
         position: absolute;
         width: 28%;
-        top: 30mm;
+        top: 25mm;
         right: 0mm;
     }
     .stick .product{
         position: absolute;
         width: 97%;
-        top: 55mm;
+        top: 45mm;
     }
     .stick .product table{
         width: 100%;
@@ -64,16 +64,16 @@
     .stick .bottom_right{
         position: absolute;
         width: 27%;
-        top:120mm;
+        top:125mm;
         right: 0mm;
     }
     .stick .bottom_left{
         position: absolute;
         width: 60%;
-        top: 102mm;
+        top: 110mm;
     }
     .stick .bottom_left .money{
-        margin-bottom: 5mm;
+        margin-bottom: 3mm;
     }
     .stick .bottom_left .money span{
         margin-right: 10mm;
@@ -143,7 +143,7 @@
 
             <div class="total">
                 <div>运费：{$list.shipping_price}</div>
-                <div>优惠折扣:-{$list.coupon_price}</div>
+                <div>优惠折扣:-{$list['coupon_price'] + $list['discount']}</div>
                 <div>总价：{$list.order_amount}</div>
             </div>
         </div>
