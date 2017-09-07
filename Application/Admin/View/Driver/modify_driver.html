@@ -1,0 +1,107 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <!-- Content Header (Page header) -->
+   <include file="Public/breadcrumb"/>
+    <section class="content">
+    <!-- Main content -->
+    <!--<div class="container-fluid">-->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="pull-right">
+                <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回"><i class="fa fa-reply"></i></a>
+            </div>
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-list"></i> 编辑司机</h3>
+            </div>
+            <div class="panel-body">
+                <form action="" method="post" onsubmit="return checkDriverUpdate(this);">
+                    <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <td class="col-sm-2">司机姓名:</td>
+                        <td ><input type="text" class="form-control" name="driver_name" value="{$info.driver_name}"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>司机编码:</td>
+                        <td><input type="text" class="form-control" name="driver_no" value="{$info.driver_no}"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>联系电话:</td>
+                        <td><input type="text" class="form-control" name="mobile" value="{$info.mobile}"></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>车型:</td>
+                        <td>
+                            <input class="form-control" type="text" name="car_type" value="{$info.car_type}">
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>车牌号:</td>
+                        <td>
+                            <input type="text" class="form-control" name="car_no" value="{$info.car_no}">
+                        </td>
+                        <td></td>
+                    </tr>
+          
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button type="submit" class="btn btn-info">
+                                <i class="ace-icon fa fa-check bigger-110"></i> 保存
+                            </button>
+                            <input type="hidden" name="driver_id" value="{$info.driver_id}">
+                            <input type="reset" class="btn btn-default pull-right" value="重置">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                </form>
+
+            </div>
+        </div>
+ 	  </div> 
+    </div>    <!-- /.content -->
+   </section>
+</div>
+<script>
+    function checkDriverUpdate(){
+        var driver_name = $('input[name="driver_name"]').val();
+        var mobile = $('input[name="mobile"]').val();
+        var car_no = $('input[name="car_no"]').val();
+        var error ='';
+
+        if(driver_name==""){
+            error += "司机姓名不能为空\n\t";
+        }
+
+        if(mobile == ''){
+            error += "手机号码填写有误\n\t";
+        }
+
+        if(!checkMobile(mobile) && mobile != ''){
+            error += "手机号码填写有误\n\t";
+        }
+        
+        if(car_no==""){
+        	 error += "车牌号码不能为空\n\t";
+        }
+
+
+        
+        if(error){
+            layer.alert(error, {icon: 2});  //alert(error);
+            return false;
+        }
+        return true;
+
+    }
+</script>
+
+</body>
+</html>

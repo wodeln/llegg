@@ -179,6 +179,9 @@ function getAllMenu(){
 					array('name' => '广告列表', 'act'=>'adList', 'control'=>'Ad'),
 					array('name' => '广告位置', 'act'=>'positionList', 'control'=>'Ad'),
 			)),
+            'driver' => array('name' => '司机管理', 'icon'=>'fa-road', 'sub_menu' => array(
+                array('name' => '司机列表', 'act'=>'driver_list', 'control'=>'Driver'),
+            )),
 			'content' => array('name' => '内容管理', 'icon'=>'fa-comments', 'sub_menu' => array(
 					array('name' => '文章列表', 'act'=>'articleList', 'control'=>'Article'),
 					array('name' => '文章分类', 'act'=>'categoryList', 'control'=>'Article'),
