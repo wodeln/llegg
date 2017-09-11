@@ -11,10 +11,27 @@
         heith:10mm;
         line-height: 10mm;
         padding-left: 5mm;
-        padding-right: 10mm;
+        padding-right: 5mm;
     }
     .paper .start_end{
         margin-bottom: 5mm;
+    }
+
+    .paper .driver_table td{
+        heith:8mm;
+        line-height: 8mm;
+        padding-left: 5mm;
+    }
+    .paper .driver_table{
+        padding: 0mm 0mm 0mm 5mm;
+        font-size:10pt;
+    }
+    .paper .driver_table .goods_name{
+        width:42mm;
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
     -->
 </style>
@@ -38,7 +55,7 @@
             </volist>
         </table>
     <else />
-        <table>
+        <table class="driver_table">
             <tr>
                 <td>品名</td>
                 <volist name="userList" id="uList">
@@ -50,7 +67,7 @@
             </tr>
             <volist name="goods" id="list">
                 <tr>
-                    <td>{$list.goods_name}</td>
+                    <td><span class="goods_name">{$list.goods_name}</span></td>
                     <volist name="userList" id="uList">
                         <td>{$userGoodsCount[$list['goods_id']][$uList['order_id']]['total']}</td>
                     </volist>
