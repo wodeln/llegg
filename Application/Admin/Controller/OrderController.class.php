@@ -871,8 +871,10 @@ class OrderController extends BaseController {
         $begin = date('Y/m/d',(time()-1*60*60*24));
         $end = date('Y/m/d');
         $shippingList = M('Plugin')->where("`type` = 'shipping' and status = 1")->select();
+        $driverList = M('drivers')->where("`del`=1")->select();
         $this->assign('timegap',$begin.'-'.$end);
         $this->assign('start_time',$begin);
+        $this->assign('driverList',$driverList);
         $this->assign('shippingList', $shippingList); // 物流公司
         $this->display();
     }
@@ -944,15 +946,45 @@ class OrderController extends BaseController {
         I('shipping_status') != '' ? $condition['shipping_status'] = I('shipping_status') : false;
         I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
         I('shipping_code') ? $condition['shipping_code'] = trim(I('shipping_code')) : false;
+        $type = 0;
+        if(I('driver_id')!=""){
+            $condition['driver_id']=trim(I('driver_id'));
+            $goodsList = M('order o')
+                ->join('tp_order_goods og on o.order_id=og.order_id')
+                ->join('tp_goods g on og.goods_id=g.goods_id')
+                ->field('SUM(og.goods_num) total,g.goods_name,g.goods_id')
+                ->where($condition)->group('og.goods_id,og.spec_key')
+                ->select();
+            $userList = M('order o')->where($condition)->field('consignee,user_id,order_id')->select();
+            $driver = M('drivers')->where("driver_id=".$condition['driver_id'])->find();
+            $userGoodsCount="";
+            foreach ($goodsList as $key=>$value){
+                foreach ($userList as $k=>$v){
+                    $userGoodsCount[$value['goods_id']][$v['order_id']]= M('order o')
+                        ->join('tp_order_goods og on o.order_id=og.order_id')
+                        ->join('tp_goods g on og.goods_id=g.goods_id')
+                        ->where("o.order_id = ".$v['order_id']." AND g.goods_id = ".$value['goods_id'])
+                        ->field('SUM(og.goods_num) total,g.goods_name')
+                        ->group('og.goods_id,og.spec_key')
+                        ->find();
+                }
+            }
+            $type=1;
+            $this->assign('userList',$userList);
+            $this->assign('driver',$driver);
+            $this->assign('userGoodsCount',$userGoodsCount);
+        }else{
+            $goodsList = M('order o')
+                ->join('tp_order_goods og on o.order_id=og.order_id')
+                ->join('tp_goods g on og.goods_id=g.goods_id')
+                ->field('SUM(og.goods_num) total,g.goods_name,og.spec_key_name,g.goods_sn')
+                ->where($condition)->group('og.goods_id,og.spec_key')
+                ->select();
+        }
 
-        $goodsList = M('order o')
-            ->join('tp_order_goods og on o.order_id=og.order_id')
-            ->join('tp_goods g on og.goods_id=g.goods_id')
-            ->field('SUM(og.goods_num) total,g.goods_name,og.spec_key_name,g.goods_sn')
-            ->where($condition)->group('og.goods_id,og.spec_key')
-            ->select();
         $this->assign("start_end",$gap[0]." - ".$gap[1]);
         $this->assign('goods',$goodsList);
+        $this->assign('type',$type);
 //        $this->assign('page',$show);// 赋值分页输出
         $this->display();
     }

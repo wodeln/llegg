@@ -28,7 +28,8 @@ class OrderLogic extends RelationModel
         $res = M('order o')
             ->join('tp_users u ON o.user_id=u.user_id')
             ->join('tp_region r ON o.district=r.id')
-            ->field('o.*,u.nickname,r.name district')
+            ->join('left join tp_drivers d ON o.driver_id=d.driver_id')
+            ->field('o.*,u.nickname,d.driver_name,r.name district')
             ->where($condition)
             ->limit("$start,$page_size")
             ->order($order)->select();

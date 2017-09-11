@@ -14,6 +14,7 @@
 namespace Admin\Controller;
 
 use Think\AjaxPage;
+use Admin\Logic\OrderLogic;
 class DriverController extends BaseController {
 
     public function driver_list(){
@@ -108,6 +109,69 @@ class DriverController extends BaseController {
         exit(json_encode(1));
     }
 
+    public function orderDriver(){
+        $data = I('post.');
+        $save['driver_id']=$data['driverId'];
+        $today = strtotime(date('Y/m/d'));
+        $save['deliver_opt_time']=$today;
+        $save['delivery_sort'] = M('order')->where("deliver_opt_time=$today")->max('delivery_sort')+1;
+        D('order')->where('order_id='.$data['orderId'])->save($save);
+        exit(json_encode(1));
+    }
+
+    /*
+     *Ajax首页
+     */
+    public function ajaxOrderList(){
+        $orderLogic = new OrderLogic();
+        $timegap = I('timegap');
+        if($timegap){
+            $gap = explode('-', $timegap);
+            $begin = strtotime($gap[0]);
+            $end = strtotime($gap[1]);
+        }
+        // 搜索条件
+        $condition = array();
+        I('consignee') ? $condition['consignee'] = trim(I('consignee')) : false;
+        if($begin && $end){
+            $condition['add_time'] = array('between',"$begin,$end");
+        }
+        I('order_sn') ? $condition['order_sn'] = trim(I('order_sn')) : false;
+        I('order_status') != '' ? $condition['order_status'] = I('order_status') : false;
+        I('pay_status') != '' ? $condition['pay_status'] = I('pay_status') : false;
+        I('pay_code') != '' ? $condition['pay_code'] = I('pay_code') : false;
+        I('shipping_status') != '' ? $condition['shipping_status'] = I('shipping_status') : false;
+        I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
+        $condition['shipping_code'] = 'ziyouwuliu';
+        $sort_order = 'o.district DESC';
+        $count = M('order')->where($condition)->count();
+        $Page  = new AjaxPage($count,20);
+        //  搜索条件下 分页赋值
+        foreach($condition as $key=>$val) {
+            $Page->parameter[$key]   =  urlencode($val);
+        }
+        $show = $Page->show();
+        //获取订单列表
+        $orderList = $orderLogic->getOrderList($condition,$sort_order,$Page->firstRow,$Page->listRows);
+        $driverList = M('drivers')->where("del=1")->select();
+        $this->assign('orderList',$orderList);
+        $this->assign('driverList',$driverList);
+        $this->assign('page',$show);// 赋值分页输出
+        $this->display();
+    }
+
+    public function order_list(){
+        $begin = date('Y/m/d',(time()-1*60*60*24));//30天前
+//        $end = date('Y/m/d',strtotime('+1 days'));
+        $end = date('Y/m/d');
+        $month = date('Y/m')."/01";
+        $this->assign('timegap',$begin.'-'.$end);
+        $this->assign('begin',$begin);
+        $this->assign('month',$month);
+        $this->display();
+    }
+
+
     public function welcome(){
     	$this->assign('sys_info',$this->get_sys_info());
     	$today = strtotime("-1 day");
@@ -122,7 +186,7 @@ class DriverController extends BaseController {
     	$this->assign('count',$count);
         $this->display();
     }
-    
+
     public function get_sys_info(){
 		$sys_info['os']             = PHP_OS;
 		$sys_info['zlib']           = function_exists('gzclose') ? 'YES' : 'NO';//zlib

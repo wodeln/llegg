@@ -100,7 +100,10 @@
         <div class="top">
             <span class="qrcode"><img src="/Public/images/qrcode.jpg"></span>
             <span class="title">龙龙蛋出库单</span>
-            <span class="print_time">打印时间：{$now_time|date='Y-m-d H:i:s',###}</span>
+            <span class="print_time">
+                <div>配送司机：{$list.driver_name}</div>
+                <div>打印时间：{$now_time|date='Y-m-d H:i:s',###}</div>
+            </span>
             <span class="cut-off"></span>
         </div>
         <div class="info_left">
@@ -150,7 +153,7 @@
         <div class="bottom_right">
             <div class="company">上海夏实信息科技有限公司</div>
             <div class="company_address">地址：上海市青浦区蔡家路88号</div>
-            <div class="company_phone">订购电话：15317003665</div>
+            <div class="company_phone">订购电话：13661692541</div>
         </div>
         <div class="bottom_left">
             <div class="money"><span>专用框(只)</span><span>杂框(只)</span><span>蛋液(斤)</span><span>实收金额</span></div>

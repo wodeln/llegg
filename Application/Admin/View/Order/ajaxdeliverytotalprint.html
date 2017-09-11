@@ -19,21 +19,46 @@
     -->
 </style>
 <div class="paper">
-    <div class="start_end">{$start_end}</div>
-    <table>
-        <tr>
-            <td>品名</td>
-            <td>货号</td>
-            <td>规格</td>
-            <td>数量</td>
-        </tr>
-        <volist name="goods" id="list">
-        <tr>
-            <td>{$list.goods_name}</td>
-            <td>{$list.goods_sn}</td>
-            <td>{$list.spec_key_name}</td>
-            <td>{$list.total}</td>
-        </tr>
-        </volist>
-    </table>
+    <div class="start_end">{$start_end} &nbsp;&nbsp;&nbsp;&nbsp;<if condition="$type==1">配送人：{$driver['driver_name']}</if></div>
+    <if condition="$type==0">
+        <table>
+            <tr>
+                <td>品名</td>
+                <td>货号</td>
+                <td>规格</td>
+                <td>数量</td>
+            </tr>
+            <volist name="goods" id="list">
+            <tr>
+                <td>{$list.goods_name}</td>
+                <td>{$list.goods_sn}</td>
+                <td>{$list.spec_key_name}</td>
+                <td>{$list.total}</td>
+            </tr>
+            </volist>
+        </table>
+    <else />
+        <table>
+            <tr>
+                <td>品名</td>
+                <volist name="userList" id="uList">
+                    <td>{$uList.consignee}</td>
+                </volist>
+                <td>总计</td>
+                <td>实际出货量</td>
+                <td>备注</td>
+            </tr>
+            <volist name="goods" id="list">
+                <tr>
+                    <td>{$list.goods_name}</td>
+                    <volist name="userList" id="uList">
+                        <td>{$userGoodsCount[$list['goods_id']][$uList['order_id']]['total']}</td>
+                    </volist>
+                    <td>{$list.total}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </volist>
+        </table>
+    </if>
 </div>
