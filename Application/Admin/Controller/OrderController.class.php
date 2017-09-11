@@ -866,7 +866,10 @@ class OrderController extends BaseController {
         $this->assign('shippingList', $shippingList); // 物流公司
         $this->display();
     }
-
+//分配订单：去掉应付金额，增加订货总数，增加客服备注（明细单上打印出来的那个备注）
+//清除订单配送员
+//品名的话，你只显示10个字吧
+//详单 order by 司机、顺序
     public function delivery_total_print(){
         $begin = date('Y/m/d',(time()-1*60*60*24));
         $end = date('Y/m/d');
@@ -903,7 +906,8 @@ class OrderController extends BaseController {
         I('shipping_status') != '' ? $condition['shipping_status'] = I('shipping_status') : false;
         I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
         I('shipping_code') ? $condition['shipping_code'] = trim(I('shipping_code')) : false;
-        $sort_order = I('order_by','DESC').' '.I('sort');
+//        $sort_order = I('order_by','DESC').' '.I('sort');
+        $sort_order = "order by o.dirver_id,delivery_sort";
         $count = M('order')->where($condition)->count();
         $Page  = new AjaxPage($count,100);
         //  搜索条件下 分页赋值

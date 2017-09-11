@@ -111,12 +111,20 @@ class DriverController extends BaseController {
 
     public function orderDriver(){
         $data = I('post.');
-        $save['driver_id']=$data['driverId'];
         $today = strtotime(date('Y/m/d'));
-        $save['deliver_opt_time']=$today;
-        $save['delivery_sort'] = M('order')->where("deliver_opt_time=$today")->max('delivery_sort')+1;
+        if($data['driverId']==""){
+            $save['driver_id']=0;
+            $save['deliver_opt_time']=0;
+            $save['delivery_sort'] = 0;
+        }else{
+            $save['driver_id']=$data['driverId'];
+            $save['deliver_opt_time']=$today;
+            $save['delivery_sort'] = M('order')->where("deliver_opt_time=$today")->max('delivery_sort')+1;
+        }
+
         D('order')->where('order_id='.$data['orderId'])->save($save);
-        exit(json_encode(1));
+        $info = M('drivers')->where("driver_id='".$data['driverId']."'")->find();
+        exit(json_encode($info));
     }
 
     /*
@@ -153,6 +161,10 @@ class DriverController extends BaseController {
         $show = $Page->show();
         //获取订单列表
         $orderList = $orderLogic->getOrderList($condition,$sort_order,$Page->firstRow,$Page->listRows);
+        foreach ($orderList as $k=>$v){
+            $orderList[$k]['product_sum'] = $orderLogic->getOrderGoodsSum($v['order_id'])['sum'];
+            $orderList[$k]['action_note'] = $orderLogic->getConfirmNote($v['order_id']);
+        }
         $driverList = M('drivers')->where("del=1")->select();
         $this->assign('orderList',$orderList);
         $this->assign('driverList',$driverList);
