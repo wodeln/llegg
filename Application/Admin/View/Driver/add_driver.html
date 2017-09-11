@@ -1,4 +1,5 @@
 <include file="Public/min-header"/>
+<link href="__PUBLIC__/plugins/minicolors/jquery.minicolors.css" rel="stylesheet" type="text/css" />
 <div class="wrapper">
     <!-- Content Header (Page header) -->
    <include file="Public/breadcrumb"/>
@@ -48,7 +49,17 @@
                         </td>
                         <td></td>
                     </tr>
-          
+
+                    <tr>
+                        <td>配送订单颜色:</td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" name="order_color" class="form-control demo" data-control="hue" value="#ff6161">
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+
                     <tr>
                         <td></td>
                         <td>
@@ -68,7 +79,44 @@
     </div>    <!-- /.content -->
    </section>
 </div>
+<script src="__PUBLIC__/plugins/minicolors/jquery.minicolors.js"></script>
 <script>
+
+
+    $(document).ready( function() {
+
+        $('.demo').each( function() {
+            //
+            // Dear reader, it's actually very easy to initialize MiniColors. For example:
+            //
+            //  $(selector).minicolors();
+            //
+            // The way I've done it below is just for the demo, so don't get confused
+            // by it. Also, data- attributes aren't supported at this time...they're
+            // only used for this demo.
+            //
+            $(this).minicolors({
+                control: $(this).attr('data-control') || 'hue',
+                defaultValue: $(this).attr('data-defaultValue') || '',
+                inline: $(this).attr('data-inline') === 'true',
+                letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                opacity: $(this).attr('data-opacity'),
+                position: $(this).attr('data-position') || 'bottom left',
+                change: function(hex, opacity) {
+                    if( !hex ) return;
+                    if( opacity ) hex += ', ' + opacity;
+                    try {
+                        console.log(hex);
+                    } catch(e) {}
+                },
+                theme: 'bootstrap'
+            });
+
+        });
+
+    });
+
+
     function checkDriverUpdate(){
         var driver_name = $('input[name="driver_name"]').val();
         var mobile = $('input[name="mobile"]').val();
@@ -100,6 +148,10 @@
         return true;
 
     }
+
+
+
+
 </script>
 
 </body>
