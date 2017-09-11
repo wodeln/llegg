@@ -29,7 +29,7 @@ class OrderLogic extends RelationModel
             ->join('tp_users u ON o.user_id=u.user_id')
             ->join('tp_region r ON o.district=r.id')
             ->join('left join tp_drivers d ON o.driver_id=d.driver_id')
-            ->field('o.*,u.nickname,d.driver_name,r.name district')
+            ->field('o.*,u.nickname,d.driver_name,d.order_color,r.name district')
             ->where($condition)
             ->limit("$start,$page_size")
             ->order($order)->select();
@@ -43,6 +43,13 @@ class OrderLogic extends RelationModel
         $sql = "SELECT g.*,o.*,(o.goods_num * o.member_goods_price) AS goods_total FROM __PREFIX__order_goods o ".
             "LEFT JOIN __PREFIX__goods g ON o.goods_id = g.goods_id WHERE o.order_id = $order_id";
         $res = $this->query($sql);
+        return $res;
+    }
+
+    public function getOrderGoodsSum($order_id){
+//        $sql = "SELECT sum(goods_num) FROM __PREFIX__order_goods WHERE order_id = $order_id";
+//        $res = M('order_goods')->where("order_id=".$order_id)->sun("goods_num");
+        $res = M('order_goods')->where("order_id=".$order_id)->field("sum(goods_num) sum")->find();
         return $res;
     }
 
