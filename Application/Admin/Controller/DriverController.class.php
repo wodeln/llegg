@@ -119,7 +119,7 @@ class DriverController extends BaseController {
         }else{
             $save['driver_id']=$data['driverId'];
             $save['deliver_opt_time']=$today;
-            $save['delivery_sort'] = M('order')->where("deliver_opt_time=$today")->max('delivery_sort')+1;
+            $save['delivery_sort'] = M('order')->where("deliver_opt_time=$today AND driver_id=".$data['driverId'])->max('delivery_sort')+1;
         }
 
         D('order')->where('order_id='.$data['orderId'])->save($save);
