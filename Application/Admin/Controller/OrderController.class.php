@@ -57,7 +57,12 @@ class OrderController extends BaseController {
         }
         // 搜索条件
         $condition = array();
-        I('consignee') ? $condition['consignee'] = trim(I('consignee')) : false;
+//        I('consignee') ? $condition['consignee'] = trim(I('consignee')) : false;
+
+        if(I('consignee')){
+            $condition['consignee']= array('like',"%".I('consignee')."%");
+        }
+
         if($begin && $end){
         	$condition['add_time'] = array('between',"$begin,$end");
         }
@@ -907,7 +912,7 @@ class OrderController extends BaseController {
         I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
         I('shipping_code') ? $condition['shipping_code'] = trim(I('shipping_code')) : false;
 //        $sort_order = I('order_by','DESC').' '.I('sort');
-        $sort_order = "order by o.dirver_id,delivery_sort";
+        $sort_order = "o.driver_id ASC,o.delivery_sort ASC";
         $count = M('order')->where($condition)->count();
         $Page  = new AjaxPage($count,100);
         //  搜索条件下 分页赋值
@@ -959,7 +964,7 @@ class OrderController extends BaseController {
                 ->field('SUM(og.goods_num) total,g.goods_name,g.goods_id')
                 ->where($condition)->group('og.goods_id,og.spec_key')
                 ->select();
-            $userList = M('order o')->where($condition)->field('consignee,user_id,order_id')->select();
+            $userList = M('order o')->where($condition)->field('consignee,user_id,order_id')->order("delivery_sort ASC")->select();
             $driver = M('drivers')->where("driver_id=".$condition['driver_id'])->find();
             $userGoodsCount="";
             foreach ($goodsList as $key=>$value){
