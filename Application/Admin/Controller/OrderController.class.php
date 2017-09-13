@@ -63,9 +63,14 @@ class OrderController extends BaseController {
             $condition['consignee']= array('like',"%".I('consignee')."%");
         }
 
+        if(I('address')){
+            $condition['address']= array('like',"%".I('address')."%");
+        }
+
         if($begin && $end){
         	$condition['add_time'] = array('between',"$begin,$end");
         }
+        I('mobile') ? $condition['o.mobile'] = trim(I('mobile')) : false;
         I('order_sn') ? $condition['order_sn'] = trim(I('order_sn')) : false;
         I('order_status') != '' ? $condition['order_status'] = I('order_status') : false;
         I('pay_status') != '' ? $condition['pay_status'] = I('pay_status') : false;
@@ -73,7 +78,7 @@ class OrderController extends BaseController {
         I('shipping_status') != '' ? $condition['shipping_status'] = I('shipping_status') : false;
         I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
         $sort_order = I('order_by','DESC').' '.I('sort');
-        $count = M('order')->where($condition)->count();
+        $count = M('order o')->where($condition)->count();
         $Page  = new AjaxPage($count,20);
         //  搜索条件下 分页赋值
         foreach($condition as $key=>$val) {
@@ -922,7 +927,12 @@ class OrderController extends BaseController {
         $show = $Page->show();
         //获取订单列表
         $orderList = $orderLogic->getOrderList($condition,$sort_order,$Page->firstRow,$Page->listRows);
+        $sort=1;
         foreach ($orderList as $k=>$v){
+            $orderList[$k]['delivery_sort_c']=$sort;
+            if($orderList[$k+1]['driver_id']!=$orderList[$k]['driver_id']) $sort=1;
+            else $sort+=1;
+
             $orderList[$k]['products'] = $orderLogic->getOrderGoods($v['order_id']);
             $orderList[$k]['action_note'] = $orderLogic->getConfirmNote($v['order_id']);
         }
@@ -964,18 +974,30 @@ class OrderController extends BaseController {
                 ->field('SUM(og.goods_num) total,g.goods_name,g.goods_id')
                 ->where($condition)->group('og.goods_id,og.spec_key')
                 ->select();
-            $userList = M('order o')->where($condition)->field('consignee,user_id,order_id')->order("delivery_sort ASC")->select();
+            $userList = M('order o')
+                ->join('tp_order_goods og on o.order_id=og.order_id')
+                ->join('tp_goods g on og.goods_id=g.goods_id')
+                ->where($condition)
+                ->field('SUM(og.goods_num) user_total,consignee,user_id,o.order_id')
+                ->order("delivery_sort ASC")
+                ->group('o.order_id')
+                ->select();
             $driver = M('drivers')->where("driver_id=".$condition['driver_id'])->find();
             $userGoodsCount="";
+            $sum=0;
             foreach ($goodsList as $key=>$value){
                 foreach ($userList as $k=>$v){
-                    $userGoodsCount[$value['goods_id']][$v['order_id']]= M('order o')
+                    $userGoodsSum= M('order o')
                         ->join('tp_order_goods og on o.order_id=og.order_id')
                         ->join('tp_goods g on og.goods_id=g.goods_id')
                         ->where("o.order_id = ".$v['order_id']." AND g.goods_id = ".$value['goods_id'])
                         ->field('SUM(og.goods_num) total,g.goods_name')
                         ->group('og.goods_id,og.spec_key')
                         ->find();
+                    $userGoodsCount[$value['goods_id']][$v['order_id']]=$userGoodsSum['total'];
+                    if($userGoodsSum!=null){
+                        $sum+=$userGoodsSum['total'];
+                    }
                 }
             }
             $type=1;
@@ -989,8 +1011,14 @@ class OrderController extends BaseController {
                 ->field('SUM(og.goods_num) total,g.goods_name,og.spec_key_name,g.goods_sn')
                 ->where($condition)->group('og.goods_id,og.spec_key')
                 ->select();
+            $sum =  M('order o')
+                ->join('tp_order_goods og on o.order_id=og.order_id')
+                ->join('tp_goods g on og.goods_id=g.goods_id')
+                ->field('SUM(og.goods_num) total')
+                ->where($condition)
+                ->find();
         }
-
+        $this->assign('sum',$sum);
         $this->assign("start_end",$gap[0]." - ".$gap[1]);
         $this->assign('goods',$goodsList);
         $this->assign('type',$type);

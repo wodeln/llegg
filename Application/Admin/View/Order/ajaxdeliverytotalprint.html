@@ -53,29 +53,44 @@
                 <td>{$list.total}</td>
             </tr>
             </volist>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>总计：{$sum.total}</td>
+            </tr>
         </table>
     <else />
         <table class="driver_table">
             <tr>
                 <td>品名</td>
-                <volist name="userList" id="uList">
-                    <td>{$uList.consignee}</td>
-                </volist>
                 <td>总计</td>
+                <volist name="userList" id="uList">
+                    <td>{$uList.consignee}{$i}</td>
+                </volist>
                 <td>实际出货量</td>
                 <td>备注</td>
             </tr>
             <volist name="goods" id="list">
                 <tr>
                     <td><span class="goods_name">{$list.goods_name}</span></td>
+                    <td>{$list.total}</td>
                     <volist name="userList" id="uList">
                         <td>{$userGoodsCount[$list['goods_id']][$uList['order_id']]['total']}</td>
                     </volist>
-                    <td>{$list.total}</td>
                     <td></td>
                     <td></td>
                 </tr>
             </volist>
+            <tr>
+                <td></td>
+                <td>{$sum}</td>
+                <volist name="userList" id="uList">
+                    <td>{$uList.user_total}</td>
+                </volist>
+                <td></td>
+                <td></td>
+            </tr>
         </table>
     </if>
 </div>
