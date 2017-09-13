@@ -994,7 +994,7 @@ class OrderController extends BaseController {
                         ->field('SUM(og.goods_num) total,g.goods_name')
                         ->group('og.goods_id,og.spec_key')
                         ->find();
-                    $userGoodsCount[$value['goods_id']][$v['order_id']]=$userGoodsSum['total'];
+                    $userGoodsCount[$value['goods_id']][$v['order_id']]=$userGoodsSum;
                     if($userGoodsSum!=null){
                         $sum+=$userGoodsSum['total'];
                     }
