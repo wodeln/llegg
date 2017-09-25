@@ -36,6 +36,30 @@ class OrderLogic extends RelationModel
 //        $res = M('order')->where($condition)->limit("$start,$page_size")->order($order)->select();
         return $res;
     }
+
+/*insert into ht_or_ordermain (orderid, cust_id, or_date, order_amount, address_id, addname, addid, addtime, addtype) SELECT
+oi.id as orderid,
+oi.vipid as cust_id,
+{$db->qstr($or_date)} as or_date,
+oi.trans_amount as order_amount,
+oi.address_id,
+{$db->qstr($_SESSION['managerrealname'])} as addname,
+{$db->qstr($_SESSION['managerid'])} as addid,
+{$db->qstr(date('Y-m-d H:i:s'))} as addtime,
+'1' as addtype
+FROM
+ht_order_info AS oi
+WHERE
+order_remain>0 AND
+oi.id IN ($orderid)
+
+
+UPDATE ht_order_info AS t1, (SELECT count(tt.trans_id) as S, tt.orderid FROM ht_or_ordermain AS tt GROUP BY tt.orderid) AS t2 SET t1.order_send = t2.S WHERE t1.id = t2.orderid
+
+
+
+*/
+
     /*
      * 获取订单商品详情
      */

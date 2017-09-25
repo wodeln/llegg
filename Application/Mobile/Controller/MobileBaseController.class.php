@@ -13,6 +13,7 @@
 namespace Mobile\Controller;
 use Home\Logic\UsersLogic;
 use Think\Controller;
+use Api\Controller\JxcapiController;
 class MobileBaseController extends Controller {
     public $user = array();
     public $user_id = 0;
@@ -63,6 +64,8 @@ class MobileBaseController extends Controller {
                     
                     // 登录后将购物车的商品的 user_id 改为当前登录的id
                     M('cart')->where("session_id = '{$this->session_id}'")->save(array('user_id'=>$data['result']['user_id']));
+                    $api = new JxcapiController();
+                    $api->insertUser($data);
                 }
             }else{
                 $user['token'] = md5(time().mt_rand(1,999999999));

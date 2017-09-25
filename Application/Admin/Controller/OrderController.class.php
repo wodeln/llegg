@@ -943,7 +943,7 @@ class OrderController extends BaseController {
     }
 
     /*
-     *Ajax出库单
+     *Ajax总单
      */
     public function ajaxdeliverytotalprint(){
         $timegap = I('timegap');
