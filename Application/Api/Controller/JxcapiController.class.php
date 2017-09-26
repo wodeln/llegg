@@ -15,7 +15,7 @@ use Think\Controller;
 
 class JxcapiController extends Controller {
 
-    const SERVER_IP="http://e.com";
+    const SERVER_IP="http://n.llegg.cn";
 
     public function index(){      
         $this->display();
@@ -64,8 +64,7 @@ class JxcapiController extends Controller {
                                           ")
                         ->where("ua.user_id=".$data['user_id'])
                         ->select();
-//        $api = new JxcapiLogic();
-        postData($user,"api/insertUser");
+        $this->postData($user,"api/insertUser");
     }
 
     public function updateUser($data,$userId){
@@ -83,8 +82,8 @@ class JxcapiController extends Controller {
     }
 
     public function postData($data,$url){
-//        $url = SERVER_IP."/index.php/".$url;
-        $url = "http://e.com/index.php/".$url;
+        $url = self ::SERVER_IP."/index.php/".$url;
+//        $url = "http://e.com/index.php/".$url;
         $post_data = $data;
         $ch = curl_init();
 
