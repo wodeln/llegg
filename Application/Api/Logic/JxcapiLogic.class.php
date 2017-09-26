@@ -22,22 +22,5 @@ use Think\Model\RelationModel;
  */
 class JxcapiLogic extends RelationModel
 {
-    const SERVER_IP="http://e.com";
 
-    public function postData($data,$url){
-        $url = SERVER_IP+"/index.php/"+$url;
-        $post_data = $data;
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        // post数据
-        curl_setopt($ch, CURLOPT_POST, 1);
-        // post的变量
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-
-        $output = curl_exec($ch);
-        curl_close($ch);
-    }
 }

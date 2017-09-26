@@ -33,7 +33,7 @@ return array(
     'RBAC_USER_TABLE'           => 'think_role_user',
     'RBAC_ACCESS_TABLE'         => 'think_access',
     'RBAC_NODE_TABLE'           => 'think_node',
-    'SHOW_PAGE_TRACE'           =>0,         //显示调试信息
+    'SHOW_PAGE_TRACE'           =>true,         //显示调试信息
     //'RBAC_ERROR_PAGE'         => '/Public/tp404.html',
     //'ERROR_PAGE'=>'/Index/Index/error_page.html',
     'ERROR_PAGE'=>'/index.php/Home/Tperror/tp404.html',    

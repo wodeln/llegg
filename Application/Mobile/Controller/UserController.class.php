@@ -15,6 +15,7 @@ namespace Mobile\Controller;
 use Home\Logic\UsersLogic;
 use Think\Page;
 use Think\Verify;
+use Api\Controller\JxcapiController;
 
 class UserController extends MobileBaseController
 {
@@ -538,6 +539,8 @@ class UserController extends MobileBaseController
             if (!$userLogic->update_info($this->user_id, $post))
                 $this->error("保存失败");
             $this->success("操作成功");
+            $api = new JxcapiController();
+            $api->updateUser($post,$this->user_id);
             exit;
         }
         //  获取省份
