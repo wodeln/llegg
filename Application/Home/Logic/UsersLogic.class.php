@@ -16,7 +16,7 @@ namespace Home\Logic;
 
 use Think\Model\RelationModel;
 use Think\Page;
-
+use Api\Controller\JxcapiController;
 /**
  * 分类逻辑定义
  * Class CatsLogic
@@ -119,6 +119,8 @@ class UsersLogic extends RelationModel
             
             $row_id = M('users')->add($map);
             $user = get_user_info($openid,3,$oauth);
+            $api = new JxcapiController();
+            $api->insertUser($user);
 			// 会员注册送优惠券
 			$coupon = M('coupon')->where("send_end_time > ".time()." and ((createnum - send_num) > 0 or createnum = 0) and type = 2")->select();
 			foreach ($coupon as $key => $val)

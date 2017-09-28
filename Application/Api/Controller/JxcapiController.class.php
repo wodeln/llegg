@@ -13,9 +13,9 @@
 namespace Api\Controller;
 use Think\Controller;
 
-class JxcapiController extends Controller {
+class JxcapiController extends BaseController{
 
-    const SERVER_IP="http://n.llegg.cn";
+    const SERVER_IP="http://e.com";
 
     public function index(){      
         $this->display();
@@ -48,11 +48,11 @@ class JxcapiController extends Controller {
         $user['number']="DS".$data['user_id'];
         $user['cCategory']="5";
         $user['cCategoryName']="001";
-        $user['cLevelName']=iconv('GB2312', 'UTF-8',"零售客户");
+        $user['cLevelName']="零售客户";
         $user['cLevel']="0";
         $user['type']=-10;
         $user['shop_user_id']=$data['user_id'];
-        $user['address']=M("user_address ua")
+        $address=M("user_address ua")
                         ->field("ua.mobile,
                                           ua.address,
                                           ua.consignee,
@@ -64,7 +64,8 @@ class JxcapiController extends Controller {
                                           ")
                         ->where("ua.user_id=".$data['user_id'])
                         ->select();
-        $this->postData($user,"api/insertUser");
+        $user['linkMans']=json_encode($address,JSON_UNESCAPED_UNICODE);
+        $this->postData($user,"api/insertUser",__FUNCTION__);
     }
 
     public function updateUser($data,$userId){
@@ -78,10 +79,10 @@ class JxcapiController extends Controller {
         $user['cLevel']="0";
         $user['type']=-10;
         $user['userId']=$userId;
-        $this->postData($user,"api/updateUser");
+        $this->postData($user,"api/updateUser",__FUNCTION__);
     }
 
-    public function postData($data,$url){
+    public function postData($data,$url,$functionName=""){
         $url = self ::SERVER_IP."/index.php/".$url;
 //        $url = "http://e.com/index.php/".$url;
         $post_data = $data;
@@ -95,7 +96,10 @@ class JxcapiController extends Controller {
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 
         $output = curl_exec($ch);
+//        $output = "ok";
         curl_close($ch);
+        if($output!=""){
+            $this->save_log($data,$url,$functionName);
+        }
     }
-    
 }
