@@ -15,7 +15,7 @@ namespace Admin\Controller;
 use Admin\Logic\GoodsLogic;
 use Think\AjaxPage;
 use Think\Page;
-
+use Api\Controller\JxcapiController;
 class GoodsController extends BaseController {
     
     /**
@@ -267,10 +267,12 @@ class GoodsController extends BaseController {
                 } else {
                     $goods_id = $insert_id = $Goods->add(); // 写入数据到数据库
                     $Goods->afterSave($goods_id);
+
                 }
 
                 $GoodsLogic->saveGoodsAttr($goods_id, $_POST['goods_type']); // 处理商品 属性
-
+                $api = new JxcapiController();
+                $api->insertEditGoods($_POST,$goods_id,$type);
                 $return_arr = array(
                     'status' => 1,
                     'msg' => '操作成功',
