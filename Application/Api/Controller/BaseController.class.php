@@ -14,14 +14,14 @@ namespace Api\Controller;
 use Think\Controller;
 class BaseController extends Controller {
 
-    function save_log($res,$url,$functionName) {
+    function save_log($res,$url,$type,$functionName) {
         $date = date("Y-m-d", time());
         //$address = '/var/log/error';
         $address = './Application/Api/log';
         if (!is_dir($address)) {
             mkdir($address, 0777, true);
         }
-        $address = $address.'/'.$date . '_data.log';
+        $address = $address.'/'.$date . '_'.$type.'.log';
         $error_date = date("Y-m-d H:i:s", time());
         if(!empty($_SERVER['HTTP_REFERER'])) {
             $file = $_SERVER['HTTP_REFERER'];
