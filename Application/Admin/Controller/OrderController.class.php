@@ -983,6 +983,7 @@ class OrderController extends BaseController {
                 ->group('o.order_id')
                 ->select();
             $driver = M('drivers')->where("driver_id=".$condition['driver_id'])->find();
+            $count =  M('order o')->where($condition)->count();
             $userGoodsCount="";
             $sum=0;
             foreach ($goodsList as $key=>$value){
@@ -1017,7 +1018,16 @@ class OrderController extends BaseController {
                 ->field('SUM(og.goods_num) total')
                 ->where($condition)
                 ->find();
+            $count =  M('order o')->where($condition)->count();
+            $PSCondition = $condition;
+            $PSCondition['shipping_code']="ziti";
+            $ZTCount =  M('order o')->where($PSCondition)->count();
+            $PSCondition['shipping_code']="ziyouwuliu";
+            $PSCount =  M('order o')->where($PSCondition)->count();
         }
+        $this->assign('count',$count);
+        $this->assign('zt_count',$ZTCount);
+        $this->assign('ps_count',$PSCount);
         $this->assign('sum',$sum);
         $this->assign("start_end",$gap[0]." - ".$gap[1]);
         $this->assign('goods',$goodsList);
