@@ -33,6 +33,13 @@
         white-space: nowrap;
         text-overflow: ellipsis;
     }
+    .paper .str{
+        margin:3mm 0 5mm 0;
+    }
+    .paper .str1,.str2,.str3{
+        float: left;
+        width: 90mm;
+    }
     -->
 </style>
 <div class="paper">
@@ -60,6 +67,11 @@
                 <td>总计：{$sum.total}</td>
             </tr>
         </table>
+        <div class="str">
+            <div class="str1">分贱人：_____________</div>
+            <div class="str2">装车人：_____________</div>
+            <div class="str3">司机： _____________</div>
+        </div>
     <else />
         <table class="driver_table">
             <tr>
@@ -92,5 +104,10 @@
                 <td></td>
             </tr>
         </table>
+        <div class="str">
+            <div class="str1">分贱人：_____________</div>
+            <div class="str2">装车人：_____________</div>
+            <div class="str3">司机： _____________</div>
+        </div>
     </if>
 </div>
