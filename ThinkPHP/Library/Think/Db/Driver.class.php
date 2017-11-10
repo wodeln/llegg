@@ -883,6 +883,7 @@ abstract class Driver {
         $this->parseBind(!empty($options['bind'])?$options['bind']:array());
         $table  =   $this->parseTable($options['table']);
         $sql   = 'UPDATE ' . $table . $this->parseSet($data);
+//        echo $sql;
         if(strpos($table,',')){// 多表更新支持JOIN操作
             $sql .= $this->parseJoin(!empty($options['join'])?$options['join']:'');
         }

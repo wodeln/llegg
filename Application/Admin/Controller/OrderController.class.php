@@ -14,6 +14,7 @@
 namespace Admin\Controller;
 use Admin\Logic\OrderLogic;
 use Think\AjaxPage;
+use Api\Controller\JxcapiController;
 
 class OrderController extends BaseController {
     public  $order_status;
@@ -171,9 +172,10 @@ class OrderController extends BaseController {
             $order['shipping_code'] = I('shipping');// 物流方式
             $order['shipping_name'] = M('plugin')->where(array('status'=>1,'type'=>'shipping','code'=>I('shipping')))->getField('name');            
             $order['pay_code'] = I('payment');// 支付方式            
-            $order['pay_name'] = M('plugin')->where(array('status'=>1,'type'=>'payment','code'=>I('payment')))->getField('name');                            
+            $order['pay_name'] = M('plugin')->where(array('status'=>1,'type'=>'payment','code'=>I('payment')))->getField('name');
             $goods_id_arr = I("goods_id");
             $new_goods = $old_goods_arr = array();
+
             //################################订单添加商品
             if($goods_id_arr){
             	$new_goods = $orderLogic->get_spec_goods($goods_id_arr);
@@ -185,7 +187,7 @@ class OrderController extends BaseController {
             			$this->error('添加失败');
             	}
             }
-            
+
             //################################订单修改删除商品
             $old_goods = I('old_goods');
             foreach ($orderGoods as $val){
@@ -200,23 +202,25 @@ class OrderController extends BaseController {
             		$old_goods_arr[] = $val;
             	}
             }
-            
+
             $goodsArr = array_merge($old_goods_arr,$new_goods);
             $result = calculate_price($order['user_id'],$goodsArr,$order['shipping_code'],0,$order['province'],$order['city'],$order['district'],0,0,0,0);
             if($result['status'] < 0)
             {
-            	$this->error($result['msg']);
+                $this->error($result['msg']);
             }
-       
+
             //################################修改订单费用
             $order['goods_price']    = $result['result']['goods_price']; // 商品总价
             $order['shipping_price'] = $result['result']['shipping_price'];//物流费
             $order['order_amount']   = $result['result']['order_amount']; // 应付金额
-            $order['total_amount']   = $result['result']['total_amount']; // 订单总价           
+            $order['total_amount']   = $result['result']['total_amount']; // 订单总价
             $o = M('order')->where('order_id='.$order_id)->save($order);
-            
+
             $l = $orderLogic->orderActionLog($order_id,'edit','修改订单');//操作日志
             if($o && $l){
+                $api = new JxcapiController();
+                $api->insertEditOrder($order_id,2);
             	$this->success('修改成功',U('Admin/Order/editprice',array('order_id'=>$order_id)));
             }else{
             	$this->success('修改失败',U('Admin/Order/detail',array('order_id'=>$order_id)));
@@ -355,6 +359,8 @@ class OrderController extends BaseController {
             if(!$row){
                 $this->success('没有更新数据',U('Admin/Order/editprice',array('order_id'=>$order_id)));
             }else{
+                $api = new JxcapiController();
+                $api->insertEditOrder($order_id,2);
                 $this->success('操作成功',U('Admin/Order/detail',array('order_id'=>$order_id)));
             }
             exit;
@@ -371,6 +377,8 @@ class OrderController extends BaseController {
     	$orderLogic = new OrderLogic();
     	$del = $orderLogic->delOrder($order_id);
         if($del){
+            $api = new JxcapiController();
+            $api->deleteOrder($order_id);
             $this->success('删除订单成功');
         }else{
         	$this->error('订单删除失败');
@@ -615,6 +623,10 @@ class OrderController extends BaseController {
         	 $a = $orderLogic->orderProcessHandle($order_id,$action);       	
         	 $res = $orderLogic->orderActionLog($order_id,$action,I('note'));
         	 if($res && $a){
+                 if($action=='confirm'){
+                     $api = new JxcapiController();
+                     $api->insertEditOrder($order_id,1);
+                 }
         	 	exit(json_encode(array('status' => 1,'msg' => '操作成功')));
         	 }else{
         	 	exit(json_encode(array('status' => 0,'msg' => '操作失败')));
@@ -739,7 +751,38 @@ class OrderController extends BaseController {
     	downloadExcel($strTable,'order');
     	exit();
     }
-    
+
+    public function confirm_orders(){
+        $orderIds = I('order_id');
+        $i = 0;
+        foreach ($orderIds as $k=>$v){
+            $order = M('order_action')->where("order_id = $v AND status_desc='confirm'")->find();
+            $info="";
+            if(!$order){
+                $info["order_id"]       = $v;
+                $info["action_user"]    = session('admin_id');
+                $info["order_status"]   = 1;
+                $info["shipping_status"]= 0;
+                $info["pay_status"]     = 0;
+                $info["action_note"]    = "批量确认订单";
+                $info["log_time"]       = time();
+                $info["status_desc"]    = "confirm";
+
+                $data[] = $info;
+                $i++;
+
+                $api = new JxcapiController();
+                $api->insertEditOrder($v,1);
+                M("order")->where("order_id=$v")->save(array('order_status'=>1));
+            }
+        }
+
+        $count = M('order_action')->addAll($data);
+
+        echo $i;
+    }
+
+
     /**
      * 退货单列表
      */
@@ -919,7 +962,7 @@ class OrderController extends BaseController {
 //        $sort_order = I('order_by','DESC').' '.I('sort');
         $sort_order = "o.driver_id ASC,o.delivery_sort ASC";
         $count = M('order')->where($condition)->count();
-        $Page  = new AjaxPage($count,100);
+        $Page  = new AjaxPage($count,300);
         //  搜索条件下 分页赋值
         foreach($condition as $key=>$val) {
             $Page->parameter[$key]   =  urlencode($val);

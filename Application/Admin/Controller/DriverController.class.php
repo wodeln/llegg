@@ -15,6 +15,7 @@ namespace Admin\Controller;
 
 use Think\AjaxPage;
 use Admin\Logic\OrderLogic;
+use Api\Controller\JxcapiController;
 class DriverController extends BaseController {
 
     public function driver_list(){
@@ -124,6 +125,9 @@ class DriverController extends BaseController {
 
         D('order')->where('order_id='.$data['orderId'])->save($save);
         $info = M('drivers')->where("driver_id='".$data['driverId']."'")->find();
+
+        $api = new JxcapiController();
+        $api->editDriver($data['orderId'],$data['driverId'],$info['driver_name']);
         exit(json_encode($info));
     }
 
@@ -151,6 +155,7 @@ class DriverController extends BaseController {
         I('shipping_status') != '' ? $condition['shipping_status'] = I('shipping_status') : false;
         I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
         $condition['shipping_code'] = 'ziyouwuliu';
+        $condition['order_status'] = 1;
         $sort_order = 'o.district DESC';
         $count = M('order')->where($condition)->count();
         $Page  = new AjaxPage($count,20);

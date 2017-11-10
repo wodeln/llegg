@@ -345,6 +345,8 @@ class UserController extends MobileBaseController
             exit();
         }
         $p = M('region')->where(array('parent_id' => 0, 'level' => 1))->select();
+        $api = new JxcapiController();
+        $api->updateUserAddress($this->user_id);
         $this->assign('province', $p);
         //$this->display('edit_address');
         $this->display();
@@ -376,6 +378,9 @@ class UserController extends MobileBaseController
             $e = M('region')->where(array('parent_id' => $address['district'], 'level' => 4))->select();
             $this->assign('twon', $e);
         }
+
+        $api = new JxcapiController();
+        $api->updateUserAddress($this->user_id);
 
         $this->assign('province', $p);
         $this->assign('city', $c);

@@ -70,6 +70,11 @@ UPDATE ht_order_info AS t1, (SELECT count(tt.trans_id) as S, tt.orderid FROM ht_
         return $res;
     }
 
+    public function getOrder($order_id){
+        $sql = "SELECT o.*,(SELECT `name` FROM tp_region WHERE id=city) city, (SELECT `name` FROM tp_region WHERE id=district) district, (SELECT `name` FROM tp_region WHERE id=twon) twon FROM tp_order WHERE order_id = $orderId";
+        return $this->query($sql);
+    }
+
     public function getOrderGoodsSum($order_id){
 //        $sql = "SELECT sum(goods_num) FROM __PREFIX__order_goods WHERE order_id = $order_id";
 //        $res = M('order_goods')->where("order_id=".$order_id)->sun("goods_num");

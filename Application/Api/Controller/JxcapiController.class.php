@@ -12,7 +12,7 @@
  */ 
 namespace Api\Controller;
 use Think\Controller;
-
+use Admin\Logic\OrderLogic;
 class JxcapiController extends BaseController{
 
     const SERVER_IP="http://e.com";
@@ -93,6 +93,36 @@ class JxcapiController extends BaseController{
         $user['cLevel']="0";
         $user['type']=-10;
         $user['userId']=$userId;
+        $address=M("user_address ua")
+            ->field("ua.mobile,
+                                          ua.address,
+                                          ua.consignee,
+                                          ua.address_id,
+                                          ua.is_default,
+                                          (SELECT `name` FROM tp_region WHERE id=province) province_str,
+                                          (SELECT `name` FROM tp_region WHERE id=city) city_str,
+                                          (SELECT `name` FROM tp_region WHERE id=district) country_str
+                                          ")
+            ->where("ua.user_id=".$userId)
+            ->select();
+        $user['linkMans']=json_encode($address,JSON_UNESCAPED_UNICODE);
+        $this->postData($user,"api/updateUser","user",__FUNCTION__);
+    }
+
+    public function updateUserAddress($userId){
+        $address=M("user_address ua")
+            ->field("ua.mobile,
+                                          ua.address,
+                                          ua.consignee,
+                                          ua.address_id,
+                                          ua.is_default,
+                                          (SELECT `name` FROM tp_region WHERE id=province) province_str,
+                                          (SELECT `name` FROM tp_region WHERE id=city) city_str,
+                                          (SELECT `name` FROM tp_region WHERE id=district) country_str
+                                          ")
+            ->where("ua.user_id=".$userId)
+            ->select();
+        $user['linkMans']=json_encode($address,JSON_UNESCAPED_UNICODE);
         $this->postData($user,"api/updateUser","user",__FUNCTION__);
     }
     //用户API结束
@@ -135,6 +165,96 @@ class JxcapiController extends BaseController{
     }
 
     //商品API结束
+
+    //订单API开始
+    /**
+     * 初始化订单
+     */
+    public function initOrder(){
+//        $today = strtotime(date("Y-m-d",time()));
+        $today = strtotime("2017-10-17 00:00:00");
+        $orderLogic = new OrderLogic();
+        $orderList = M('order')->where("add_time>=$today")->select();
+//        $sort=1;
+        foreach ($orderList as $k=>$v){
+            /*$orderList[$k]['delivery_sort_c']=$sort;
+            if($orderList[$k+1]['driver_id']!=$orderList[$k]['driver_id']) $sort=1;
+            else $sort+=1;*/
+            $order['user_id']           = $v['user_id'];
+            $order['total_amount']      = $v['total_amount'];
+            $order['coupon_price']      = $v['coupon_price'];
+            $order['order_prom_amount'] = $v['order_prom_amount'];
+            $order['total_amount']      = $v['total_amount'];
+            $order['shipping_price']    = $v['shipping_price'];
+            $order['order_id']          = $v['order_id'];
+            $products = $orderLogic->getOrderGoods($v['order_id']);
+            $orderProducts="";
+            foreach ($products as $key=>$value){
+                $orderProducts[$key]['goods_num']       =$value['goods_num'];
+                $orderProducts[$key]['goods_price']     =$value['goods_price'];
+                $orderProducts[$key]['goods_id']        =$value['goods_id'];
+            }
+            $order['products'] = $orderProducts;
+            $orderList[$k]['products'] = $v;
+//            $orderList[$k]['action_note'] = $orderLogic->getConfirmNote($v['order_id']);
+            $orderJson = json_encode($order);
+            $url = "api/insertOrder";
+            $this->postData($orderJson,$url,"order",__FUNCTION__);
+        }
+
+    }
+
+    /**
+     * 确认订单时插入订单
+     * @param $orderId 订单ID
+     *
+     */
+    public function insertEditOrder($orderId,$type){
+        $orderLogic = new OrderLogic();
+        $orderSelect = M('order')->where("order_id>=$orderId")->find();
+
+        $order['user_id']           = $orderSelect['user_id'];
+        $order['total_amount']      = $orderSelect['total_amount'];
+        $order['coupon_price']      = $orderSelect['coupon_price'];
+        $order['order_prom_amount'] = $orderSelect['order_prom_amount'];
+        $order['total_amount']      = $orderSelect['total_amount'];
+        $order['shipping_price']    = $orderSelect['shipping_price'];
+        $order['order_id']          = $orderSelect['order_id'];
+        $order['add_time']          = $orderSelect['add_time'];
+        $order['consignee']         = $orderSelect['consignee'];
+        $order['mobile']            = $orderSelect['mobile'];
+        $order['address']           = $orderSelect['address'];
+        $order['city']              = M('region')->where("`id`=".$orderSelect['city'])->getField('name');
+        $order['district']          = M('region')->where("`id`=".$orderSelect['district'])->getField('name');
+        $order['twon']              = M('region')->where("`id`=".$orderSelect['twon'])->getField('name');
+        $order['order_sn']          = $orderSelect['order_sn'];
+        $products = $orderLogic->getOrderGoods($order['order_id']);
+        $orderProducts="";
+        foreach ($products as $key=>$value){
+            $orderProducts[$key]['goods_num']       =$value['goods_num'];
+            $orderProducts[$key]['goods_price']     =$value['goods_price'];
+            $orderProducts[$key]['goods_id']        =$value['goods_id'];
+        }
+        $order['products'] = $orderProducts;
+        $orderJson['data'] = json_encode($order);
+        $url =  $type==1 ? "api/insertOrder" : "api/updateOrder";
+        $this->postData($orderJson,$url,"order",__FUNCTION__);
+    }
+
+    public function deleteOrder($orderId){
+        $data['order_id'] = $orderId;
+        $url =  "api/deleteOrder";
+        $this->postData($data,$url,"order",__FUNCTION__);
+    }
+
+    public function editDriver($orderId,$driverId,$driverName){
+        $data['order_id'] = $orderId;
+        $data['driver_id'] = $driverId==""? 0 : $driverId;
+        $data['driver_name'] = $driverId==""? '自提' : $driverName;
+        $url =  "api/editDriver";
+        $this->postData($data,$url,"order",__FUNCTION__);
+    }
+    //订单API结束
     /**
      * POST 数据到指定地址
      * @param $data POST 数据
@@ -149,15 +269,13 @@ class JxcapiController extends BaseController{
 
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        // post数据
         curl_setopt($ch, CURLOPT_POST, 1);
-        // post的变量
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 
         $output = curl_exec($ch);
 //        $output = "ok";
         curl_close($ch);
-        if($output!=""){
+        if($output!="" && $output!=0){
             $this->save_log($data,$url,$type,$functionName);
         }
     }

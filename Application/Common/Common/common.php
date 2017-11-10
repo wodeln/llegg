@@ -900,12 +900,21 @@ function order_give($order)
  * @param goods_id 商品ID
  */
 
-function get_goods_promotion($goods_id,$user_id=0){
+function get_goods_promotion($goods_id,$user_id=0,$goods_spec=""){
 	$now = time();
 	$goods = M('goods')->where("goods_id=$goods_id")->find();
+    $specGoodsPriceList = M('SpecGoodsPrice')->where("goods_id = $goods_id")->getField("key,key_name,price,store_count,sku");
+    foreach($goods_spec as $key => $val) // 处理商品规格
+        $spec_item[] = $val; // 所选择的规格项
+    if(!empty($spec_item)) // 有选择商品规格
+    {
+        sort($spec_item);
+        $spec_key = implode('_', $spec_item);
+        $spec_price = $specGoodsPriceList[$spec_key]['price']; // 获取规格指定的价格
+    }
 	$where = "end_time>$now and start_time<$now and id=".$goods['prom_id'];
 	
-	$prom['price'] = $goods['shop_price'];
+	$prom['price'] = $spec_price ? $spec_price : $goods['shop_price'];
 	$prom['prom_type'] = $goods['prom_type'];
 	$prom['prom_id'] = $goods['prom_id'];
 	$prom['is_end'] = 0;
