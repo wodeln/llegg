@@ -78,23 +78,23 @@
             <li class="flow_youhui_no">如果是会员<font color=red></font>，可以享受会员折扣价</li>
               <li class="flow_youhui_no">备注：<input name="userNote" class="txt1" value="" style="width: 90%;"></li>
             <li class="flow_youhui_no">
-              <div class="checkout_other">
+              <div class="checkout_other2">
                 <div class="jmbag" href="javascript:void(0);" onClick="showCheckoutOther(this);"><span class="right_arrow_flow"></span>使用优惠券</div>
                 <table class="subbox_other sub_bonus" width="100%">
                   <tr>
                     <td  colspan="2">
                     <input type="radio" class="radio vam ma-ri-10" name="couponTypeSelect" checked value="1"  onClick="ajax_order_price();" />
                      <select id="coupon_id" name="coupon_id" class="vam ou-no" onChange="ajax_order_price();">                                                     
-                         <option value="0">选择优惠券</option>
-                          <foreach name="couponList" item="v"  key="k">                                                     
+                         <!--<option value="0">选择优惠券</option>-->
+                          <foreach name="couponList" item="v"  key="k">
                             <option value="{$v['id']}">{$v['name']}</option>
                           </foreach>   
                      </select>                    
                     </td>
                     <td>
-                    &nbsp;或 &nbsp;
+                    &nbsp;<!--或 &nbsp;
                     <input type="radio" class="radio vam ma-ri-10" name="couponTypeSelect"  value="2"  onClick="ajax_order_price();javascript:document.getElementById('Bonus_span_0').style.display='block';" />
-                    <a href="javascript:void(0);"  class="a_other1_h" id="Bonus_a_0">直接输入优惠券号</a>
+                    <a href="javascript:void(0);"  class="a_other1_h" id="Bonus_a_0">直接输入优惠券号</a>-->
                     </td>
                     <td>
                       <label id="Bonus_span_0" style="display:none;">
