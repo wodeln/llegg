@@ -618,7 +618,15 @@ class UsersLogic extends RelationModel
         $data['log_time'] = time();
         $data['status_desc'] = '用户取消订单';        
         M('order_action')->add($data);//订单操作记录		
-		
+
+        if($order['pay_code']=="duihuanquan"){
+            $data1["order_id"]="";
+            $data1["if_use"]=0;
+            $data1["user_id"]="";
+            $data1["use_date"]="";
+            M('goods_coupon_info')->where(array('order_id'=>$order_id,'user_id'=>$user_id))->save($data1);
+        }
+
         if(!$row)
             return array('status'=>-1,'msg'=>'操作失败','result'=>'');
         return array('status'=>1,'msg'=>'操作成功','result'=>'');

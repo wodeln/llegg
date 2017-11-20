@@ -707,6 +707,29 @@ class UserController extends MobileBaseController
         $this->display();
     }
 
+    public function get_coupon_goods()
+    {
+        C('TOKEN_ON', true);
+        if (IS_POST) {
+            $this->verifyHandle('message');
+
+            $data = I('post.');
+            $data['user_id'] = $this->user_id;
+            $user = session('user');
+            $data['user_name'] = $user['nickname'];
+            $data['msg_time'] = time();
+            if (M('feedback')->add($data)) {
+                $this->success("留言成功", U('User/message_list'));
+                exit;
+            } else {
+                $this->error('留言失败', U('User/message_list'));
+                exit;
+            }
+        }
+
+        $this->display();
+    }
+
     public function points()
     {
     	$type = I('type','all');

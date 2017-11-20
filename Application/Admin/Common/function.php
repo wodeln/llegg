@@ -174,6 +174,7 @@ function getAllMenu(){
 					array('name' => '商品促销', 'act'=>'prom_goods_list', 'control'=>'Promotion'),
 					array('name' => '订单促销', 'act'=>'prom_order_list', 'control'=>'Promotion'),
 					array('name' => '代金券管理','act'=>'index', 'control'=>'Coupon'),
+                    array('name' => '礼品兑换券','act'=>'goods_coupon_list', 'control'=>'Coupon'),
 			)),
 			'Ad' => array('name' => '广告管理', 'icon'=>'fa-flag', 'sub_menu' => array(
 					array('name' => '广告列表', 'act'=>'adList', 'control'=>'Ad'),

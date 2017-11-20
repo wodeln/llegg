@@ -1,0 +1,57 @@
+                    <form method="post" enctype="multipart/form-data" target="_blank" id="form-order">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover" style="font-size:12px;">
+                                <thead>
+                                <tr>
+                                    <td style="width: 1px;" class="text-center">
+                                        <input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);">
+                                    </td>
+                                    <td class="text-center">
+                                        兑换券编号
+                                    </td>
+                                    <td class="text-center">
+                                        状态
+                                    </td>
+                                    <td class="text-center">
+                                        使用时间
+                                    </td>
+                                    <td class="text-center">
+                                        用户
+                                    </td>
+
+                                    <td class="text-center">操作</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="list" id="list">
+                                    <tr>
+                                        <td class="text-center">
+                                        	<input type="checkbox" name="selected[]" value="{$list.goods_coupon_info_id}">
+                                        	<input type="hidden" name="goods_coupon_info_id[]" value="flat.flat">
+                                        </td>
+                                        <td class="text-center">{$list.coupon_no}</td>
+                                        <td class="text-center">
+                                            <if condition="$list['if_use'] eq '0'">未使用</if>
+                                            <if condition="$list['if_use'] eq '1'">已使用</if>
+                                        </td>
+                                        <td class="text-center"><if condition="$list['use_date'] neq '0'">{$list.use_date|date='Y-m-d H:i:s',###}</if></td>
+                                        <td class="text-center"><if condition="$list['use_date'] neq '0'">{$list.nickname}</if></td>
+                                        <td class="text-center">
+                                        		<a href="javascript:void(0)" onclick="alert('该订单不得删除')" data-toggle="tooltip" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-sm-6 text-left"></div>
+                        <div class="col-sm-6 text-right">{$page}</div>
+                    </div>
+<script>
+    $(".pagination  a").click(function(){
+        var page = $(this).data('p');
+        ajax_get_table('search-form2',page);
+    });
+</script>

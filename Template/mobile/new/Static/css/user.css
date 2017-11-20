@@ -56,7 +56,7 @@
 .cash_num table tr th,.cash_num table tr td{text-align: center;}
 
 .Icon{ display:block; float:left; width:35px; height:35px; margin-top:5px; position:absolute}
-.Icon1,.Icon2,.Icon3,.Icon4,.Icon5,.Icon6,.Icon7,.Icon8,.Icon9,.Icon11{background-image: url(../images/user.png);background-repeat: no-repeat;background-size: auto 1200%; }
+.Icon1,.Icon2,.Icon3,.Icon4,.Icon5,.Icon6,.Icon7,.Icon8,.Icon9,.Icon11,.Icon12{background-image: url(../images/user.png);background-repeat: no-repeat;background-size: auto 1200%; }
 .Icon10{background-image: url(../images/user1.png);background-repeat: no-repeat;background-size: auto 820%; }
 .Icon1{ background-position:0px 3px}
 .Icon2{ background-position:0px -34px}
@@ -69,6 +69,7 @@
 .Icon9{background-position:0px -302px}
 .Icon10{background-position:0px 3px}
 .Icon11{background-position:0px -336px}
+.Icon12{background-position: 0px -375px;}
 .Wallet ul{ width:95%;height:40px; margin:auto; padding-top:10px; border-bottom:1px solid #eeeeee; padding-bottom:5px;}
 .Wallet ul li{ float:left; width:33.33%; text-align:center}
 .Wallet ul li.sell_cost{width:50%}

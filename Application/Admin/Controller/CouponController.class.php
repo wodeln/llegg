@@ -259,4 +259,195 @@ class CouponController extends BaseController {
             $this->error('删除失败');
         $this->success('删除成功');
     }
+
+    /**
+     * 礼品兑换券
+     */
+    public function goods_coupon_list(){
+        //获取礼品兑换券列表
+
+        $count =  M('goods_coupon')->count();
+        $Page = new \Think\Page($count,10);
+        $show = $Page->show();
+        $lists = M('goods_coupon')->order('add_time desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $this->assign('lists',$lists);
+        $this->assign('page',$show);// 赋值分页输出
+        $this->assign('coupons',C('COUPON_TYPE'));
+        $this->display();
+    }
+
+    public function goods_coupon_infos(){
+        $couponId = I('get.goods_coupon_id');
+        if(!$couponId)
+            $this->error("缺少参数值");
+//        $count =  M('goods_coupon_info')->where("coupon_id=$couponId")->count();
+//        $Page = new \Think\Page($count,10);
+//        $show = $Page->show();
+        $lists = M('goodscoupon_goods gg')
+                ->join('tp_goods g on gg.goods_id=g.goods_id')
+                ->field("g.goods_name,gg.goods_num,gg.key_name,gg.spec_key")
+                ->where("goods_coupon_id=$couponId")
+                ->select();
+        $coupon = M("goods_coupon")->where("goods_coupon_id=$couponId")->find();
+        /*$begin = date('Y/m/d',(time()-30*60*60*24));//30天前
+        $end = date('Y/m/d',strtotime('+1 days'));
+        $this->assign('timegap',$begin.'-'.$end);*/
+        $this->assign('lists',$lists);
+        $this->assign('coupon',$coupon);
+        $this->display();
+    }
+
+    public function ajaxcouponinfos(){
+        $timegap = I('timegap');
+        if($timegap){
+            $gap = explode('-', $timegap);
+            $begin = strtotime($gap[0]);
+            $end = strtotime($gap[1]);
+        }
+
+        if($begin && $end){
+            $condition['add_time'] = array('between',"$begin,$end");
+        }
+        I('coupon_status') != '' ? $condition['if_use'] = I('coupon_status') : false;
+        $condition['goods_coupon_id'] = I('goods_coupon_id');
+        $sort_order = "use_date DESC";
+
+        $count =  M('goods_coupon_info')->where($condition)->count();
+        $Page  = new AjaxPage($count,8);
+        //  搜索条件下 分页赋值
+        foreach($condition as $key=>$val) {
+            $Page->parameter[$key]   =  urlencode($val);
+        }
+        $show = $Page->show();
+        $lists = M('goods_coupon_info')
+                ->where($condition)
+                ->order($sort_order)
+                ->limit($Page->firstRow.','.$Page->listRows)
+                ->select();
+        foreach ($lists as $k=>$v){
+            if($v['if_use']){
+                $lists[$k]['nickname'] = M('users')->where("user_id=".$v['user_id'])->getField("nickname");
+            }
+        }
+        $this->assign('list',$lists);
+        $this->assign('page',$show);
+        $this->display();
+//        $orderList = $orderLogic->getOrderList($condition,$sort_order,$Page->firstRow,$Page->listRows);
+    }
+
+    /**
+     * 添加编辑一个礼品兑换券
+     */
+    public function goods_coupon_info(){
+        if(IS_POST){
+            $data = I('post.');
+            $data['send_start_time'] = strtotime($data['send_start_time']);
+            $data['send_end_time'] = strtotime($data['send_end_time']);
+            $data['use_end_time'] = strtotime($data['use_end_time']);
+            $data['use_start_time'] = strtotime($data['use_start_time']);
+            if($data['send_start_time'] > $data['send_end_time']){
+                $this->error('发放日期填写有误');
+            }
+            $goodsId=$data["goods_id"];
+            $goodsNum=$data["goods_num"];
+            $specKey=$data["spec_key"];
+            unset($data["goods_num"]);
+            unset($data["goods_id"]);
+            if(empty($data['id'])){
+                $data['add_time'] = time();
+                $row = M('goods_coupon')->add($data);
+                $goods_coupon_id = M('goods_coupon')->getLastInsID();
+                $couponNum=$data['coupon_createnum'];
+                for ($i=0;$i<$couponNum;$i++){
+                    while (true){
+                        $couponNo = $this->getRandChar(20);
+                        $res = M("goods_coupon_info")->where("coupon_no='$couponNo'")->find();
+                        if(!$res) break;
+                    }
+                    $info[$i]['goods_coupon_id'] = $goods_coupon_id;
+                    $info[$i]['coupon_no'] = $this->getRandChar(20);
+                }
+                M('goods_coupon_info')->addAll($info);
+                foreach ($goodsId as $k=>$v){
+                    $goods[$k]["goods_id"] = $v;
+                    $goods[$k]["goods_coupon_id"] = $goods_coupon_id;
+                    $goods[$k]["goods_num"] = $goodsNum[$k];
+                    $goods[$k]["spec_key"] = $specKey[$k];
+                    if($specKey[$k]!="") $goods[$k]["key_name"] = M('spec_goods_price')->where("goods_id =$v AND `key`=".$specKey[$k])->getField("key_name");
+                    else $goods[$k]["key_name"] ="";
+                }
+                M('goodscoupon_goods')->addAll($goods);
+            }else{
+                $row =  M('coupon')->where(array('id'=>$data['id']))->save($data);
+            }
+            if(!$row)
+                $this->error('编辑兑换券失败');
+            $this->success('编辑兑换券成功',U('Admin/Coupon/goods_coupon_list'));
+            exit;
+        }
+        $cid = I('get.id');
+        if($cid){
+            $coupon = M('goods_coupon')->where(array('goods_coupon_id'=>$cid))->find();
+            $this->assign('coupon',$coupon);
+        }else{
+            $def['send_start_time'] = strtotime("+1 day");
+            $def['send_end_time'] = strtotime("+1 month");
+            $def['use_start_time'] = strtotime("+1 day");
+            $def['use_end_time'] = strtotime("+2 month");
+            $this->assign('coupon',$def);
+        }
+        $this->display();
+    }
+
+    public function search_goods(){
+        $GoodsLogic = new \Admin\Logic\GoodsLogic;
+        $brandList = $GoodsLogic->getSortBrands();
+        $this->assign('brandList',$brandList);
+        $categoryList = $GoodsLogic->getSortCategory();
+        $this->assign('categoryList',$categoryList);
+
+        $goods_id = I('goods_id');
+        $where = ' is_on_sale = 1 and prom_type=0 and store_count>0 ';//搜索条件
+        if(!empty($goods_id)){
+            $where .= " and goods_id not in ($goods_id) ";
+        }
+        I('intro')  && $where = "$where and ".I('intro')." = 1";
+        if(I('cat_id')){
+            $this->assign('cat_id',I('cat_id'));
+            $grandson_ids = getCatGrandson(I('cat_id'));
+            $where = " $where  and cat_id in(".  implode(',', $grandson_ids).") "; // 初始化搜索条件
+        }
+        if(I('brand_id')){
+            $this->assign('brand_id',I('brand_id'));
+            $where = "$where and brand_id = ".I('brand_id');
+        }
+        if(!empty($_REQUEST['keywords']))
+        {
+            $this->assign('keywords',I('keywords'));
+            $where = "$where and (goods_name like '%".I('keywords')."%' or keywords like '%".I('keywords')."%')" ;
+        }
+        $count = M('goods')->where($where)->count();
+        $Page  = new \Think\Page($count,10);
+        $goodsList = M('goods')->where($where)->order('goods_id DESC')->limit($Page->firstRow.','.$Page->listRows)->select();
+        foreach ($goodsList as $k=>$v){
+            $goodsList[$k]['spec_list'] = M('spec_goods_price')->where("goods_id =".$v['goods_id'])->getField("key,price,store_count,key_name");
+        }
+        $show = $Page->show();//分页显示输出
+        $this->assign('page',$show);//赋值分页输出
+        $this->assign('goodsList',$goodsList);
+        $tpl = I('get.tpl','search_goods');
+        $this->display($tpl);
+    }
+
+    public function getRandChar($length){
+        $str = null;
+        $strPol = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
+        $max = strlen($strPol)-1;
+
+        for($i=0;$i<$length;$i++){
+            $str.=$strPol[rand(0,$max)];//rand($min,$max)生成介于min和max两个数之间的一个随机整数
+        }
+
+        return $str;
+    }
 }
