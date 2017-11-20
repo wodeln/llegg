@@ -75,8 +75,8 @@
             </li>
             </if>
             </foreach>
-            <li class="flow_youhui_no">如果是会员<font color=red></font>，可以享受会员折扣价</li>
-              <li class="flow_youhui_no">备注：<input name="userNote" class="txt1" value="" style="width: 90%;"></li>
+           <!-- <li class="flow_youhui_no">如果是会员<font color=red></font>，可以享受会员折扣价</li>
+              <li class="flow_youhui_no">备注：<input name="userNote" class="txt1" value="" style="width: 90%;"></li>-->
             <li class="flow_youhui_no">
               <div class="checkout_other2">
                 <div class="jmbag" href="javascript:void(0);" onClick="showCheckoutOther(this);"><span class="right_arrow_flow"></span>使用优惠券</div>
@@ -87,7 +87,7 @@
                      <select id="coupon_id" name="coupon_id" class="vam ou-no" onChange="ajax_order_price();">                                                     
                          <!--<option value="0">选择优惠券</option>-->
                           <foreach name="couponList" item="v"  key="k">
-                            <option value="{$v['id']}">{$v['name']}</option>
+                            <option value="{$v['id']}">{$v['name']} {$v['use_end_time']|date='Y-m-d',###}</option>
                           </foreach>   
                      </select>                    
                     </td>
@@ -106,14 +106,14 @@
                 </table>
               </div>
             </li>
-            <li class="flow_youhui_no">
+            <!--<li class="flow_youhui_no">
        			<label id="Bonus_span_0">
        			   使用余额：
                    <input id="user_money" name="user_money"  type="text"   placeholder="输入余额" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" class="txt1" style="width:100px;"/>
                    <input name="validate_bonus" type="button" value="使用" onClick="ajax_order_price();" class="BonusButton" />
                  	您的可用余额<em>{$user['user_money']}</em>
                  </label>
-            </li>
+            </li>-->
             
            <!-- <li class="flow_youhui_no">
        			<label id="Bonus_span_0">
@@ -152,7 +152,7 @@
             </div>
           </div>
         </section>
-    <section class="order-info">
+    <!--<section class="order-info">
         <div class="order-list">
             <div class="content ptop0">
                 <div class="panel panel-default info-box">
@@ -169,7 +169,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
   <section class="order-info" style="display: none;">
     <div class="order-list">
       <div class="content ptop0">
