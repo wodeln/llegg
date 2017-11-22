@@ -85,6 +85,10 @@
                 <if condition="$_GET['source'] eq 'cart2'"> <!--如果是下订单时提交过了的页面-->
                      <input type="submit" value="保存并使用该地址" class="dotm_btn1" />
 	                 <input type="hidden" name="source" value="{$_GET[source]}" />
+                <elseif condition="$_GET['source'] eq 'cart8'"/>
+                    <input type="submit" value="保存并使用该地址" class="dotm_btn1 beett" />
+                    <input type="hidden" name="source" value="{$_GET[source]}" />
+                    <input type="hidden" name="couponNo" value="{$_GET[couponNo]}" />
                 <else/>                
                      <a href="javascript:void(0);" onClick="if (confirm('你确认要删除该收货地址吗？'))location.href='{:U('/Mobile/User/del_address',array('id'=>$address[address_id]))}'" class="dotm_btn2" style="color:#666;">删除</a>
                      <a href="{:U('/Mobile/User/set_default',array('id'=>$address[address_id]))}" class="dotm_btn3" style=" color:#FFF;font-size:14px;">设置为默认地址</a>

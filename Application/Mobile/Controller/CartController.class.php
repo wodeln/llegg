@@ -320,8 +320,12 @@ class CartController extends MobileBaseController {
             $this->error('兑换券编码错误', U('Mobile/User/get_coupon_goods'));
             exit;
         }
+        $this->cart8($couponNo);
+    }
 
-
+    public function cart8($couponNo){
+        if(!$couponNo) $couponNo=I("couponNo");
+        $coupon = M("goods_coupon_info")->where("coupon_no='$couponNo' AND if_use=0")->find();
         $address_id = I('address_id');
         if($address_id)
             $address = M('user_address')->where("address_id = $address_id")->find();
@@ -329,7 +333,7 @@ class CartController extends MobileBaseController {
             $address = M('user_address')->where("user_id = $this->user_id and is_default=1")->find();
 
         if(empty($address)){
-            header("Location: ".U('Mobile/User/add_address',array('source'=>'cart5')));
+            header("Location: ".U('Mobile/User/add_address',array('source'=>'cart8','couponNo'=>$couponNo)));
         }else{
             $region_list = get_region_list();
             $this->assign('region_list', $region_list);
@@ -338,10 +342,10 @@ class CartController extends MobileBaseController {
 
 //        $result = $this->cartLogic->cartList($this->user, $this->session_id,1,1); // 获取购物车商品
         $cartList = M('goodscoupon_goods gg')
-                ->join('tp_goods g on gg.goods_id=g.goods_id')
-                ->field("g.*,gg.goods_num,gg.key_name")
-                ->where("goods_coupon_id=".$coupon["goods_coupon_id"])
-                ->select();
+            ->join('tp_goods g on gg.goods_id=g.goods_id')
+            ->field("g.*,gg.goods_num,gg.key_name")
+            ->where("goods_coupon_id=".$coupon["goods_coupon_id"])
+            ->select();
         $anum = $total_price =  $cut_fee = 0;
         foreach ($cartList as $k=>$val){
             $cartList[$k]['goods_fee'] = $val['goods_num'] * $val['shop_price'];
@@ -362,8 +366,8 @@ class CartController extends MobileBaseController {
         $this->assign('cartList', $result['cartList']); // 购物车的商品
         $this->assign('total_price', $result['total_price']); // 总计
         $this->assign('coupon', $coupon); // 总计
-        $this->display();
-
+        $this->assign('couponNo', $couponNo);
+        $this->display("cart5");
     }
 
     public function cart6(){

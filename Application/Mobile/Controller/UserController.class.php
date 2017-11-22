@@ -334,10 +334,13 @@ class UserController extends MobileBaseController
         if (IS_POST) {
             $logic = new UsersLogic();
             $data = $logic->add_address($this->user_id, 0, I('post.'));
-            if ($data['status'] != 1)
+            if ($data['status'] != 1){
                 $this->error($data['msg']);
-            elseif ($_POST['source'] == 'cart2') {
+            } elseif ($_POST['source'] == 'cart2') {
                 header('Location:' . U('/Mobile/Cart/cart2', array('address_id' => $data['result'])));
+                exit;
+            }elseif ($_POST['source'] == 'cart8') {
+                header('Location:' . U('/Mobile/Cart/cart8', array('address_id' => $data['result'],'couponNo'=>$_POST['couponNo'])));
                 exit;
             }
 
@@ -365,6 +368,9 @@ class UserController extends MobileBaseController
             $data = $logic->add_address($this->user_id, $id, I('post.'));
             if ($_POST['source'] == 'cart2') {
                 header('Location:' . U('/Mobile/Cart/cart2', array('address_id' => $id)));
+                exit;
+            } elseif ($_POST['source'] == 'cart8') {
+                header('Location:' . U('/Mobile/Cart/cart8', array('address_id' => $data['result'],'couponNo'=>$_POST['couponNo'])));
                 exit;
             } else
                 $this->success($data['msg'], U('/Mobile/User/address_list'));
