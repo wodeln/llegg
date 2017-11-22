@@ -397,6 +397,8 @@ function ajax_order_price()
 ajax_return_status = 1; // 标识ajax 请求是否已经回来 可以进行下一次请求
 function submit_order()
 {
+    $(this).attr("disable","true");
+//    console.log($(this))
     $.ajax({
         type : "POST",
         url:"/index.php/Mobile/Cart/cart6",//+tab,
