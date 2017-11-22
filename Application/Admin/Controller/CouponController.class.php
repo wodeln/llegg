@@ -360,12 +360,12 @@ class CouponController extends BaseController {
                 $couponNum=$data['coupon_createnum'];
                 for ($i=0;$i<$couponNum;$i++){
                     while (true){
-                        $couponNo = $this->getRandChar(20);
+                        $couponNo = $this->getRandChar(10);
                         $res = M("goods_coupon_info")->where("coupon_no='$couponNo'")->find();
                         if(!$res) break;
                     }
                     $info[$i]['goods_coupon_id'] = $goods_coupon_id;
-                    $info[$i]['coupon_no'] = $this->getRandChar(20);
+                    $info[$i]['coupon_no'] = $couponNo;
                 }
                 M('goods_coupon_info')->addAll($info);
                 foreach ($goodsId as $k=>$v){
@@ -441,7 +441,8 @@ class CouponController extends BaseController {
 
     public function getRandChar($length){
         $str = null;
-        $strPol = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
+//        $strPol = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789";
+        $strPol = "0123456789";
         $max = strlen($strPol)-1;
 
         for($i=0;$i<$length;$i++){
