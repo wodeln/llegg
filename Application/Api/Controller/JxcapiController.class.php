@@ -123,6 +123,7 @@ class JxcapiController extends BaseController{
             ->where("ua.user_id=".$userId)
             ->select();
         $user['linkMans']=json_encode($address,JSON_UNESCAPED_UNICODE);
+        $user['userId'] = $userId;
         $this->postData($user,"api/updateUser","user",__FUNCTION__);
     }
     //用户API结束

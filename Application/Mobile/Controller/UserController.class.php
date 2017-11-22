@@ -334,6 +334,8 @@ class UserController extends MobileBaseController
         if (IS_POST) {
             $logic = new UsersLogic();
             $data = $logic->add_address($this->user_id, 0, I('post.'));
+            $api = new JxcapiController();
+            $api->updateUserAddress($this->user_id);
             if ($data['status'] != 1)
                 $this->error($data['msg']);
             elseif ($_POST['source'] == 'cart2') {
@@ -345,8 +347,7 @@ class UserController extends MobileBaseController
             exit();
         }
         $p = M('region')->where(array('parent_id' => 0, 'level' => 1))->select();
-        $api = new JxcapiController();
-        $api->updateUserAddress($this->user_id);
+
         $this->assign('province', $p);
         //$this->display('edit_address');
         $this->display();
@@ -363,6 +364,8 @@ class UserController extends MobileBaseController
         if (IS_POST) {
             $logic = new UsersLogic();
             $data = $logic->add_address($this->user_id, $id, I('post.'));
+            $api = new JxcapiController();
+            $api->updateUserAddress($this->user_id);
             if ($_POST['source'] == 'cart2') {
                 header('Location:' . U('/Mobile/Cart/cart2', array('address_id' => $id)));
                 exit;
@@ -379,8 +382,7 @@ class UserController extends MobileBaseController
             $this->assign('twon', $e);
         }
 
-        $api = new JxcapiController();
-        $api->updateUserAddress($this->user_id);
+
 
         $this->assign('province', $p);
         $this->assign('city', $c);
