@@ -488,6 +488,10 @@ class CartController extends MobileBaseController {
 
         M("goods_coupon_info")->where("goods_coupon_info_id=$goods_coupon_info_id")->save($data3);
 
+        //更新兑换券使用数量
+        $data4['use_num'] = M("goods_coupon_info")->where("goods_coupon_id=$goods_coupon_id AND if_use=1")->count();
+        M("goods_coupon")->where("goods_coupon_id=$goods_coupon_id")->save($data4);
+
         // 如果有微信公众号 则推送一条消息到微信
         $user = M('users')->where("user_id = $user_id")->find();
         if($user['oauth']== 'weixin')

@@ -188,7 +188,7 @@
               </div>
               <div class="panel panel-default info-box">
                 <div class="pay-btn">
-                  <input onClick="submit_order();" type="button" id="submit_button" class="sub-btn btnRadius" value="提交订单"/>
+                  <input onClick="submit_order(this);" type="button" id="submit_button" class="sub-btn btnRadius" value="提交订单"/>
                 </div>
               </div>
             </div>
@@ -395,10 +395,15 @@ function ajax_order_price()
 
 // 提交订单
 ajax_return_status = 1; // 标识ajax 请求是否已经回来 可以进行下一次请求
-function submit_order()
+function submit_order(obj)
 {
-    $(this).attr("disable","true");
+    $(obj).css("background-color","#d4cbc4");
+    $(obj).val("正在提交订单，请稍后");
 //    console.log($(this))
+    if(ajax_return_status == 0)
+        return false;
+
+    ajax_return_status = 0;
     $.ajax({
         type : "POST",
         url:"/index.php/Mobile/Cart/cart6",//+tab,
@@ -415,6 +420,8 @@ function submit_order()
 					
 				ajax_return_status = 1; // 上一次ajax 已经返回, 可以进行下一次 ajax请求							
 
+                $(obj).css("background-color","#f60");
+                $(obj).val("提交订单");
                 return false;
             }
 //             console.log(data);
