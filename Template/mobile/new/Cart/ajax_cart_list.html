@@ -33,7 +33,7 @@
                  <div class="xm-input-number">
                    <div class="act_wrap">
                         <a href="javascript:;" onclick="switch_num(-1,{$v.id},{$v.store_count});" id="jiannum6" class="input-sub active"></a>
-                     	<input id="goods_num[{$v.id}]" type="text" onKeyDown='if(event.keyCode == 13) event.returnValue = false' name="goods_num[{$v.id}]"  value="{$v.goods_num}"  class="input-num"  onblur="ajax_cart_list()"/>
+                     	<input id="goods_num[{$v.id}]" type="text" onKeyDown='if(event.keyCode == 13) event.returnValue = false' name="goods_num[{$v.id}]"  value="{$v.goods_num}"  class="input-num"  onblur="ajax_cart_list({$v.id},{$v.store_count})"/>
                      	<a href="javascript:;" onclick="switch_num(1,{$v.id},{$v.store_count});"  class="input-add active"></a>
                      </div>
                   </div>                 
