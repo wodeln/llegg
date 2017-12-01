@@ -40,8 +40,9 @@ class cod extends RelationModel
     {       
             //header("Location:".U('/Home/User/order_detail',array('id'=>$order['order_id'])));
             //exit();
+            update_pay_status($order['order_sn']);
             $url = SITE_URL.U('Payment/returnUrl',array('pay_code'=>'cod','order_sn'=>$order['order_sn']));
-            return "<script>location.href='".$url."';</script>";         
+            return "<script>location.href='".$url."';</script>";
     }         
     
     /**
