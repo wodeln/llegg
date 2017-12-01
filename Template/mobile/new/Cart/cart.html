@@ -49,8 +49,17 @@ $(document).ready(function(){
 
 // ajax 提交购物车
 var before_request = 1; // 上一次请求是否已经有返回来, 有才可以进行下一次请求
-function ajax_cart_list(){
-	
+function ajax_cart_list(cart_id,store_count){
+
+    var num2 = parseInt($("input[name='goods_num["+cart_id+"]']").val());
+    if(num2 < 1) num2 = 1; // 保证购买数量不能少于 1
+    if(num2 > store_count)
+    {   alert("库存只有 "+store_count+" 件, 你只能买 "+store_count+" 件");
+        num2 = store_count; // 保证购买数量不能多余库存数量
+        $("input[name='goods_num["+cart_id+"]']").val(num2);
+    }
+
+
 	if(before_request == 0) // 上一次请求没回来 不进行下一次请求
 	    return false;
 	before_request = 0;
