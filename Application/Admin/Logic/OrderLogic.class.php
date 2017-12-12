@@ -359,7 +359,12 @@ UPDATE ht_order_info AS t1, (SELECT count(tt.trans_id) as S, tt.orderid FROM ht_
      */
     function delOrder($order_id){
     	$a = M('order')->where(array('order_id'=>$order_id))->delete();
+        $orderGoods = M('order_goods')->where("order_id=$order_id")->select();
+        foreach ($orderGoods as $k=>$v){
+            refresh_stock($v['goods_id']);
+        }
     	$b = M('order_goods')->where(array('order_id'=>$order_id))->delete();
+
     	return $a && $b;
     }
 
