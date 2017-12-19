@@ -181,7 +181,8 @@ function getAllMenu(){
 			)),
             'driver' => array('name' => '司机管理', 'icon'=>'fa-road', 'sub_menu' => array(
                 array('name' => '司机列表', 'act'=>'driver_list', 'control'=>'Driver'),
-                array('name' => '分配订单', 'act'=>'order_list', 'control'=>'Driver')
+                array('name' => '分配订单', 'act'=>'order_list', 'control'=>'Driver'),
+                array('name' => '司机订单', 'act'=>'driver_order_list', 'control'=>'Driver')
             )),
 			'content' => array('name' => '内容管理', 'icon'=>'fa-comments', 'sub_menu' => array(
 					array('name' => '文章列表', 'act'=>'articleList', 'control'=>'Article'),

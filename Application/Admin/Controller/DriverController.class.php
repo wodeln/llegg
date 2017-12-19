@@ -177,6 +177,70 @@ class DriverController extends BaseController {
         $this->display();
     }
 
+    public function driver_order_list(){
+        $begin = date('Y/m/d',(time()-1*60*60*24));//30天前
+//        $end = date('Y/m/d',strtotime('+1 days'));
+        $end = date('Y/m/d');
+        $month = date('Y/m')."/01";
+        $this->assign('timegap',$begin.'-'.$end);
+        $this->assign('begin',$begin);
+        $this->assign('month',$month);
+        $this->display();
+    }
+
+    public function ajaxDriverOrderList(){
+        $orderLogic = new OrderLogic();
+        $timegap = I('timegap');
+        if($timegap){
+            $gap = explode('-', $timegap);
+            $begin = strtotime($gap[0]);
+            $end = strtotime($gap[1]);
+        }
+        // 搜索条件
+        $condition = array();
+        I('consignee') ? $condition['consignee'] = trim(I('consignee')) : false;
+        if($begin && $end){
+            $condition['add_time'] = array('between',"$begin,$end");
+        }
+        I('order_sn') ? $condition['order_sn'] = trim(I('order_sn')) : false;
+        I('order_status') != '' ? $condition['order_status'] = I('order_status') : false;
+        I('pay_status') != '' ? $condition['pay_status'] = I('pay_status') : false;
+        I('pay_code') != '' ? $condition['pay_code'] = I('pay_code') : false;
+        I('shipping_status') != '' ? $condition['shipping_status'] = I('shipping_status') : false;
+        I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
+        $condition['shipping_code'] = 'ziyouwuliu';
+        $condition['order_status'] = 1;
+        $sort_order = 'o.district DESC';
+        $count = M('order')->where($condition)->count();
+        /*$Page  = new AjaxPage($count,20);
+        //  搜索条件下 分页赋值
+        foreach($condition as $key=>$val) {
+            $Page->parameter[$key]   =  urlencode($val);
+        }
+        $show = $Page->show();
+        //获取订单列表
+        $orderList = $orderLogic->getOrderList($condition,$sort_order,$Page->firstRow,$Page->listRows);*/
+
+        $orderList = M('order o')
+            ->join('tp_users u ON o.user_id=u.user_id')
+            ->join('tp_region r ON o.district=r.id')
+            ->join('left join tp_drivers d ON o.driver_id=d.driver_id')
+            ->field('o.*,u.nickname,d.driver_name,d.order_color,d.mobile driver_mobile,r.name district')
+            ->where($condition)
+            ->order('o.driver_id,o.delivery_sort')
+            ->select();
+
+        foreach ($orderList as $k=>$v){
+            $orderList[$k]['product_sum'] = $orderLogic->getOrderGoodsSum($v['order_id'])['sum'];
+            $orderList[$k]['action_note'] = $orderLogic->getConfirmNote($v['order_id']);
+        }
+        $driverList = M('drivers')->where("del=1")->select();
+        $this->assign('orderList',$orderList);
+        $this->assign('driverList',$driverList);
+//        $this->assign('page',$show);// 赋值分页输出
+        $this->display();
+    }
+
     public function order_list(){
         $begin = date('Y/m/d',(time()-1*60*60*24));//30天前
 //        $end = date('Y/m/d',strtotime('+1 days'));
