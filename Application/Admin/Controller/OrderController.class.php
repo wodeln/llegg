@@ -719,6 +719,7 @@ class OrderController extends BaseController {
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">支付状态</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">发货状态</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">商品信息</td>';
+    	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">司机</td>';
     	$strTable .= '</tr>';
 	    if(is_array($orderList)){
 	    	$region	= M('region')->getField('id,name');
@@ -735,6 +736,9 @@ class OrderController extends BaseController {
 	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$this->pay_status[$val['pay_status']].'</td>';
 	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$this->shipping_status[$val['shipping_status']].'</td>';
 	    		$orderGoods = D('order_goods')->where('order_id='.$val['order_id'])->select();
+	    		if($val['driver_id']){
+                    $driverName = D('drivers')->where('driver_id='.$val['driver_id'])->getField("driver_name");
+                }
 	    		$strGoods="";
 	    		foreach($orderGoods as $goods){
 	    			$strGoods .= "商品编号：".$goods['goods_sn']." 商品名称：".$goods['goods_name'];
@@ -742,7 +746,7 @@ class OrderController extends BaseController {
 	    			$strGoods .= "<br />";
 	    		}
 	    		unset($orderGoods);
-	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$strGoods.' </td>';
+	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$driverName.' </td>';
 	    		$strTable .= '</tr>';
 	    	}
 	    }
