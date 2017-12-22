@@ -130,6 +130,29 @@ class CartController extends MobileBaseController {
         $sql = "select c1.name,c1.money,c1.condition,c1.use_end_time, c2.* from __PREFIX__coupon as c1 inner join __PREFIX__coupon_list as c2  on c2.cid = c1.id and c1.type in(0,1,2,3) and order_id = 0  where c2.uid = {$this->user_id} and ".time()." < c1.use_end_time and c1.condition <= {$result['total_price']['total_fee']} ORDER BY c1.money DESC,c1.use_end_time DESC";
         $couponList = $Model->query($sql);
 
+        $paymentList = M('Plugin')->where("`type`='payment' and status = 1 and  scene in(0,1)")->select();
+        //微信浏览器
+        if(strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger')){
+            $paymentList = M('Plugin')->where("`type`='payment' and status = 1 and code in('weixin','cod')")->select();
+        }
+        $paymentList = convert_arr_key($paymentList, 'code');
+
+        foreach($paymentList as $key => $val)
+        {
+            $val['config_value'] = unserialize($val['config_value']);
+            if($val['config_value']['is_bank'] == 2)
+            {
+                $bankCodeList[$val['code']] = unserialize($val['bank_code']);
+            }
+        }
+
+        $bank_img = include 'Application/Home/Conf/bank.php'; // 银行对应图片
+        $payment = M('Plugin')->where("`type`='payment' and status = 1")->select();
+        $this->assign('paymentList',$paymentList);
+        $this->assign('bank_img',$bank_img);
+        $this->assign('bankCodeList',$bankCodeList);
+        $this->assign('pay_date',date('Y-m-d', strtotime("+1 day")));
+
         $this->assign('couponList', $couponList); // 优惠券列表
         $this->assign('shippingList', $shippingList); // 物流公司
         $this->assign('cartList', $result['cartList']); // 购物车的商品

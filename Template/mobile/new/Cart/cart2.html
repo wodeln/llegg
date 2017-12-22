@@ -170,6 +170,29 @@
             </div>
         </div>
     </section>-->
+        <section class="order-info">
+            <div class="order-list">
+                <div class="content ptop0">
+                    <div class="panel panel-default info-box">
+                        <div class="panel-body"  >
+                            <div class="title" style="border-bottom:1px solid #eeeeee;"> <span class="i-icon-arrow-down i-icon-arrow-up"></span> <span class="text">支付方式</span> <a href="javascript:void(0)" title="修改商品列表" class="link">必选</a> <em class="qxz">请选择支付方式</em> </div>
+                            <ul class="nav nav-list-sidenav" style="display:block; border-bottom:none;">
+                                <foreach name="paymentList" item="v"  key="k">
+                                    <li class="clearfix" name="payment_name">
+                                        <label>
+                                            <input type="radio"   value="pay_code={$v['code']}" class="c_checkbox_t" name="pay_radio" />
+                                            <div class="fl shipping_title">
+                                                <img src="/plugins/{$v['type']}/{$v['code']}/{$v['icon']}" onClick="change_pay(this);" width="110" height="40" />
+                                            </div>
+                                        </label>
+                                    </li>
+                                </foreach>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
   <section class="order-info" style="display: none;">
     <div class="order-list">
       <div class="content ptop0">
@@ -243,6 +266,7 @@
 
     $(document).ready(function(){
         ajax_order_price(); // 计算订单价钱
+        $("input[name='pay_radio']").first().trigger('click');
     });
 
     function timeStamp2String(time,type){
@@ -466,6 +490,20 @@ function submit_order()
             location.href = "/index.php?m=Mobile&c=Cart&a=cart4&order_id="+data.result;
         }
     });
+
+    //pay
+
+    // 切换支付方式
+    function change_pay(obj)
+    {
+        $(obj).parent().siblings('input[name="pay_radio"]').trigger('click');
+    }
+
+    function pay(){
+        $('#cart4_form').submit();
+        return;
+        //微信JS支付
+    }
 }
 </script>
 </body>
