@@ -301,7 +301,7 @@ function cart_freight2($shipping_code,$province,$city,$district,$weight)
      * @param type $car_price 各种价格
      * @return type $order_id 返回新增的订单id
      */
-    public function addOrder($user_id,$address_id,$shipping_code,$invoice_title,$coupon_id = 0,$car_price,$get_goods_time,$user_note)
+    public function addOrder($user_id,$address_id,$shipping_code,$invoice_title,$coupon_id = 0,$car_price,$get_goods_time,$user_note,$pay_code)
     {
         
         // 仿制灌水 1天只能下 50 单  // select * from `tp_order` where user_id = 1  and order_sn like '20151217%' 
@@ -376,8 +376,11 @@ function cart_freight2($shipping_code,$province,$city,$district,$weight)
            //M('Goods')->where("goods_id = ".$val['goods_id'])->setDec('store_count',$val['goods_num']); // 商品减少库存
         } 
         
-        // 如果应付金额为0  可能是余额支付 + 积分 + 优惠券 这里订单支付状态直接变成已支付 
-        if($data['order_amount'] == 0)
+        // 如果应付金额为0  可能是余额支付 + 积分 + 优惠券 这里订单支付状态直接变成已支付
+        /**
+         * 修改为 (如果应付金额为0  可能是余额支付 + 积分 + 优惠券) 或 货到付款 订单支付状态直接变成已支付
+         */
+        if($data['order_amount'] == 0 || $pay_code=="pay_code=cod")
         {                        
             update_pay_status($order['order_sn'], 1);    
         }           

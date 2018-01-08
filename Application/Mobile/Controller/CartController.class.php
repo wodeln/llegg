@@ -177,6 +177,7 @@ class CartController extends MobileBaseController {
         $pay_points =  I("pay_points",0); //  使用积分
         $user_money =  I("user_money",0); //  使用余额
         $user_note = I("userNote");
+        $pay_code = I("pay_radio");
         $get_goods_time = strtotime(I("get_goods_time"));
         $user_money = $user_money ? $user_money : 0;
 
@@ -212,13 +213,14 @@ class CartController extends MobileBaseController {
         if($_REQUEST['act'] == 'submit_order')
         {  
             if(empty($coupon_id) && !empty($couponCode))
-               $coupon_id = M('CouponList')->where("`code`='$couponCode'")->getField('id');            
-            $result = $this->cartLogic->addOrder($this->user_id,$address_id,$shipping_code,$invoice_title,$coupon_id,$car_price,$get_goods_time,$user_note); // 添加订单
+               $coupon_id = M('CouponList')->where("`code`='$couponCode'")->getField('id');
+            $result = $this->cartLogic->addOrder($this->user_id,$address_id,$shipping_code,$invoice_title,$coupon_id,$car_price,$get_goods_time,$user_note,$pay_code); // 添加订单
             exit(json_encode($result));            
         }
             $return_arr = array('status'=>1,'msg'=>'计算成功','result'=>$car_price); // 返回结果状态
             exit(json_encode($return_arr));           
-    }	
+    }
+
     /*
      * 订单支付页面
      */
