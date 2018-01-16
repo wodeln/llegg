@@ -1,0 +1,99 @@
+<form method="post" enctype="multipart/form-data" target="_blank" id="form-order">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <td>商品编号</td>
+                <td>商品名称</td>
+                <td>
+                    {$pre_pre_day}
+                </td>                
+                <td>
+                    {$pre_day}
+                </td>
+                <td>
+                    {$today}
+                </td>
+                <td>
+                    {$tomorrow}
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="goodsList" id="list">
+                <tr>
+                <td class="text-left">{$list.goods_sn}</td>
+                <td class="text-left">{$list.goods_name|getSubstr=0,33}</td>
+                <td class="text-left">{$list.pre_preday_price}</td>
+                <td class="text-left">{$list.preday_price}</td>
+                <td class="text-left">{$list.today_price}</td>
+                <td><input type="text" date="{$tomorrow}" goods_id="{$list.goods_id}" value="{$list.tomorrow}" class="offer_price"> </td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+</form>
+<div class="row">
+    <div class="col-sm-3 text-left"></div>
+    <div class="col-sm-9 text-right">{$page}</div>
+</div>
+<script>
+    // 点击分页触发的事件
+    $(".pagination  a").click(function(){
+        cur_page = $(this).data('p');
+        ajax_get_table('search-form2',cur_page);
+    });
+	
+    /*
+     * 清除静态页面缓存
+     */
+    function ClearGoodsHtml(goods_id)
+    {
+    	$.ajax({
+				type:'GET',
+				url:"{:U('Admin/System/ClearGoodsHtml')}",
+				data:{goods_id:goods_id},
+				dataType:'json',
+				success:function(data){
+					layer.alert(data.msg, {icon: 2});								 
+				}
+		});
+    }
+    /*
+     * 清除商品缩列图缓存
+     */
+    function ClearGoodsThumb(goods_id)
+    {
+    	$.ajax({
+				type:'GET',
+				url:"{:U('Admin/System/ClearGoodsThumb')}",
+				data:{goods_id:goods_id},
+				dataType:'json',
+				success:function(data){
+					layer.alert(data.msg, {icon: 2});								 
+				}
+		});
+    }
+
+    $("input[class='offer_price']").blur(function () {
+        if($(this).val()!=""){
+            $.ajax({
+                type:'GET',
+                url:"{:U('Admin/Goods/update_offer_price')}",
+                data:{
+                    goods_id: $(this).attr('goods_id'),
+                    date: $(this).attr('date'),
+                    offer_price: $(this).val()
+                },
+                dataType:'json',
+                success:function(data){
+
+                },
+                error:function () {
+                    alert("更新出错，请联系管理员");
+                }
+            });
+        }
+    });
+</script>

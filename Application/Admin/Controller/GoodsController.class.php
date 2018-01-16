@@ -13,6 +13,7 @@
  */
 namespace Admin\Controller;
 use Admin\Logic\GoodsLogic;
+use Org\Util\Date;
 use Think\AjaxPage;
 use Think\Page;
 use Api\Controller\JxcapiController;
@@ -755,5 +756,83 @@ class GoodsController extends BaseController {
     {
         $path = I('filename','');
         M('goods_images')->where("image_url = '$path'")->delete();
+    }
+
+    public function offer_price(){
+
+        $this->display('offer_price');
+    }
+
+    public function ajaxOfferPrice(){
+        $today = date('Y-m-d');
+        $tomorrow = date('Y-m-d',strtotime('+1 day'));
+        $preDay = date('Y-m-d',strtotime('-1 day'));
+        $prePreDay = date('Y-m-d',strtotime('-2 day'));
+
+        $where = ' 1 = 1 '; // 搜索条件
+        I('intro')    && $where = "$where and ".I('intro')." = 1" ;
+        I('brand_id') && $where = "$where and brand_id = ".I('brand_id') ;
+        (I('is_on_sale') !== '') && $where = "$where and is_on_sale = ".I('is_on_sale') ;
+        $cat_id = I('cat_id');
+        // 关键词搜索
+        $key_word = I('key_word') ? trim(I('key_word')) : '';
+        if($key_word)
+        {
+            $where = "$where and (goods_name like '%$key_word%' or goods_sn like '%$key_word%')" ;
+        }
+
+        if($cat_id > 0)
+        {
+            $grandson_ids = getCatGrandson($cat_id);
+            $where .= " and cat_id in(".  implode(',', $grandson_ids).") "; // 初始化搜索条件
+        }
+
+
+        $model = M('Goods');
+        $count = $model->where($where)->count();
+        $Page  = new AjaxPage($count,10);
+        /**  搜索条件下 分页赋值
+        foreach($condition as $key=>$val) {
+        $Page->parameter[$key]   =   urlencode($val);
+        }
+         */
+        $show = $Page->show();
+        $order_str = "`{$_POST['orderby1']}` {$_POST['orderby2']}";
+        $goodsList = $model->where($where)->order($order_str)->limit($Page->firstRow.','.$Page->listRows)->select();
+        foreach ($goodsList as $k=>$v){
+            $goodsList[$k]['today_price'] = M('offer_price')->where("goods_id=".$v['goods_id']." AND offer_date='".$today."'")->getField('offer_price');
+            $goodsList[$k]['preday_price'] = M('offer_price')->where("goods_id=".$v['goods_id']." AND offer_date='".$preDay."'")->getField('offer_price');
+            $goodsList[$k]['pre_preday_price'] = M('offer_price')->where("goods_id=".$v['goods_id']." AND offer_date='".$prePreDay."'")->getField('offer_price');
+            $goodsList[$k]['tomorrow'] = M('offer_price')->where("goods_id=".$v['goods_id']." AND offer_date='".$tomorrow."'")->getField('offer_price');
+        }
+
+        $catList = D('goods_category')->select();
+        $catList = convert_arr_key($catList, 'id');
+        $this->assign('catList',$catList);
+        $this->assign('goodsList',$goodsList);
+        $this->assign('page',$show);// 赋值分页输出
+
+        $this->assign('today',$today);
+        $this->assign('pre_day',$preDay);
+        $this->assign('pre_pre_day',$prePreDay);
+        $this->assign('tomorrow',$tomorrow);
+        $this->display('ajax_offer_price');
+    }
+
+    public function update_offer_price(){
+        $goodsId = I('goods_id');
+        $date = date('Y-m-d',strtotime(I('date')));
+        $offer_price = I('offer_price');
+
+        $res = M('offer_price')->where("goods_id=$goodsId AND offer_date='$date'")->find();
+        $data['offer_price'] = $offer_price;
+        $data['offer_date'] = $date;
+        $data['goods_id'] = $goodsId;
+        if($res){
+            M('offer_price')->where('id='.$res['id'])->save($data);
+        }else{
+            M('offer_price')->add($data);
+        }
+        echo "1";
     }
 }

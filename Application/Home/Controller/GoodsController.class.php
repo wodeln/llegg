@@ -485,5 +485,27 @@ class GoodsController extends BaseController {
         $this->assign('totalPages',$page->totalPages);//总页数
         $this->display();
     }
-    
+
+    public function updateGoodsPrice(){
+        $today = date('Y-m-d');
+        $allGoods = M("goods")->select();
+        foreach ($allGoods as $k=>$v){
+            $goodsOfferPriceToday = M("offer_price")->where("offer_date='$today' AND goods_id=".$v['goods_id'])->find();
+            if(!$goodsOfferPriceToday){
+                $goods = M("goods")->where("goods_id=".$v['goods_id'])->find();
+                $data['offer_price'] = $goods['shop_price'];
+                $data['offer_date'] = $today;
+                $data['goods_id'] = $goods['goods_id'];
+                M('offer_price')->add($data);
+            }
+        }
+
+        $allGoodsOfferPrice = $goodsOfferPriceToday = M("offer_price")->where("offer_date='$today'")->select();
+        foreach ($allGoodsOfferPrice as $k=>$v){
+            $data['shop_price'] = $v['offer_price'];
+            $data1['price'] = $v['offer_price'];
+            $res=M('goods')->where('goods_id='.$v['goods_id'])->save($data);
+            $res1=M('spec_goods_price')->where('goods_id='.$v['goods_id'])->save($data1);
+        }
+    }
 }
