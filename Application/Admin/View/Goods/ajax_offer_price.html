@@ -1,22 +1,38 @@
+<style type="text/css">
+    .sale_price{
+        /*background-color: #e5fefe;*/
+        color: #fe2857;
+    }
+</style>
 <form method="post" enctype="multipart/form-data" target="_blank" id="form-order">
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
-                <td>商品编号</td>
-                <td>商品名称</td>
-                <td>
+                <td rowspan="2" colspan="1">商品编号</td>
+                <td rowspan="2" colspan="1">商品名称</td>
+                <td rowspan="1" colspan="2">
                     {$pre_pre_day}
                 </td>                
-                <td>
+                <td rowspan="1" colspan="2">
                     {$pre_day}
                 </td>
-                <td>
+                <td rowspan="1" colspan="2">
                     {$today}
                 </td>
-                <td>
+                <td rowspan="1" colspan="2">
                     {$tomorrow}
                 </td>
+            </tr>
+            <tr>
+                <td>显示价格</td>
+                <td>实际价格</td>
+                <td>显示价格</td>
+                <td>实际价格</td>
+                <td>显示价格</td>
+                <td>实际价格</td>
+                <td>显示价格</td>
+                <td>实际价格</td>
             </tr>
             </thead>
             <tbody>
@@ -24,10 +40,14 @@
                 <tr>
                 <td class="text-left">{$list.goods_sn}</td>
                 <td class="text-left">{$list.goods_name|getSubstr=0,33}</td>
-                <td class="text-left">{$list.pre_preday_price}</td>
-                <td class="text-left">{$list.preday_price}</td>
-                <td class="text-left">{$list.today_price}</td>
-                <td><input type="text" date="{$tomorrow}" goods_id="{$list.goods_id}" value="{$list.tomorrow}" class="offer_price"> </td>
+                <td class="text-left">{$list.pre_preday_price0}</td>
+                <td class="sale_price text-left">{$list.pre_preday_price1}</td>
+                <td class="text-left">{$list.preday_price0}</td>
+                <td class="sale_price text-left">{$list.preday_price1}</td>
+                <td class="text-left">{$list.today_price0}</td>
+                <td class="sale_price text-left">{$list.today_price1}</td>
+                <td><input type="text" date="{$tomorrow}" style="width: 60px;" tt="0" goods_id="{$list.goods_id}" value="{$list.tomorrow0}" class="offer_price"> </td>
+                <td><input type="text" date="{$tomorrow}" style="width: 60px;" tt="1" goods_id="{$list.goods_id}" value="{$list.tomorrow1}" class="offer_price"> </td>
                 </tr>
             </volist>
             </tbody>
@@ -38,6 +58,8 @@
     <div class="col-sm-3 text-left"></div>
     <div class="col-sm-9 text-right">{$page}</div>
 </div>
+
+
 <script>
     // 点击分页触发的事件
     $(".pagination  a").click(function(){
@@ -76,24 +98,25 @@
 		});
     }
 
-    $("input[class='offer_price']").blur(function () {
-        if($(this).val()!=""){
+    $("input[class='offer_price']").change(function () {
+        if ($(this).val() != "" && $(this).val() != 0) {
             $.ajax({
-                type:'GET',
-                url:"{:U('Admin/Goods/update_offer_price')}",
-                data:{
+                type: 'GET',
+                url: "{:U('Admin/Goods/update_offer_price')}",
+                data: {
                     goods_id: $(this).attr('goods_id'),
                     date: $(this).attr('date'),
-                    offer_price: $(this).val()
+                    offer_price: $(this).val(),
+                    type: $(this).attr('tt')
                 },
-                dataType:'json',
-                success:function(data){
+                dataType: 'json',
+                success: function (data) {
 
                 },
-                error:function () {
+                error: function () {
                     alert("更新出错，请联系管理员");
                 }
             });
         }
     });
-</script>
+ </script>

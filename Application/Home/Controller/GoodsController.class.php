@@ -488,24 +488,39 @@ class GoodsController extends BaseController {
 
     public function updateGoodsPrice(){
         $today = date('Y-m-d');
-        $allGoods = M("goods")->select();
+        $allGoods = M("goods")->where("is_on_sale=1")->select();
         foreach ($allGoods as $k=>$v){
-            $goodsOfferPriceToday = M("offer_price")->where("offer_date='$today' AND goods_id=".$v['goods_id'])->find();
-            if(!$goodsOfferPriceToday){
-                $goods = M("goods")->where("goods_id=".$v['goods_id'])->find();
+            $goodsOfferPriceToday0 = M("offer_price")->where("type=0 AND offer_date='$today' AND goods_id=".$v['goods_id'])->find();
+            if(!$goodsOfferPriceToday0) {
+                $goods = M("goods")->where("goods_id=" . $v['goods_id'])->find();
                 $data['offer_price'] = $goods['shop_price'];
                 $data['offer_date'] = $today;
                 $data['goods_id'] = $goods['goods_id'];
+                $data['type'] = "0";
                 M('offer_price')->add($data);
+            }
+            $goodsOfferPriceToday1 = M("offer_price")->where("type=1 AND offer_date='$today' AND goods_id=".$v['goods_id'])->find();
+            if(!$goodsOfferPriceToday1) {
+                $goodsSpec = M("spec_goods_price")->where("goods_id=" . $v['goods_id'])->find();
+                $dataSpec['offer_price'] = $goodsSpec['price'];
+                $dataSpec['offer_date'] = $today;
+                $dataSpec['goods_id'] = $goodsSpec['goods_id'];
+                $dataSpec['type'] = "1";
+                M('offer_price')->add($dataSpec);
             }
         }
 
         $allGoodsOfferPrice = $goodsOfferPriceToday = M("offer_price")->where("offer_date='$today'")->select();
         foreach ($allGoodsOfferPrice as $k=>$v){
-            $data['shop_price'] = $v['offer_price'];
-            $data1['price'] = $v['offer_price'];
-            $res=M('goods')->where('goods_id='.$v['goods_id'])->save($data);
-            $res1=M('spec_goods_price')->where('goods_id='.$v['goods_id'])->save($data1);
+
+            if($v["type"]==0){
+                $dataGoods['shop_price'] = $v['offer_price'];
+                M('goods')->where('goods_id='.$v['goods_id'])->save($dataGoods);
+            }else{
+                $dataGoodsSpec1['price'] = $v['offer_price'];
+                M('spec_goods_price')->where('goods_id='.$v['goods_id'])->save($dataGoodsSpec1);
+            }
+
         }
     }
 }

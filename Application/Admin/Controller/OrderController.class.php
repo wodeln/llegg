@@ -724,6 +724,7 @@ class OrderController extends BaseController {
 	    if(is_array($orderList)){
 	    	$region	= M('region')->getField('id,name');
 	    	foreach($orderList as $k=>$val){
+                $driverName="";
 	    		$strTable .= '<tr>';
 	    		$strTable .= '<td style="text-align:center;font-size:12px;">&nbsp;'.$val['order_sn'].'</td>';
 	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$val['create_time'].' </td>';	    		

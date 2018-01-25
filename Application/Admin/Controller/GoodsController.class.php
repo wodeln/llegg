@@ -772,7 +772,8 @@ class GoodsController extends BaseController {
         $where = ' 1 = 1 '; // 搜索条件
         I('intro')    && $where = "$where and ".I('intro')." = 1" ;
         I('brand_id') && $where = "$where and brand_id = ".I('brand_id') ;
-        (I('is_on_sale') !== '') && $where = "$where and is_on_sale = ".I('is_on_sale') ;
+//        (I('is_on_sale') !== '') && $where = "$where and is_on_sale = ".I('is_on_sale') ;
+        $where = "$where and is_on_sale = 1";
         $cat_id = I('cat_id');
         // 关键词搜索
         $key_word = I('key_word') ? trim(I('key_word')) : '';
@@ -790,7 +791,7 @@ class GoodsController extends BaseController {
 
         $model = M('Goods');
         $count = $model->where($where)->count();
-        $Page  = new AjaxPage($count,10);
+        $Page  = new AjaxPage($count,100);
         /**  搜索条件下 分页赋值
         foreach($condition as $key=>$val) {
         $Page->parameter[$key]   =   urlencode($val);
@@ -800,10 +801,14 @@ class GoodsController extends BaseController {
         $order_str = "`{$_POST['orderby1']}` {$_POST['orderby2']}";
         $goodsList = $model->where($where)->order($order_str)->limit($Page->firstRow.','.$Page->listRows)->select();
         foreach ($goodsList as $k=>$v){
-            $goodsList[$k]['today_price'] = M('offer_price')->where("goods_id=".$v['goods_id']." AND offer_date='".$today."'")->getField('offer_price');
-            $goodsList[$k]['preday_price'] = M('offer_price')->where("goods_id=".$v['goods_id']." AND offer_date='".$preDay."'")->getField('offer_price');
-            $goodsList[$k]['pre_preday_price'] = M('offer_price')->where("goods_id=".$v['goods_id']." AND offer_date='".$prePreDay."'")->getField('offer_price');
-            $goodsList[$k]['tomorrow'] = M('offer_price')->where("goods_id=".$v['goods_id']." AND offer_date='".$tomorrow."'")->getField('offer_price');
+            $goodsList[$k]['today_price0'] = M('offer_price')->where("type=0 AND goods_id=".$v['goods_id']." AND offer_date='".$today."'")->getField('offer_price');
+            $goodsList[$k]['today_price1'] = M('offer_price')->where("type=1 AND goods_id=".$v['goods_id']." AND offer_date='".$today."'")->getField('offer_price');
+            $goodsList[$k]['preday_price0'] = M('offer_price')->where("type=0 AND goods_id=".$v['goods_id']." AND offer_date='".$preDay."'")->getField('offer_price');
+            $goodsList[$k]['preday_price1'] = M('offer_price')->where("type=1 AND goods_id=".$v['goods_id']." AND offer_date='".$preDay."'")->getField('offer_price');
+            $goodsList[$k]['pre_preday_price0'] = M('offer_price')->where("type=0 AND goods_id=".$v['goods_id']." AND offer_date='".$prePreDay."'")->getField('offer_price');
+            $goodsList[$k]['pre_preday_price1'] = M('offer_price')->where("type=1 AND goods_id=".$v['goods_id']." AND offer_date='".$prePreDay."'")->getField('offer_price');
+            $goodsList[$k]['tomorrow0'] = M('offer_price')->where("type=0 AND goods_id=".$v['goods_id']." AND offer_date='".$tomorrow."'")->getField('offer_price');
+            $goodsList[$k]['tomorrow1'] = M('offer_price')->where("type=1 AND goods_id=".$v['goods_id']." AND offer_date='".$tomorrow."'")->getField('offer_price');
         }
 
         $catList = D('goods_category')->select();
@@ -823,11 +828,13 @@ class GoodsController extends BaseController {
         $goodsId = I('goods_id');
         $date = date('Y-m-d',strtotime(I('date')));
         $offer_price = I('offer_price');
+        $type = I('type');
 
-        $res = M('offer_price')->where("goods_id=$goodsId AND offer_date='$date'")->find();
+        $res = M('offer_price')->where("type=$type AND goods_id=$goodsId AND offer_date='$date'")->find();
         $data['offer_price'] = $offer_price;
         $data['offer_date'] = $date;
         $data['goods_id'] = $goodsId;
+        $data['type'] = $type;
         if($res){
             M('offer_price')->where('id='.$res['id'])->save($data);
         }else{
