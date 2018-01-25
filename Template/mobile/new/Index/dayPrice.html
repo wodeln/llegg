@@ -11,12 +11,29 @@
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/goods.css"/>
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/layer.css"/>
+    <link href="__PUBLIC__/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
 <script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script>
 <script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
 <script src="__PUBLIC__/js/global.js"></script>
 <script src="__PUBLIC__/js/mobile_common.js"></script>
 <script src="__STATIC__/js/common.js"></script>
+<style type="text/css">
+    .title{
+        vertical-align: middle !important;
+        font-size: 17pt;
+    }
+    .table{
+        text-align: center;
+        font-weight: bold;
+    }
+    .fr{
+        color:red;
+    }
+    .fb{
+        color:black;
+    }
+</style>
 </head>
 <body>
 <script type="text/javascript">
@@ -24,7 +41,30 @@ var process_request = "正在处理您的请求...";
 </script> 
 <div class="main">
     <a href="http://www.llegg.cn/index.php/Mobile/Goods/goodsInfo/id/13.html"><img src="__PUBLIC__/img/banner.jpg" width="100%"></a>
-    <img src="__PUBLIC__/img/table.jpg" width="100%">
+    <img src="__PUBLIC__/img/banner_min.jpg" width="100%">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td rowspan="2" colspan="1" class="title fr">品名</td>
+            <td rowspan="1" colspan="2" class="fr">价格</td>
+        </tr>
+        <tr>
+            <td style="width: 77px;" class="fb">今日价格<br />{$today}</td>
+            <td style="width: 77px;" class="fr">明日价格<br />{$tomorrow}</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <volist name="goodsList" id="list">
+        <tr>
+            <td>{$list.spu}</td>
+            <td class="fb">{$list.yestoday_price}</td>
+            <td class="fr">{$list.today_price}</td>
+        </tr>
+        </volist>
+        </tr>
+        </tbody>
+    </table>
     <img src="__PUBLIC__/img/footer.jpg" width="100%">
 </div>
 

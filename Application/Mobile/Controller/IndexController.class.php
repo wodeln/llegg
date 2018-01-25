@@ -41,6 +41,26 @@ class IndexController extends MobileBaseController {
     }
 
     public function dayPrice(){
+        $today = date('Y-m-d');
+        $todayDay = date('m-d');
+//        $tomorrow = date('Y-m-d',strtotime('+1 day'));
+        $tomorrowDay = date('m-d',strtotime('+1 day'));
+        $yestoday = date('Y-m-d',strtotime('-1 day'));
+
+        $where = " is_on_sale = 1";
+
+        $model = M('Goods');
+
+        $goodsList = $model->where($where)->order("sort ASC")->select();
+
+        foreach ($goodsList as $k=>$v){
+            $goodsList[$k]['today_price'] = M('offer_price')->where("type=0 AND goods_id=".$v['goods_id']." AND offer_date='".$today."'")->getField('offer_price');
+            $goodsList[$k]['yestoday_price'] = M('offer_price')->where("type=0 AND goods_id=".$v['goods_id']." AND offer_date='".$yestoday."'")->getField('offer_price');
+        }
+
+        $this->assign('goodsList',$goodsList);
+        $this->assign('today',$todayDay);
+        $this->assign('tomorrow',$tomorrowDay);
         $this->display();
     }
 
