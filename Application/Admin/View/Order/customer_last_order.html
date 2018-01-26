@@ -19,12 +19,12 @@
                 </div>
                 <div class="panel-body">
                     <div class="navbar navbar-default">
-                            <form action="{:U('Admin/order/customer_new_order')}" id="search-form2" class="navbar-form form-inline" method="post">
+                            <form action="{:U('Admin/order/customer_last_order')}" id="search-form2" class="navbar-form form-inline" method="post">
 
                                 <div class="form-group">
-                                    <label class="control-label" for="add_time">下单日期</label>
+                                    <label class="control-label" for="add_time">注册日期</label>
                                     <div class="input-group">
-                                        <input type="text" name="timegap" value="{$begin}-{$end}" placeholder="下单日期"  id="add_time" class="input-sm">
+                                        <input type="text" name="timegap" value="{$begin}-{$end}" placeholder="注册日期"  id="add_time" class="input-sm">
 					                 </div>
                                 </div>
 
