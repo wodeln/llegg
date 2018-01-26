@@ -168,6 +168,8 @@ function getAllMenu(){
 					array('name' => '退货单', 'act'=>'return_list', 'control'=>'Order'),
 					array('name' => '添加订单', 'act'=>'add_order', 'control'=>'Order'),
 					array('name' => '订单日志', 'act'=>'order_log', 'control'=>'Order'),
+                    array('name' => '新客户订单', 'act'=>'customer_new_order', 'control'=>'Order'),
+                    array('name' => '客户最后订单', 'act'=>'customer_last_order', 'control'=>'Order'),
 			)),
 			'promotion' => array('name' => '促销管理', 'icon'=>'fa-bell', 'sub_menu' => array(
 					array('name' => '抢购管理', 'act'=>'flash_sale', 'control'=>'Promotion'),
