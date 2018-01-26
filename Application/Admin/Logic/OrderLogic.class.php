@@ -368,4 +368,174 @@ UPDATE ht_order_info AS t1, (SELECT count(tt.trans_id) as S, tt.orderid FROM ht_
     	return $a && $b;
     }
 
+    public function getCustomerNewOrders($startTime,$endTime){
+//        $sql = "SELECT g.*,o.*,(o.goods_num * o.member_goods_price) AS goods_total FROM __PREFIX__order_goods o ".
+//            "LEFT JOIN __PREFIX__goods g ON o.goods_id = g.goods_id WHERE o.order_id = $order_id";
+//        $res = $this->query($sql);
+
+        $sql="SELECT
+    	u.user_id,
+    	u.nickname,
+    	FROM_UNIXTIME(u.reg_time,'%Y-%m-%d') AS reg_time,
+    	(
+    		SELECT
+    			FROM_UNIXTIME(add_time, '%Y-%m-%d')
+    		FROM
+    			tp_order
+    		WHERE
+    			user_id = o.user_id
+    		ORDER BY
+    			order_id ASC
+    		LIMIT 0,
+    		1
+    	) AS first_time,
+    	(
+    		SELECT
+    			COUNT(1)
+    		FROM
+    			tp_order
+    		WHERE
+    			user_id = o.user_id and add_time<=UNIX_TIMESTAMP('$endTime')
+    	) AS order_count,
+(SELECT
+    			consignee
+    		FROM
+    			tp_order
+    		WHERE
+    			user_id = o.user_id
+    		ORDER BY
+    			order_id DESC
+    		LIMIT 0,
+    		1) as consignee,
+(SELECT
+    			address
+    		FROM
+    			tp_order
+    		WHERE
+    			user_id = o.user_id
+    		ORDER BY
+    			order_id DESC
+    		LIMIT 0,
+    		1) as address,
+(SELECT `name` FROM tp_region WHERE `id`=o.district) AS district,
+(SELECT
+    			mobile
+    		FROM
+    			tp_order
+    		WHERE
+    			user_id = o.user_id
+    		ORDER BY
+    			order_id DESC
+    		LIMIT 0,
+    		1) as mobile
+
+    FROM
+    	tp_order AS o
+    LEFT JOIN tp_users AS u ON o.user_id = u.user_id
+    WHERE
+    	add_time >= UNIX_TIMESTAMP('$startTime')
+    AND add_time <= UNIX_TIMESTAMP('$endTime')
+    AND o.user_id NOT IN (
+    	SELECT
+    		user_id
+    	FROM
+    		tp_order
+    	WHERE
+    		add_time <= UNIX_TIMESTAMP('$startTime')
+    	GROUP BY
+    		user_id
+    )
+    GROUP BY
+    	o.user_id
+    ORDER BY
+    	first_time ASC";
+
+        $res = $this->query($sql);
+        return $res;
+    }
+
+    public function getCustomerLastOrders($startTime,$endTime){
+//        $sql = "SELECT g.*,o.*,(o.goods_num * o.member_goods_price) AS goods_total FROM __PREFIX__order_goods o ".
+//            "LEFT JOIN __PREFIX__goods g ON o.goods_id = g.goods_id WHERE o.order_id = $order_id";
+//        $res = $this->query($sql);
+
+        $sql="SELECT
+    	u.user_id,
+    	u.nickname,
+    	FROM_UNIXTIME(u.reg_time,'%Y-%m-%d') AS reg_time,
+    	(
+    		SELECT
+    			FROM_UNIXTIME(add_time, '%Y-%m-%d')
+    		FROM
+    			tp_order
+    		WHERE
+    			user_id = o.user_id
+    		ORDER BY
+    			order_id DESC
+    		LIMIT 0,
+    		1
+    	) AS end_time,
+(SELECT
+    			consignee
+    		FROM
+    			tp_order
+    		WHERE
+    			user_id = o.user_id
+    		ORDER BY
+    			order_id DESC
+    		LIMIT 0,
+    		1) as consignee,
+(SELECT
+    			address
+    		FROM
+    			tp_order
+    		WHERE
+    			user_id = o.user_id
+    		ORDER BY
+    			order_id DESC
+    		LIMIT 0,
+    		1) as address,
+(SELECT `name` FROM tp_region WHERE `id`=o.district) AS district,
+(SELECT
+    			mobile
+    		FROM
+    			tp_order
+    		WHERE
+    			user_id = o.user_id
+    		ORDER BY
+    			order_id DESC
+    		LIMIT 0,
+    		1) as mobile,
+    	(
+    		SELECT
+    			COUNT(1)
+    		FROM
+    			tp_order
+    		WHERE
+    			user_id = o.user_id
+    	) AS order_count
+    FROM
+    	tp_order AS o
+    LEFT JOIN tp_users AS u ON o.user_id = u.user_id
+    WHERE
+    	add_time >= UNIX_TIMESTAMP('$startTime')
+    AND add_time <= UNIX_TIMESTAMP('$endTime')
+    AND o.user_id NOT IN (
+    	SELECT
+    		user_id
+    	FROM
+    		tp_order
+    	WHERE
+    		add_time <= UNIX_TIMESTAMP('$startTime')
+    	GROUP BY
+    		user_id
+    )
+    GROUP BY
+    	o.user_id
+    ORDER BY
+    	reg_time";
+
+        $res = $this->query($sql);
+        return $res;
+    }
 }
