@@ -1085,6 +1085,8 @@ class OrderController extends BaseController {
 
     public function customer_new_order(){
         $timegap = I('timegap');
+        $orderEnd = I('order_end');
+        $never = I('never');
         if($timegap){
             $gap = explode('-', $timegap);
             $begin = $gap[0];
@@ -1093,12 +1095,18 @@ class OrderController extends BaseController {
             $begin = $BeginDate=date('Y/m/01', strtotime(date("Y-m-d")));
             $end = date('Y/m/d');
         }
+
+        if(!$orderEnd) $orderEnd = $end;
+        if(!$never) $never = $begin;
+
         $orderLogic = new OrderLogic();
-        $orders = $orderLogic->getCustomerNewOrders($begin,$end);
+        $orders = $orderLogic->getCustomerNewOrders($begin,$end,$orderEnd,$never);
 
         $this->assign('orders',$orders);
         $this->assign('begin',$begin);
         $this->assign('end',$end);
+        $this->assign('order_end',$orderEnd);
+        $this->assign('never',$never);
         $this->display();
     }
 
