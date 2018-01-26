@@ -1082,4 +1082,41 @@ class OrderController extends BaseController {
 //        $this->assign('page',$show);// 赋值分页输出
         $this->display();
     }
+
+    public function customer_new_order(){
+        $timegap = I('timegap');
+        if($timegap){
+            $gap = explode('-', $timegap);
+            $begin = $gap[0];
+            $end = $gap[1];
+        }else{
+            $begin = $BeginDate=date('Y/m/01', strtotime(date("Y-m-d")));
+            $end = date('Y/m/d');
+        }
+        $orderLogic = new OrderLogic();
+        $orders = $orderLogic->getCustomerNewOrders($begin,$end);
+
+        $this->assign('orders',$orders);
+        $this->assign('begin',$begin);
+        $this->assign('end',$end);
+        $this->display();
+    }
+
+    public function customer_last_order(){
+        $timegap = I('timegap');
+        if($timegap){
+            $gap = explode('-', $timegap);
+            $begin = $gap[0];
+            $end = $gap[1];
+        }else{
+            $begin = $BeginDate=date('Y/m/01', strtotime(date("Y-m-d")));
+            $end = date('Y/m/d');
+        }
+        $orderLogic = new OrderLogic();
+        $orders = $orderLogic->getCustomerLastOrders($begin,$end);
+        $this->assign('orders',$orders);
+        $this->assign('begin',$begin);
+        $this->assign('end',$end);
+        $this->display();
+    }
 }
