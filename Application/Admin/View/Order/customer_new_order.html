@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <label class="control-label" for="never">此日期前无下单时间</label>
                                     <div class="input-group">
-                                        <input type="text" name="never" value="{$begin}" placeholder="此日期前无下单时间"  id="never" class="input-sm">
+                                        <input type="text" name="never" value="{$never}" placeholder="此日期前无下单时间"  id="never" class="input-sm">
                                     </div>
                                 </div>
 
@@ -120,7 +120,7 @@
             singleDatePicker: true,
             showDropdowns: true,
             minDate:'2016/01/01',
-            startDate:'{$end}',
+            startDate:'{$order_end}',
             locale : {
                 applyLabel : '确定',
                 cancelLabel : '取消',
@@ -138,7 +138,7 @@
             singleDatePicker: true,
             showDropdowns: true,
             minDate:'2016/01/01',
-            startDate:'{$end}',
+            startDate:'{$never}',
             locale : {
                 applyLabel : '确定',
                 cancelLabel : '取消',
