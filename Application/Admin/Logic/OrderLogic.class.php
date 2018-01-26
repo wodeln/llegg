@@ -368,7 +368,7 @@ UPDATE ht_order_info AS t1, (SELECT count(tt.trans_id) as S, tt.orderid FROM ht_
     	return $a && $b;
     }
 
-    public function getCustomerNewOrders($startTime,$endTime){
+    public function getCustomerNewOrders($startTime,$endTime,$orderEnd,$never){
 //        $sql = "SELECT g.*,o.*,(o.goods_num * o.member_goods_price) AS goods_total FROM __PREFIX__order_goods o ".
 //            "LEFT JOIN __PREFIX__goods g ON o.goods_id = g.goods_id WHERE o.order_id = $order_id";
 //        $res = $this->query($sql);
@@ -395,7 +395,7 @@ UPDATE ht_order_info AS t1, (SELECT count(tt.trans_id) as S, tt.orderid FROM ht_
     		FROM
     			tp_order
     		WHERE
-    			user_id = o.user_id and add_time<=UNIX_TIMESTAMP('$endTime')
+    			user_id = o.user_id and add_time<=UNIX_TIMESTAMP('$orderEnd')  #订单截至时间
     	) AS order_count,
 (SELECT
     			consignee
@@ -433,22 +433,22 @@ UPDATE ht_order_info AS t1, (SELECT count(tt.trans_id) as S, tt.orderid FROM ht_
     	tp_order AS o
     LEFT JOIN tp_users AS u ON o.user_id = u.user_id
     WHERE
-    	add_time >= UNIX_TIMESTAMP('$startTime')
-    AND add_time <= UNIX_TIMESTAMP('$endTime')
+    	add_time >= UNIX_TIMESTAMP('$startTime')					#注册起始时间
+    AND add_time <= UNIX_TIMESTAMP('$endTime')			    #注册截至时间
     AND o.user_id NOT IN (
     	SELECT
     		user_id
     	FROM
     		tp_order
     	WHERE
-    		add_time <= UNIX_TIMESTAMP('$startTime')
+    		add_time <= UNIX_TIMESTAMP('$never')			#此日期前无下单时间
     	GROUP BY
     		user_id
     )
     GROUP BY
     	o.user_id
     ORDER BY
-    	first_time ASC";
+    	first_time ASC;";
 
         $res = $this->query($sql);
         return $res;
