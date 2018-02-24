@@ -895,6 +895,7 @@ abstract class Driver {
                 .$this->parseLimit(!empty($options['limit'])?$options['limit']:'');
         }
         $sql .=   $this->parseComment(!empty($options['comment'])?$options['comment']:'');
+//        echo $sql. "<br />";
         return $this->execute($sql,!empty($options['fetch_sql']) ? true : false);
     }
 

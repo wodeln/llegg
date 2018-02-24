@@ -156,7 +156,7 @@ class DriverController extends BaseController {
         I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
         $condition['shipping_code'] = 'ziyouwuliu';
         $condition['order_status'] = 1;
-        $sort_order = 'o.district DESC';
+        $sort_order = 'o.district DESC,o.address DESC';
         $count = M('order')->where($condition)->count();
         $Page  = new AjaxPage($count,20);
         //  搜索条件下 分页赋值

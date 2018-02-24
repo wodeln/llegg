@@ -522,5 +522,6 @@ class GoodsController extends BaseController {
             }
 
         }
+        M()->execute("TRUNCATE tp_cart");
     }
 }
