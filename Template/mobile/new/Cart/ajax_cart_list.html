@@ -43,7 +43,7 @@
              <div class="price">
                <span class="mar_price">￥{$v.market_price}元</span>
                <br>
-               <span>￥{$v.member_goods_price}元</span>
+                 <span>￥<span id="gp_{$v.id}">{$v.member_goods_price}</span>元</span>
               </div>
              <div class="delete">
                <a href="javascript:void(0);" onclick="del_cart_goods({$v.id})">
@@ -80,7 +80,7 @@
 	     </div>
 	   </div>
 	   <div class="info">
-	     <span class="hot" id="cart_amount_desc"><em>总计：</em>￥{$total_price.total_fee}元</span>
+           <span class="hot" id="cart_amount_desc"><em>总计：</em>￥<span id="sum_price">{$total_price.total_fee}</span>元</span>
 	     <br>
 	     <span class="hot_text">不含运费</span>
 	   </div>

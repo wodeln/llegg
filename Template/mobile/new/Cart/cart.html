@@ -63,7 +63,9 @@ function ajax_cart_list(cart_id,store_count){
 	if(before_request == 0) // 上一次请求没回来 不进行下一次请求
 	    return false;
 	before_request = 0;
-	
+
+	// console.log($('#cart_form').serialize());
+
     $.ajax({
         type : "POST",
         url:"{:U('Mobile/Cart/ajaxCartList')}",//+tab,
@@ -71,7 +73,7 @@ function ajax_cart_list(cart_id,store_count){
         success: function(data){
             $("#cart_form").html('');
             $("#cart_form").append(data);
-			before_request = 1;			
+			before_request = 1;
         }
     });
 }
@@ -88,11 +90,34 @@ function switch_num(num,cart_id,store_count)
     if(num2 > store_count)
     {   alert("库存只有 "+store_count+" 件, 你只能买 "+store_count+" 件");
         num2 = store_count; // 保证购买数量不能多余库存数量
+        return false;
     }
 
-    $("input[name='goods_num["+cart_id+"]']").val(num2);
+    $.ajax({
+        type : "POST",
+        url:"{:U('Mobile/Cart/ajaxUpdateCart')}",//+tab,
+        data : {
+            cart_id: cart_id,
+            goods_num: num2
+        },// 你的formid
+        success: function(data){
+            if(data == 1){
+                //成功后更新相应信息
+                var gp_id = "gp_"+cart_id;
+                var goods_price = parseInt($("#"+gp_id).html());
+                var old_sum_price = parseInt($("#sum_price").html());
+                var now_sum_prce = old_sum_price + (num*goods_price);
+                $("input[name='goods_num["+cart_id+"]']").val(num2);
+                $("#sum_price").html(now_sum_prce);
+            }else {
+                //暂时啥都没做
+            }
+        }
+    });
 
-    ajax_cart_list(); // ajax 更新商品价格 和数量
+
+    // ajax_cart_list(); // ajax 更新商品价格 和数量
+
 }
 
 // ajax 删除购物车的商品

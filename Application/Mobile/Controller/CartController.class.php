@@ -301,6 +301,20 @@ class CartController extends MobileBaseController {
         $this->display('ajax_cart_list');
     }
 
+    public function ajaxUpdateCart(){
+        $cart_id = I("cart_id"); // goods_num 购物车商品数量
+        $goods_num = I("goods_num"); // 购物车选中状态
+
+        $data["goods_num"] = $goods_num;
+
+        $res = M("cart")->where("id = $cart_id")->save($data);
+        if($res){
+            echo 1;
+        }else{
+            echo 0;
+        }
+    }
+
     /*
  * ajax 获取用户收货地址 用于购物车确认订单页面
  */
