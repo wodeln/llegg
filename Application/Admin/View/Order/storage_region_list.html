@@ -1,0 +1,55 @@
+<include file="Public/min-header"/>
+<style type="text/css">
+	.region{
+		margin-right: 8px;
+	}
+</style>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+	<section class="content">
+       <div class="row">
+       		<div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                    	<i class="fa fa-list"></i>&nbsp;角色管理
+                    </h3>
+                </div>
+                <div class="panel-body">
+	            <div class="table-responsive">
+		             <table class="table table-bordered table-hover">
+		                <thead>
+		                   <tr>
+			                   <th>ID</th>
+			                   <th>仓库名称</th>
+			                   <th>区域</th>
+			                   <th>操作</th>
+		                   </tr>
+		                </thead>
+						<tbody>
+						  <foreach name="list" item="vo" key="k">
+							<tr>
+								 <td>{$vo.id}</td>
+								 <td>{$vo.name}</td>
+								 <td>
+									 <foreach name="vo['regions']" item="vv" key="kk">
+										 <span class="region">{$vv.name}</span>
+									 </foreach>
+								 </td>
+								 <td>
+								  <a href="{:U('Order/allot_region',array('storage_id'=>$vo['id'],'storage_name'=>$vo['name']))}">分配区域</a>
+								 </td>
+							</tr>
+		                  </foreach>
+						</tbody>
+					 </table>
+		            </div>
+	          </div>
+	        </div>
+       	</div>
+      </div>
+   </section>
+</div>
+
+</body>
+</html>

@@ -1127,4 +1127,71 @@ class OrderController extends BaseController {
         $this->assign('end',$end);
         $this->display();
     }
+
+    public function storage_region_list(){
+       /* $inc_type =  I('get.inc_type','shop_info');
+        $this->assign('inc_type',$inc_type);
+        $config = tpCache($inc_type);
+        $province = M('region')->where(array('parent_id'=>0))->select();
+        $city =  M('region')->where(array('parent_id'=>$config['province']))->select();
+        $area =  M('region')->where(array('parent_id'=>$config['city']))->select();
+        $this->assign('province',$province);
+        $this->assign('city',$city);
+        $this->assign('area',$area);*/
+        $api = new JxcapiController();
+        $storageList = json_decode($api->getAllStorage(),TRUE);
+        foreach ($storageList as $k=>$v){
+            $regionName = M("storage_region sr")
+                            ->where("sr.storage_id = ".$v["id"])
+                            ->join("LEFT JOIN tp_region r ON sr.region_id=r.id")
+                            ->field("r.name")
+                            ->select();
+            $storageList[$k]["regions"] = $regionName;
+        }
+        $this->assign('list',$storageList);
+        $this->display();
+    }
+
+    public function allot_region(){
+        $storageId = I("storage_id");
+        $storageName = I("storage_name");
+
+        $region = M('region')->where(array('parent_id'=>0))->select();
+        foreach ($region as $k=>$v){
+            $city = M('region')->where(array('parent_id'=>$v['id']))->select();
+            if(count($city)>0){
+                $region[$k]['city'] = $city;
+                foreach ($city as $k1=>$v1){
+                    $area = M('region')->where(array('parent_id'=>$v1['id']))->select();
+                    if(count($area)>0){
+                        $region[$k]['city'][$k1]["area"] = $area;
+                        foreach ($area as $k2=>$v2){
+                            $res = M("storage_region")->where("storage_id=".$storageId." AND region_id=".$v2["id"])->find();
+                            $res1 = M("storage_region")->where("storage_id!=".$storageId." AND region_id=".$v2["id"])->find();
+                            $region[$k]['city'][$k1]["area"][$k2]["select"] = $res!=false ? 1:0;
+                            $region[$k]['city'][$k1]["area"][$k2]["status"] = $res1!=false ? 1:0;
+                        }
+                    }
+                }
+            }
+        }
+        $this->assign('region',$region);
+
+        $this->assign('storage_id',$storageId);
+        $this->assign('storage_name',$storageName);
+        $this->display();
+    }
+
+    public function regionSave(){
+        $data = I('post.');
+        $storageRegion = M("storage_region");
+
+        $storageRegion->where("storage_id=".$data['storage_id'])->delete();
+        foreach ($data['region'] as $k => $v){
+            $save[$k]['storage_id']=$data['storage_id'];
+            $save[$k]['region_id']=$v;
+        }
+        $storageRegion->addAll($save);
+        echo "1";
+    }
 }
