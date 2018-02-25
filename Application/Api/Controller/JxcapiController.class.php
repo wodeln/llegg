@@ -256,6 +256,13 @@ class JxcapiController extends BaseController{
         $this->postData($data,$url,"order",__FUNCTION__);
     }
     //订单API结束
+
+    //仓库接口开始
+    public function getAllStorage(){
+        $storageList = file_get_contents(self ::SERVER_IP."/index.php/api/getAllStorage");
+        return $storageList;
+    }
+    //仓库接口结束
     /**
      * POST 数据到指定地址
      * @param $data POST 数据
