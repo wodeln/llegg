@@ -1187,11 +1187,14 @@ class OrderController extends BaseController {
         $storageRegion = M("storage_region");
 
         $storageRegion->where("storage_id=".$data['storage_id'])->delete();
-        foreach ($data['region'] as $k => $v){
-            $save[$k]['storage_id']=$data['storage_id'];
-            $save[$k]['region_id']=$v;
+        if(count($data['region'])>0){
+            foreach ($data['region'] as $k => $v){
+                $save[$k]['storage_id']=$data['storage_id'];
+                $save[$k]['region_id']=$v;
+            }
         }
+
         $storageRegion->addAll($save);
-        echo "1";
+        $this->success('分配成功','/Admin/Order/storage_region_list');
     }
 }
