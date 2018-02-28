@@ -230,11 +230,13 @@ class JxcapiController extends BaseController{
         $order['twon']              = M('region')->where("`id`=".$orderSelect['twon'])->getField('name');
         $order['order_sn']          = $orderSelect['order_sn'];
         $products = $orderLogic->getOrderGoods($order['order_id']);
+        $storage_id = M("storage_region")->where("region_id")->getField("storage_id");
         $orderProducts="";
         foreach ($products as $key=>$value){
             $orderProducts[$key]['goods_num']       =$value['goods_num'];
             $orderProducts[$key]['goods_price']     =$value['goods_price'];
             $orderProducts[$key]['goods_id']        =$value['goods_id'];
+            $orderProducts[$key]['storage_id']      =$storage_id;
         }
         $order['products'] = $orderProducts;
         $orderJson['data'] = json_encode($order);
