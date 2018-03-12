@@ -964,7 +964,7 @@ class OrderController extends BaseController {
         I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
         I('shipping_code') ? $condition['shipping_code'] = trim(I('shipping_code')) : false;
 //        $sort_order = I('order_by','DESC').' '.I('sort');
-        $sort_order = "o.driver_id ASC,o.delivery_sort ASC";
+        $sort_order = "d.driver_no ASC,o.delivery_sort ASC";
         $count = M('order')->where($condition)->count();
         $Page  = new AjaxPage($count,300);
         //  搜索条件下 分页赋值

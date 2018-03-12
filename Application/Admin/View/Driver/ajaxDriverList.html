@@ -29,12 +29,12 @@
                                     <tr>
 
                                         <td class="text-left">{$list.driver_name}</td>
-                                        <td class="text-left">{$list.driver_no}</td>
+                                        <td class="text-left"><input class="driver_no" driver_id="{$list.driver_id}" value="{$list.driver_no}" /> </td>
                                         <td class="text-left">{$list.mobile}</td>
                                         <td class="text-left">{$list.car_type}</td>
                                         <td class="text-left">{$list.car_no}</td>
                                         <td class="text-right">
-                                            <a href="{:U('Admin/driver/modify_driver',array('driver_id'=>$list['driver_id']))}" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="查看详情"><i class="fa fa-pencil"></i></a>
+                                            <!--<a href="{:U('Admin/driver/modify_driver',array('driver_id'=>$list['driver_id']))}" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="查看详情"><i class="fa fa-pencil"></i></a>-->
                                             <!--<a href="{:U('Admin/driver/delete_driver',array('driver_id'=>$list['driver_id']))}" id="button-delete6" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="删除"><i class="fa fa-trash-o"></i></a>-->
                                             <a class="btn btn-danger" href="javascript:void(0)" data-url="{:U('driver/delete_driver')}" data-id="{$list['driver_id']}" onclick="delfun(this)"><i class="fa fa-trash-o"></i></a>
                                         </td>
@@ -74,4 +74,21 @@
         }
         return false;
     }
+    
+    $(".driver_no").blur(function () {
+
+        var driverId = $(this).attr("driver_id");
+        $.ajax({
+            type: 'post',
+            url: "/index.php/Admin/driver/updateDriverNo/",
+            data: {
+                driver_id: $(this).attr("driver_id"),
+                driver_no: $(this).val()
+            },
+            success: function (data) {
+                if(data == 1) layer.msg('修改成功', {icon: 1,time:1000});
+            }
+        });
+        // console.log($(this).val());
+    });
 </script>

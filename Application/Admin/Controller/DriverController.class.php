@@ -177,6 +177,17 @@ class DriverController extends BaseController {
         $this->display();
     }
 
+    public function updateDriverNo(){
+        $driverId = I("driver_id");
+        $driverNo = I("driver_no");
+
+        $data["driver_no"] = $driverNo;
+        $res = M("drivers")->where("driver_id = ".$driverId)->save(array("driver_no"=>$driverNo));
+//        D('drivers')->where('driver_id='.$data['driver_id'])->save(array('del'=>0));
+
+        if($res) echo 1;
+    }
+
     public function driver_order_list(){
         $begin = date('Y/m/d',(time()-1*60*60*24));//30天前
 //        $end = date('Y/m/d',strtotime('+1 days'));

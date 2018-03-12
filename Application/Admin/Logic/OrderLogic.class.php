@@ -71,7 +71,7 @@ UPDATE ht_order_info AS t1, (SELECT count(tt.trans_id) as S, tt.orderid FROM ht_
     }
 
     public function getOrder($order_id){
-        $sql = "SELECT o.*,(SELECT `name` FROM tp_region WHERE id=city) city, (SELECT `name` FROM tp_region WHERE id=district) district, (SELECT `name` FROM tp_region WHERE id=twon) twon FROM tp_order WHERE order_id = $orderId";
+        $sql = "SELECT o.*,(SELECT `name` FROM tp_region WHERE id=city) city, (SELECT `name` FROM tp_region WHERE id=district) district, (SELECT `name` FROM tp_region WHERE id=twon) twon FROM tp_order WHERE order_id = $order_id";
         return $this->query($sql);
     }
 

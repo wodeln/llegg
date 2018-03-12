@@ -305,14 +305,25 @@ class CartController extends MobileBaseController {
         $cart_id = I("cart_id"); // goods_num 购物车商品数量
         $goods_num = I("goods_num"); // 购物车选中状态
 
-        $data["goods_num"] = $goods_num;
+        $where="id = $cart_id";
+        $cartList = M('Cart')->where($where)->getField("id,goods_num,selected,prom_type,prom_id");
 
-        $res = M("cart")->where("id = $cart_id")->save($data);
-        if($res){
-            echo 1;
-        }else{
-            echo 0;
+        $data["goods_num"]=$goods_num;
+        $res = 1;
+        if($cartList[$cart_id]['prom_type'] == 1) //限时抢购 不能超过购买数量
+        {
+            $flash_sale = M('flash_sale')->where("id = {$cartList[$cart_id]['prom_id']}")->find();
+            $data['goods_num'] = $data['goods_num'] > $flash_sale['buy_limit'] ? $flash_sale['buy_limit'] : $data['goods_num'];
+
+            if($data['goods_num'] > $flash_sale['buy_limit']){
+                $res = 2;
+            }else{
+                $res = M("cart")->where("id = $cart_id")->save($data);
+                if(!$res) $res = 0;
+            }
         }
+
+        echo $res;
     }
 
     /*

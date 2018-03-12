@@ -41,6 +41,7 @@
   <p class="f_title"><span>选择自提点</span><a class="c_close" href="javascript:void(0)" onClick="close_pop()"></a></p>
   <div id="pickcontent"></div>
 </div>
+<script src="__PUBLIC__/js/layer/layer.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -99,7 +100,7 @@ function switch_num(num,cart_id,store_count)
         data : {
             cart_id: cart_id,
             goods_num: num2
-        },// 你的formid
+        },
         success: function(data){
             if(data == 1){
                 //成功后更新相应信息
@@ -109,8 +110,11 @@ function switch_num(num,cart_id,store_count)
                 var now_sum_prce = old_sum_price + (num*goods_price);
                 $("input[name='goods_num["+cart_id+"]']").val(num2);
                 $("#sum_price").html(now_sum_prce);
-            }else {
-                //暂时啥都没做
+            }else if(data = 2) {
+                var alnum = num2-1;
+                layer.msg("购买数量不能超过"+alnum+"", {icon: 1,time:3000});
+            }else{
+
             }
         }
     });
