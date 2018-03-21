@@ -110,11 +110,11 @@ function switch_num(num,cart_id,store_count)
                 var now_sum_prce = old_sum_price + (num*goods_price);
                 $("input[name='goods_num["+cart_id+"]']").val(num2);
                 $("#sum_price").html(now_sum_prce);
-            }else if(data = 2) {
+            }else if(data == 2) {
                 var alnum = num2-1;
                 layer.msg("购买数量不能超过"+alnum+"", {icon: 1,time:3000});
             }else{
-
+                //暂时啥都没做
             }
         }
     });

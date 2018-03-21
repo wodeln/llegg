@@ -321,7 +321,12 @@ class CartController extends MobileBaseController {
                 $res = M("cart")->where("id = $cart_id")->save($data);
                 if(!$res) $res = 0;
             }
+        }else{
+            $res = M("cart")->where("id = $cart_id")->save($data);
+            if(!$res) $res = 0;
         }
+
+
 
         echo $res;
     }
