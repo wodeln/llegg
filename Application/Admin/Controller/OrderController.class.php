@@ -918,9 +918,11 @@ class OrderController extends BaseController {
         $begin = date('Y/m/d',(time()-1*60*60*24));
         $end = date('Y/m/d');
         $shippingList = M('Plugin')->where("`type` = 'shipping' and status = 1")->select();
+        $drivers = M('drivers')->where("`del` = '1'")->select();
         $this->assign('timegap',$begin.'-'.$end);
         $this->assign('start_time',$begin);
         $this->assign('shippingList', $shippingList); // 物流公司
+        $this->assign('drivers', $drivers); // 物流公司
         $this->display();
     }
 //分配订单：去掉应付金额，增加订货总数，增加客服备注（明细单上打印出来的那个备注）
@@ -961,11 +963,13 @@ class OrderController extends BaseController {
         I('pay_status') != '' ? $condition['pay_status'] = I('pay_status') : false;
         I('pay_code') != '' ? $condition['pay_code'] = I('pay_code') : false;
         I('shipping_status') != '' ? $condition['shipping_status'] = I('shipping_status') : false;
+        I('driver_id') != '' ? $condition['o.driver_id'] = I('driver_id') : false;
         I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
         I('shipping_code') ? $condition['shipping_code'] = trim(I('shipping_code')) : false;
 //        $sort_order = I('order_by','DESC').' '.I('sort');
         $sort_order = "d.driver_no ASC,o.delivery_sort ASC";
-        $count = M('order')->where($condition)->count();
+        $count = M('order o')->where($condition)->count();
+
         $Page  = new AjaxPage($count,500);
         //  搜索条件下 分页赋值
         foreach($condition as $key=>$val) {
