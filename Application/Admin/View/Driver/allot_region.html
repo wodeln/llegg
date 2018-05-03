@@ -1,0 +1,115 @@
+<include file="Public/min-header"/>
+<style>
+ul.group-list {
+    width: 96%;min-width: 1000px; margin: auto 5px;list-style: disc outside none;
+}
+ul.group-list li {
+    white-space: nowrap;float: left;
+    width: 150px; height: 25px;
+    padding: 3px 5px;list-style-type: none;
+    list-style-position: outside;border: 0px;margin: 0px;
+}
+th.title {
+    background: #F3F3F3;border-bottom: 1px solid #D7D7D7;font-weight: bold; white-space: nowrap;
+}
+li.c_check{
+    color: #919191;
+}
+</style>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+	<section class="content">
+	<div class="container-fluid">
+	      <div class="pull-right">
+                <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回管理员列表"><i class="fa fa-reply"></i></a>
+          </div>
+		  <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-list"></i> 分配区域</h3>
+            </div>
+            <div class="panel-body ">	        	
+			<form action="{:U('Admin/Driver/regionSave')}" id="regionform" method="post">
+			<input type="hidden" name="driver_id" value="{$driver_id}" />
+			<table class="table table-bordered table-striped">
+				<tr>
+					<th>司机姓名： {$driver_name}</th>
+
+				</tr>
+			</table>
+	        <h4><b>区域分配：</b><input type="checkbox" onclick="choosebox(this)">全选</h4>
+			<table class="table table-bordered table-striped dataTable">
+				<tbody>
+				<foreach name="region" item="region">
+
+                    <foreach name="region['city']" item="city" key="kk">
+                    <tr>
+                        <td class="title left" style="padding-right:50px;">
+                            <b>{$region.name}->：{$city.name}</b>
+                            <label class="right"><input type="checkbox" value="1" cka="mod-{$city.id}">全选</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <ul class="group-list">
+
+                            <foreach name="city['area']" item="area">
+                                <li>
+                                    <label>
+                                        <input class="region" type="checkbox" <if condition="$area.select eq 1">checked</if> name="region[]" value="{$area.id}" ck="mod-{$city.id}">{$area.name}
+                                    </label>
+                                </li>
+                            </foreach>
+                            </ul>
+
+                            <div class="clear-both"></div>
+
+                        </td>
+                    </tr>
+                    </foreach>
+				</foreach>
+				</tbody>
+				<tfoot>
+                  <tr align="center">
+                    <td><input class="btn btn-default" type="reset" value="重置">&nbsp;&nbsp;&nbsp;&nbsp;
+                       <input class="btn btn-info" type="button" onclick="roleSubmit()" value="提交">
+                    </td>
+                  </tr>
+               </tfoot>
+			</table>
+			</form>
+		   </div>
+		</div>
+	</div></section>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(":checkbox[cka]").click(function(){
+		var $cks = $(":checkbox[ck='"+$(this).attr("cka")+"']");
+		if($(this).is(':checked')){
+			$cks.each(function(){$(this).prop("checked",true);});
+		}else{
+			$cks.each(function(){$(this).removeAttr('checked');});
+		}
+	});
+});
+
+function choosebox(o){
+	var vt = $(o).is(':checked');
+	if(vt){
+		$('input[type=checkbox]').prop('checked',vt);
+	}else{
+		$('input[type=checkbox]').removeAttr('checked');
+	}
+}
+
+function roleSubmit(){
+    var len = $("input:checkbox:checked").length;
+    // if(len == 0 ){
+	// 	layer.alert('至少选中一个区域', {icon: 2});
+	// 	return false;
+	// }
+	$('#regionform').submit();
+}
+</script>
+</body>
+</html>

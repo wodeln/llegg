@@ -21,7 +21,7 @@
                     <tbody>
                     <tr>
                         <td class="col-sm-2">司机姓名:</td>
-                        <td ><input type="text" class="form-control" name="driver_name" value="{$info.driver_name}"></td>
+                        <td >{$info.driver_name}</td>
                         <td></td>
                     </tr>
                     <tr>
@@ -51,10 +51,47 @@
                     </tr>
 
                     <tr>
+                        <td>归属仓库:</td>
+                        <td>
+                            <select name="storage_id" class="form-control">
+                                <option>请选择</option>
+                                <foreach name="list" item="list">
+                                    <option value="{$list.id}" <if condition="$info['storage_id'] eq $list['id']">selected</if>>{$list.name}</option>
+                                </foreach>
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>配送起点:</td>
+                        <td>
+                            <input type="text" class="form-control" name="start_address" value="{$info.start_address}">
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>最大运载箱数:</td>
+                        <td>
+                            <input type="text" class="form-control" name="max_boxs" value="{$info.max_boxs}">
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>最大运载单数:</td>
+                        <td>
+                            <input type="text" class="form-control" name="max_orders" value="{$info.max_orders}">
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
                         <td>配送订单颜色:</td>
                         <td>
                             <div class="form-group">
-                                <input type="text" name="order_color" class="form-control demo" data-control="hue" value="{$info.order_color}">
+                                <input type="text" name="order_color" class="form-control demo" data-control="hue" value="#ff6161">
                             </div>
                         </td>
                         <td></td>

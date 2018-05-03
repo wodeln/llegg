@@ -48,6 +48,13 @@ class DriverController extends BaseController {
 //        $user_id_arr = get_arr_column($userList, 'user_id');
 
         $show = $Page->show();
+        $api = new JxcapiController();
+        $storageList = json_decode($api->getAllStorage(),TRUE);
+        foreach ($storageList as $k=>$v){
+           $sList[$v["id"]] = $v["name"];
+        }
+        $this->assign('storage_list',$sList);
+
         $this->assign('driverList',$driverList);
         $this->assign('page',$show);// 赋值分页输出
         $this->display();
@@ -74,6 +81,11 @@ class DriverController extends BaseController {
                 $this->error('添加失败<br />'.$res['msg']);exit;
             }
         }
+
+        $api = new JxcapiController();
+        $storageList = json_decode($api->getAllStorage(),TRUE);
+        $this->assign('list',$storageList);
+
         $this->display();
     }
 
@@ -100,9 +112,67 @@ class DriverController extends BaseController {
         }
         $driverId = I('get.driver_id');
         $info = M('drivers')->where("driver_id='".$driverId."'")->find();
+
+        $api = new JxcapiController();
+        $storageList = json_decode($api->getAllStorage(),TRUE);
+        foreach ($storageList as $k=>$v){
+            $regionName = M("storage_region sr")
+                ->where("sr.storage_id = ".$v["id"])
+                ->join("LEFT JOIN tp_region r ON sr.region_id=r.id")
+                ->field("r.name")
+                ->select();
+            $storageList[$k]["regions"] = $regionName;
+        }
+        $this->assign('list',$storageList);
+
         $this->assign('info',$info);
         $this->display();
     }
+
+    public function allot_region(){
+        $driverId = I("driver_id");
+        $driverName = I("driver_name");
+
+        $region = M('region')->where(array('parent_id'=>0))->select();
+        foreach ($region as $k=>$v){
+            $city = M('region')->where(array('parent_id'=>$v['id']))->select();
+            if(count($city)>0){
+                $region[$k]['city'] = $city;
+                foreach ($city as $k1=>$v1){
+                    $area = M('region')->where(array('parent_id'=>$v1['id']))->select();
+                    if(count($area)>0){
+                        $region[$k]['city'][$k1]["area"] = $area;
+                        foreach ($area as $k2=>$v2){
+                            $res = M("driver_region")->where("driver_id=".$driverId." AND region_id=".$v2["id"])->find();
+                            $region[$k]['city'][$k1]["area"][$k2]["select"] = $res!=false ? 1:0;
+                        }
+                    }
+                }
+            }
+        }
+        $this->assign('region',$region);
+
+        $this->assign('driver_id',$driverId);
+        $this->assign('driver_name',$driverName);
+        $this->display();
+    }
+
+    public function regionSave(){
+        $data = I('post.');
+        $storageRegion = M("driver_region");
+
+        $storageRegion->where("driver_id=".$data['driver_id'])->delete();
+        if(count($data['region'])>0){
+            foreach ($data['region'] as $k => $v){
+                $save[$k]['driver_id']=$data['driver_id'];
+                $save[$k]['region_id']=$v;
+            }
+        }
+
+        $storageRegion->addAll($save);
+        $this->success('分配成功','/Admin/Driver/driver_list');
+    }
+
 
     public function delete_driver(){
         $data = I('post.');

@@ -51,6 +51,43 @@
                     </tr>
 
                     <tr>
+                        <td>归属仓库:</td>
+                        <td>
+                            <select name="storage_id" class="form-control">
+                                <option>请选择</option>
+                                <foreach name="list" item="list">
+                                <option value="{$list.id}">{$list.name}</option>
+                                </foreach>
+                            </select>
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>配送起点:</td>
+                        <td>
+                            <input type="text" class="form-control" name="start_address">
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>最大运载箱数:</td>
+                        <td>
+                            <input type="text" class="form-control" name="max_boxs">
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>最大运载单数:</td>
+                        <td>
+                            <input type="text" class="form-control" name="max_orders">
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
                         <td>配送订单颜色:</td>
                         <td>
                             <div class="form-group">

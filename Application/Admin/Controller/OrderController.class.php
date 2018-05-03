@@ -966,7 +966,7 @@ class OrderController extends BaseController {
 //        $sort_order = I('order_by','DESC').' '.I('sort');
         $sort_order = "d.driver_no ASC,o.delivery_sort ASC";
         $count = M('order')->where($condition)->count();
-        $Page  = new AjaxPage($count,300);
+        $Page  = new AjaxPage($count,500);
         //  搜索条件下 分页赋值
         foreach($condition as $key=>$val) {
             $Page->parameter[$key]   =  urlencode($val);
