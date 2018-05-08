@@ -720,10 +720,18 @@ class OrderController extends BaseController {
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">发货状态</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">商品信息</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">司机</td>';
+    	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">仓库</td>';
     	$strTable .= '</tr>';
+        $api = new JxcapiController();
+        $storageList = json_decode($api->getAllStorage(),TRUE);
+        foreach ($storageList as $k=>$v){
+            $storage[$v["id"]] = $v["name"];
+//            $storageList[$k]["regions"] =
+        }
 	    if(is_array($orderList)){
 	    	$region	= M('region')->getField('id,name');
-	    	foreach($orderList as $k=>$val){
+            foreach($orderList as $k=>$val){
+                $orderStorage = M("storage_region")->where("region_id = ".$val['district'])->getField("storage_id");
                 $driverName="";
 	    		$strTable .= '<tr>';
 	    		$strTable .= '<td style="text-align:center;font-size:12px;">&nbsp;'.$val['order_sn'].'</td>';
@@ -747,6 +755,7 @@ class OrderController extends BaseController {
 	    		unset($orderGoods);
 	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$strGoods.' </td>';
 	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$driverName.' </td>';
+	    		$strTable .= '<td style="text-align:left;font-size:12px;">'.$storage[$orderStorage].' </td>';
 	    		$strTable .= '</tr>';
 	    	}
 	    }
