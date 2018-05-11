@@ -37,6 +37,22 @@ class OrderLogic extends RelationModel
         return $res;
     }
 
+    public function printDelivery($condition,$order='',$storageId=false){
+        if($storageId){
+            $condition["sr.storage_id"] = $storageId;
+        }
+        $res = M('order o')
+            ->join('tp_users u ON o.user_id=u.user_id')
+            ->join('tp_region r ON o.district=r.id')
+            ->join('left join tp_drivers d ON o.driver_id=d.driver_id')
+            ->join('tp_storage_region sr ON o.district=sr.region_id')
+            ->field('o.*,u.nickname,d.driver_name,d.order_color,r.name district,sr.storage_id')
+            ->where($condition)
+            ->order($order)->select();
+//        $res = M('order')->where($condition)->limit("$start,$page_size")->order($order)->select();
+        return $res;
+    }
+
 /*insert into ht_or_ordermain (orderid, cust_id, or_date, order_amount, address_id, addname, addid, addtime, addtype) SELECT
 oi.id as orderid,
 oi.vipid as cust_id,

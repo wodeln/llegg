@@ -117,7 +117,8 @@
             <div class="customer">下单时间: {$list.add_time|date='Y-m-d H:i',###} </div>
            <!-- <div class="memo">
                 {$list.user_note}
-            </div>--><br />
+            </div>-->
+            <div class="storage">仓库：{$storages[$list['storage_id']]}</div>
             <div class="system_memo">备注：{$list.action_note}</div>
         </div>
         <div class="product">

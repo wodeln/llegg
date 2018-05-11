@@ -928,10 +928,13 @@ class OrderController extends BaseController {
         $end = date('Y/m/d');
         $shippingList = M('Plugin')->where("`type` = 'shipping' and status = 1")->select();
         $drivers = M('drivers')->where("`del` = '1'")->select();
+        $api = new JxcapiController();
+        $storageList = json_decode($api->getAllStorage(),TRUE);
         $this->assign('timegap',$begin.'-'.$end);
         $this->assign('start_time',$begin);
         $this->assign('shippingList', $shippingList); // 物流公司
-        $this->assign('drivers', $drivers); // 物流公司
+        $this->assign('drivers', $drivers); // 司机
+        $this->assign('storages', $storageList); // 仓库
         $this->display();
     }
 //分配订单：去掉应付金额，增加订货总数，增加客服备注（明细单上打印出来的那个备注）
@@ -975,18 +978,24 @@ class OrderController extends BaseController {
         I('driver_id') != '' ? $condition['o.driver_id'] = I('driver_id') : false;
         I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
         I('shipping_code') ? $condition['shipping_code'] = trim(I('shipping_code')) : false;
+        I('storage_id') ? $storageId=I('storage_id') : $storageId=false;
 //        $sort_order = I('order_by','DESC').' '.I('sort');
         $sort_order = "d.driver_no ASC,o.delivery_sort ASC";
-        $count = M('order o')->where($condition)->count();
+        /*$count = M('order o')->where($condition)->count();
 
         $Page  = new AjaxPage($count,500);
         //  搜索条件下 分页赋值
         foreach($condition as $key=>$val) {
             $Page->parameter[$key]   =  urlencode($val);
         }
-        $show = $Page->show();
+        $show = $Page->show();*/
         //获取订单列表
-        $orderList = $orderLogic->getOrderList($condition,$sort_order,$Page->firstRow,$Page->listRows);
+        $api = new JxcapiController();
+        $storageList = json_decode($api->getAllStorage(),TRUE);
+        foreach ($storageList as $k=>$v){
+            $storage[$v["id"]] = $v["name"];
+        }
+        $orderList = $orderLogic->printDelivery($condition,$sort_order,$storageId);
         $sort=1;
         foreach ($orderList as $k=>$v){
             $orderList[$k]['delivery_sort_c']=$sort;
@@ -997,8 +1006,9 @@ class OrderController extends BaseController {
             $orderList[$k]['action_note'] = $orderLogic->getConfirmNote($v['order_id']);
         }
         $this->assign("now_time",time());
+        $this->assign("storages",$storage);
         $this->assign('orderList',$orderList);
-        $this->assign('page',$show);// 赋值分页输出
+//        $this->assign('page',$show);// 赋值分页输出
         $this->display();
     }
 
