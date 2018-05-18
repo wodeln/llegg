@@ -40,7 +40,7 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label" for="input-date-added">下单日期</label>
+                                    <label class="control-label" for="add_time">下单日期</label>
                                     <div class="input-group">
                                         <input type="text" name="timegap" value="{$timegap}" placeholder="下单日期"  id="add_time" class="input-sm">
 					                 </div>
@@ -94,6 +94,14 @@
                                     <foreach name="driverList" item="v"  key="k">
                                         <option value="{$v.driver_id}">{$v.driver_name}</option>
                                     </foreach>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select name="storage_id" class="input-sm" style="width:100px;">
+                                        <option value="">仓库</option>
+                                        <foreach name="storages" item="v"  key="k">
+                                            <option value="{$v.id}">{$v.name}</option>
+                                        </foreach>
                                     </select>
                                 </div>
                                 <div class="form-group">

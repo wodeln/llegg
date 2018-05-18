@@ -946,10 +946,13 @@ class OrderController extends BaseController {
         $end = date('Y/m/d');
         $shippingList = M('Plugin')->where("`type` = 'shipping' and status = 1")->select();
         $driverList = M('drivers')->where("`del`=1")->select();
+        $api = new JxcapiController();
+        $storageList = json_decode($api->getAllStorage(),TRUE);
         $this->assign('timegap',$begin.'-'.$end);
         $this->assign('start_time',$begin);
         $this->assign('driverList',$driverList);
         $this->assign('shippingList', $shippingList); // 物流公司
+        $this->assign('storages', $storageList);
         $this->display();
     }
 
@@ -1035,6 +1038,7 @@ class OrderController extends BaseController {
         I('shipping_status') != '' ? $condition['shipping_status'] = I('shipping_status') : false;
         I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
         I('shipping_code') ? $condition['shipping_code'] = trim(I('shipping_code')) : false;
+        I('storage_id') ? $storageId=I('storage_id') : $storageId=false;
         $type = 0;
         if(I('driver_id')!=""){
             $condition['driver_id']=trim(I('driver_id'));
@@ -1076,24 +1080,38 @@ class OrderController extends BaseController {
             $this->assign('driver',$driver);
             $this->assign('userGoodsCount',$userGoodsCount);
         }else{
+            if($storageId){
+                $condition["sr.storage_id"] = $storageId;
+            }
             $goodsList = M('order o')
                 ->join('tp_order_goods og on o.order_id=og.order_id')
                 ->join('tp_goods g on og.goods_id=g.goods_id')
+                ->join('tp_storage_region sr ON o.district=sr.region_id')
                 ->field('SUM(og.goods_num) total,g.goods_name,og.spec_key_name,g.goods_sn')
                 ->where($condition)->group('og.goods_id,og.spec_key')
                 ->select();
+            $sql = M('order o')->getLastSql();
             $sum =  M('order o')
                 ->join('tp_order_goods og on o.order_id=og.order_id')
                 ->join('tp_goods g on og.goods_id=g.goods_id')
+                ->join('tp_storage_region sr ON o.district=sr.region_id')
                 ->field('SUM(og.goods_num) total')
                 ->where($condition)
                 ->find();
-            $count =  M('order o')->where($condition)->count();
+            $count =  M('order o')
+                ->join('tp_storage_region sr ON o.district=sr.region_id')
+                ->where($condition)->count();
             $PSCondition = $condition;
             $PSCondition['shipping_code']="ziti";
-            $ZTCount =  M('order o')->where($PSCondition)->count();
+            $ZTCount =  M('order o')
+                ->join('tp_storage_region sr ON o.district=sr.region_id')
+                ->where($PSCondition)
+                ->count();
             $PSCondition['shipping_code']="ziyouwuliu";
-            $PSCount =  M('order o')->where($PSCondition)->count();
+            $PSCount =  M('order o')
+                ->join('tp_storage_region sr ON o.district=sr.region_id')
+                ->where($PSCondition)
+                ->count();
         }
         $this->assign('count',$count);
         $this->assign('zt_count',$ZTCount);
