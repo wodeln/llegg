@@ -1,0 +1,98 @@
+<include file="Public/min-header"/>
+<style>
+    .tt{
+        color: #9e9e9e;
+        margin-left: 0.63rem;
+    }
+</style>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i> 用户优惠券列表</h3>
+                </div>
+                <div class="panel-body">
+
+                        <div class="form-group">
+                            <span class="tt">用户昵称：</span>{$user.nickname} &nbsp;
+                            <if condition="$address neq null">
+                                <span class="tt">默认联系人：</span>{$address.consignee}
+                                <span class="tt">联系人电话：</span>{$address.mobile}
+                                <span class="tt">地址：</span>{$address.address}
+                            </if>
+                        </div>
+
+                    <div id="ajax_return">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <td class="text-center">
+                                        优惠券名称
+                                    </td>
+                                    <td class="text-center">
+                                        金额
+                                    </td>
+                                    <td class="text-center">
+                                        发放类型
+                                    </td>
+                                    <td class="text-center">
+                                        使用状态
+                                    </td>
+                                    <td class="text-center">
+                                        使用时间
+                                    </td>
+                                    <td class="text-center">
+                                        发放时间
+                                    </td>
+                                    <td class="text-center">
+                                        操作
+                                    </td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="coupons" id="coupon">
+                                    <tr>
+                                        <td class="text-center">{$coupon.name}</td>
+                                        <td class="text-center">{$coupon.money}</td>
+                                        <td class="text-center">{$coupon_type[$coupon[type]]}</td>
+                                        <td class="text-center">
+                                            <if condition="$coupon[use_time] gt 0">
+                                            已使用
+                                            <else/>
+                                            未使用
+                                            </if>
+                                        </td>
+                                        <td class="text-center">
+                                            <if condition="$coupon[use_time] gt 0">
+                                                {$coupon.use_time|date='Y-m-d H:i',###}
+                                                <else/>
+                                                N
+                                            </if>
+                                        </td>
+                                        <td class="text-center">{$coupon.send_time|date='Y-m-d H:i',###}</td>
+                                        <td class="text-center">
+                                        <a href="{:U('Admin/Coupon/user_coupon_del',array('id'=>$coupon['id']))}" id="button-delete6" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="删除"><i class="fa fa-trash-o"></i></a></td>
+                                    </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                      <div class="row">
+                            <div class="col-sm-6 text-left"></div>
+                            <div class="col-sm-6 text-right">{$page}</div>		
+                      </div>
+
+                </div>
+            </div>
+        </div>        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+</body>
+</html>

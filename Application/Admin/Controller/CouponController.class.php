@@ -279,4 +279,35 @@ class CouponController extends BaseController {
             $this->error('删除失败');
         $this->success('删除成功');
     }
+
+    public function user_coupons(){
+        $uid = I('get.uid');
+        if(!$uid){
+            $this->error("缺少参数值");
+        }
+        $coupons = M("coupon_list cl")
+                    ->join("LEFT JOIN tp_coupon c ON c.id = cl.cid ")
+                    ->field("c.name,c.money,cl.send_time,cl.type,cl.use_time,cl.id")
+                    ->where("cl.uid=$uid")
+                    ->select();
+        $user = M("users")->where("user_id = $uid")->find();
+        $address = M("user_address")->where("user_id = $uid")->find();
+        $this->assign('coupons',$coupons);
+        $this->assign('user',$user);
+        $this->assign('address',$address);
+        $this->assign('coupon_type',C('COUPON_TYPE'));
+        $this->display();
+    }
+
+    public function user_coupon_del(){
+        //获取优惠券ID
+        $cid = I('get.id');
+        if(!$cid)
+            $this->error("缺少参数值");
+        //查询是否存在优惠券
+        $row = M('coupon_list')->where(array('id'=>$cid))->delete();
+        if(!$row)
+            $this->error('删除失败');
+        $this->success('删除成功');
+    }
 }
