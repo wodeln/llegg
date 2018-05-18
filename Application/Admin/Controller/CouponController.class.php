@@ -111,23 +111,43 @@ class CouponController extends BaseController {
     public function ajax_get_user(){
     	//搜索条件
     	$condition = array();
-    	I('mobile') ? $condition['mobile'] = I('mobile') : false;
-    	I('email') ? $condition['email'] = I('email') : false;
-    	$nickname = I('nickname');
-    	if(!empty($nickname)){
-    		$condition['nickname'] = array('like',"%$nickname%");
-    	}
-    	$model = M('users');
-    	$count = $model->where($condition)->count();
-    	$Page  = new AjaxPage($count,10);
-    	foreach($condition as $key=>$val) {
-    		$Page->parameter[$key] = urlencode($val);
-    	}
-    	$show = $Page->show();
-    	$userList = $model->where($condition)->order("user_id desc")->limit($Page->firstRow.','.$Page->listRows)->select();
-        
-        $user_level = M('user_level')->getField('level_id,level_name',true);       
-        $this->assign('user_level',$user_level);
+    	I('mobile') ? $condition['ua.mobile'] = I('mobile') : false;
+    	I('consignee') ? $condition['ua.consignee'] = array('LIKE', '%'.I('consignee').'%') : false;
+    	I('address') ? $condition['ua.address'] = array('LIKE', '%'.I('address').'%') : false;
+
+    	if($condition){
+    	    /*$userIds = M("user_address")->where($condition)->field("user_id")->select();
+    	    $sql = M("user_address")->getLastSql();
+    	    echo $sql;*/
+
+            $model = M('users u');
+            $count = $model
+                    ->join("LEFT JOIN tp_user_address ua ON u.user_id = ua.user_id")
+                    ->where($condition)
+                    ->count();
+            $Page  = new AjaxPage($count,10);
+            foreach($condition as $key=>$val) {
+                $Page->parameter[$key] = urlencode($val);
+            }
+            $show = $Page->show();
+            $userList = $model
+                        ->join("LEFT JOIN tp_user_address ua ON u.user_id = ua.user_id")
+                        ->where($condition)
+                        ->order("user_id desc")
+                        ->field("ua.consignee,ua.address,ua.mobile,u.user_id,u.nickname")
+                        ->limit($Page->firstRow.','.$Page->listRows)
+                        ->select();
+        }else{
+            $model = M('users');
+            $count = $model->where($condition)->count();
+            $Page  = new AjaxPage($count,10);
+            foreach($condition as $key=>$val) {
+                $Page->parameter[$key] = urlencode($val);
+            }
+            $show = $Page->show();
+            $userList = $model->where($condition)->order("user_id desc")->limit($Page->firstRow.','.$Page->listRows)->select();
+        }
+
     	$this->assign('userList',$userList);
     	$this->assign('page',$show);
     	$this->display();

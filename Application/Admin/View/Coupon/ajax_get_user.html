@@ -3,10 +3,10 @@
          <thead>
              <td class="text-left"><input type="checkbox" onclick="$('input[name*=\'user_id\']').prop('checked', this.checked);">全选</td>
              <td class="text-left">会员ID</td>            
-             <td class="text-left">会员等级</td>
              <td class="text-left">会员昵称 </td>
-             <td class="text-left">手机</td>
-             <td class="text-left">邮箱</td>
+             <td class="text-left">收货人</td>
+             <td class="text-left">电话</td>
+             <td class="text-left">地址</td>
              <td class="text-left">操作</td>
          </tr>
          </thead>
@@ -17,7 +17,6 @@
                            <input type="checkbox" name="user_id[]" value="{$list.user_id}"/>
                       </td>
                       <td class="text-left">{$list.user_id}</td>
-                      <td class="text-left">{$user_level[$list[level]]}</td>
                       <td class="text-left">
                         <if condition=" $list[nickname] eq null">
                             <if condition=" $list[oauth] eq 'weixin'">微信用户</if>
@@ -28,8 +27,9 @@
                                 {$list.nickname}
                         </if>
                       </td>
+                      <td class="text-left">{$list.consignee}</td>
                       <td class="text-left">{$list.mobile}</td>
-                      <td class="text-left">{$list.email}</td>
+                      <td class="text-left">{$list.address}</td>
                       <td><a href="javascript:void(0)" onclick="javascript:$(this).parent().parent().remove();">删除</a></td>
                   </tr>                              
          	</volist>   
