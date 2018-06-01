@@ -1048,7 +1048,7 @@ class OrderController extends BaseController {
                 ->field('SUM(og.goods_num) total,g.goods_name,g.goods_id')
                 ->where($condition)->group('og.goods_id,og.spec_key')
                 ->select();
-            $userList = M('order o')
+            $userLiexport_orderst = M('order o')
                 ->join('tp_order_goods og on o.order_id=og.order_id')
                 ->join('tp_goods g on og.goods_id=g.goods_id')
                 ->where($condition)
