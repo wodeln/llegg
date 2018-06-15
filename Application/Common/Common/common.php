@@ -1036,8 +1036,11 @@ function calculate_price($user_id=0,$order_goods,$shipping_code='',$shipping_pri
                 $order_goods[$key]['member_goods_price'] = $val['member_goods_price'] = $val['goods_price'] * $user['discount'];
             }
 			//如果商品不是包邮的
-            if($goods_arr[$val['goods_id']]['is_free_shipping'] == 0)
-	            $goods_weight += $goods_arr[$val['goods_id']]['weight'] * $val['goods_num']; //累积商品重量 每种商品的重量 * 数量
+            if($goods_arr[$val['goods_id']]['is_free_shipping'] == 0){
+                $goods_weight += $goods_arr[$val['goods_id']]['weight'] * $val['goods_num']; //累积商品重量 每种商品的重量 * 数量
+                $goods_num +=$val['goods_num'];
+            }
+
 				
             $order_goods[$key]['goods_fee'] = $val['goods_num'] * $val['member_goods_price'];    // 小计            
             $order_goods[$key]['store_count']  = getGoodNum($val['goods_id'],$val['spec_key']); // 最多可购买的库存数量
@@ -1065,7 +1068,7 @@ function calculate_price($user_id=0,$order_goods,$shipping_code='',$shipping_pri
         // 处理物流
         if($shipping_price == 0)
         {
-            $shipping_price = $cartLogic->cart_freight2($shipping_code,$province,$city,$district,$goods_weight);        
+            $shipping_price = $cartLogic->cart_freight2($shipping_code,$province,$city,$district,$goods_weight,$goods_num);
             $freight_free = tpCache('shopping.freight_free'); // 全场满多少免运费
             if($freight_free > 0 && $goods_price >= $freight_free)
                $shipping_price = 0;               

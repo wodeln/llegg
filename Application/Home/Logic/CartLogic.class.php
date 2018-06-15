@@ -183,7 +183,7 @@ class CartLogic extends RelationModel
         	$cartList[$k]['store_count']  = getGoodNum($val['goods_id'],$val['spec_key']); // 最多可购买的库存数量        	
                 $anum += $val['goods_num'];
                 
-                // 如果要求只计算购物车选中商品的价格 和数量  并且  当前商品没选择 则跳过
+                // 如果要求只计算购物车选中商品的价格 和数量  并且  当前商品i没选择 则跳过
                 if($selected == 1 && $val['selected'] == 0)
                     continue;
                 
@@ -205,7 +205,7 @@ class CartLogic extends RelationModel
  * @param type $district  区
  * @return int
  */
-function cart_freight2($shipping_code,$province,$city,$district,$weight)
+function cart_freight2($shipping_code,$province,$city,$district,$weight,$goods_num)
 {
     
     if($weight == 0) return 0; // 商品没有重量
@@ -235,8 +235,17 @@ function cart_freight2($shipping_code,$province,$city,$district,$weight)
    $shipping_config  = unserialize($shipping_config);
    $shipping_config['money'] = $shipping_config['money'] ? $shipping_config['money'] : 0;
 
+   if($goods_num>=5){
+       $weight = $weight - $shipping_config['first_weight']; // 续重
+       $weight = ceil($weight / $shipping_config['second_weight']); // 续重不够取整
+       $freight = $shipping_config['money'] +  $weight * $shipping_config['add_money'];
+   }else if($goods_num <5 && $goods_num>=3){
+       $freight=ceil($weight / $shipping_config['second_weight']) * 3;
+   }else{
+       $freight =3;
+   }
    // 1000 克以内的 只算个首重费
-   if($weight <= $shipping_config['first_weight'])
+   /*if($weight <= $shipping_config['first_weight'])
    {          
        return 3;
    }else if($weight > $shipping_config['first_weight'] && $weight < 2500){
@@ -246,7 +255,7 @@ function cart_freight2($shipping_code,$province,$city,$district,$weight)
    // 超过 1000 克的计算方法 
    $weight = $weight - $shipping_config['first_weight']; // 续重
    $weight = ceil($weight / $shipping_config['second_weight']); // 续重不够取整 
-   $freight = $shipping_config['money'] +  $weight * $shipping_config['add_money']; // 首重 + 续重 * 续重费
+   $freight = $shipping_config['money'] +  $weight * $shipping_config['add_money']; // 首重 + 续重 * 续重费*/
    
    return $freight;  
 }
