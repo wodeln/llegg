@@ -1,76 +1,77 @@
-                    <form method="post" enctype="multipart/form-data" target="_blank" id="form-order">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover" style="font-size:12px;">
-                                <thead>
-                                <tr>
-                                    <td class="text-center">
-                                        收货人
-                                    </td>
-                                    <td class="text-center">
-                                        总金额
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="javascript:sort('district')">区县</a>
-                                    </td>
-                                    <td class="text-center">地址</td>
-                                    <td class="text-center">产品总数</td>
-                                    <td class="text-center">客服备注</td>
-                                    <td class="text-center">
-                                        下单时间
-                                    </td>
-                                    <td>分配次序</td>
-                                    <td class="text-center">司机姓名</td>
-                                    <td class="text-center">司机电话</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <volist name="orderList" id="list">
-                                    <tr style="background-color: {$list['order_color']}">
-                                        <td class="text-center">{$list.consignee}:{$list.mobile}</td>
-                                        <td class="text-center">{$list.goods_price}</td>
-                                        <td class="text-center">{$list.district}</td>
-                                        <td class="text-center">{$list.address}</td>
-                                        <td class="text-center">{$list.product_sum}</td>
-                                        <td class="text-center">{$list.action_note}</td>
-                                        <td class="text-center">{$list.add_time|date='Y-m-d H:i',###}</td>
-                                        <td>{$list.delivery_sort}</td>
-                                        <td class="text-center">{$list.driver_name}</td>
-                                        <td class="text-center">{$list.driver_mobile}</td>
+<form method="post" enctype="multipart/form-data" target="_blank" id="form-order">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover" style="font-size:12px;">
+            <thead>
+            <tr>
+                <td class="text-center">
+                    收货人
+                </td>
+                <td class="text-center">
+                    总金额
+                </td>
+                <td class="text-center">
+                    <a href="javascript:sort('district')">区县</a>
+                </td>
+                <td class="text-center">地址</td>
+                <td class="text-center">产品总数</td>
+                <td class="text-center">客服备注</td>
+                <td class="text-center">
+                    下单时间
+                </td>
+                <td>分配次序</td>
+                <td class="text-center">司机姓名</td>
+                <td class="text-center">司机电话</td>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="orderList" id="list">
+                <tr style="background-color: {$list['order_color']}">
+                    <td class="text-center">{$list.consignee}:{$list.mobile}</td>
+                    <td class="text-center">{$list.goods_price}</td>
+                    <td class="text-center">{$list.district}</td>
+                    <td class="text-center">{$list.address}</td>
+                    <td class="text-center">{$list.product_sum}</td>
+                    <td class="text-center">{$list.action_note}</td>
+                    <td class="text-center">{$list.add_time|date='Y-m-d H:i',###}</td>
+                    <td>{$list.delivery_sort}</td>
+                    <td class="text-center">{$list.driver_name}</td>
+                    <td class="text-center">{$list.driver_mobile}</td>
 
-                                    </tr>
-                                </volist>
-                                </tbody>
-                            </table>
-                        </div>
-                    </form>
-                    <div class="row">
-                        <div class="col-sm-6 text-left"></div>
-                        <div class="text-right">{$page}</div>
-                    </div>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+</form>
+<div class="row">
+    <div class="col-sm-6 text-left"></div>
+    <div class="text-right">{$page}</div>
+</div>
 <script>
-    $(".pagination  a").click(function(){
+    $(".pagination  a").click(function () {
         var page = $(this).data('p');
-        ajax_get_table('search-form2',page);
+        ajax_get_table('search-form2', page);
     });
-    function selectDriver(driverId,orderId) {
 
-            console.log(orderId);
-            $.ajax({
-                type : "POST",
-                url:"/index.php/Admin/driver/orderDriver/",
-                data : {
-                    "driverId":  driverId,
-                    "orderId" :  orderId
-                },
-                success: function(data){
-                    var info=eval("(" + data + ")");
-                    var k = "order_select"+orderId;
-                    if(driverId!="") {
-                        $("#" + k).parent().parent().css("background-color", info['order_color']);
-                    }else {
-                        $("#" + k).parent().parent().css("background-color", "");
-                    }
+    function selectDriver(driverId, orderId) {
+
+        console.log(orderId);
+        $.ajax({
+            type: "POST",
+            url: "/index.php/Admin/driver/orderDriver/",
+            data: {
+                "driverId": driverId,
+                "orderId": orderId
+            },
+            success: function (data) {
+                var info = eval("(" + data + ")");
+                var k = "order_select" + orderId;
+                if (driverId != "") {
+                    $("#" + k).parent().parent().css("background-color", info['order_color']);
+                } else {
+                    $("#" + k).parent().parent().css("background-color", "");
                 }
-            })
+            }
+        })
     }
 </script>

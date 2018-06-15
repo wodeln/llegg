@@ -236,14 +236,17 @@ function cart_freight2($shipping_code,$province,$city,$district,$weight)
    $shipping_config['money'] = $shipping_config['money'] ? $shipping_config['money'] : 0;
 
    // 1000 克以内的 只算个首重费
-   if($weight < $shipping_config['first_weight'])
+   if($weight <= $shipping_config['first_weight'])
    {          
-       return $shipping_config['money'];     
+       return 3;
+   }else if($weight > $shipping_config['first_weight'] && $weight < 2500){
+       $freight=ceil($weight / $shipping_config['second_weight']) * 3;
+       return $freight;
    }
    // 超过 1000 克的计算方法 
    $weight = $weight - $shipping_config['first_weight']; // 续重
    $weight = ceil($weight / $shipping_config['second_weight']); // 续重不够取整 
-   $freight = $shipping_config['money'] +  $weight * $shipping_config['add_money']; // 首重 + 续重 * 续重费       
+   $freight = $shipping_config['money'] +  $weight * $shipping_config['add_money']; // 首重 + 续重 * 续重费
    
    return $freight;  
 }

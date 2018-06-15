@@ -400,82 +400,83 @@ class DriverController extends BaseController {
 
     public function export_order()
     {
-        //搜索条件
-        $where = 'where 1=1 ';
-        $consignee = I('consignee');
-        if($consignee){
-            $where .= " AND consignee like '%$consignee%' ";
-        }
-        $order_sn =  I('order_sn');
-        if($order_sn){
-            $where .= " AND order_sn = '$order_sn' ";
-        }
-        if(I('order_status')){
-            $where .= " AND order_status = ".I('order_status');
-        }
-        if(I('shipping_code')){
-            $where .= " AND shipping_code = ".I('shipping_code');
-        }
+        $orderLogic = new OrderLogic();
         $timegap = I('timegap');
         if($timegap){
             $gap = explode('-', $timegap);
             $begin = strtotime($gap[0]);
             $end = strtotime($gap[1]);
-            $where .= " AND add_time>$begin and add_time<$end ";
         }
+        // 搜索条件
+        $condition = array();
+        I('consignee') ? $condition['consignee'] = trim(I('consignee')) : false;
+        if($begin && $end){
+            $condition['add_time'] = array('between',"$begin,$end");
+        }
+        I('order_sn') ? $condition['order_sn'] = trim(I('order_sn')) : false;
+        I('order_status') != '' ? $condition['order_status'] = I('order_status') : false;
+        I('pay_status') != '' ? $condition['pay_status'] = I('pay_status') : false;
+        I('pay_code') != '' ? $condition['pay_code'] = I('pay_code') : false;
+        I('shipping_status') != '' ? $condition['shipping_status'] = I('shipping_status') : false;
+        I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
+        $condition['shipping_code'] = 'ziyouwuliu';
+        $condition['order_status'] = 1;
+        $sort_order = 'o.district DESC';
+        $count = M('order')->where($condition)->count();
+        /*$Page  = new AjaxPage($count,20);
+        //  搜索条件下 分页赋值
+        foreach($condition as $key=>$val) {
+            $Page->parameter[$key]   =  urlencode($val);
+        }
+        $show = $Page->show();
+        //获取订单列表
+        $orderList = $orderLogic->getOrderList($condition,$sort_order,$Page->firstRow,$Page->listRows);*/
 
-        $sql = "select *,FROM_UNIXTIME(add_time,'%Y-%m-%d') as create_time from __PREFIX__order $where order by order_id";
-        $orderList = D()->query($sql);
+        $orderList = M('order o')
+            ->join('tp_users u ON o.user_id=u.user_id')
+            ->join('tp_region r ON o.district=r.id')
+            ->join('left join tp_drivers d ON o.driver_id=d.driver_id')
+            ->field('o.*,u.nickname,d.driver_name,d.order_color,d.mobile driver_mobile,r.name district')
+            ->where($condition)
+            ->order('o.driver_id,o.delivery_sort')
+            ->select();
+
+        foreach ($orderList as $k=>$v){
+            $orderList[$k]['product_sum'] = $orderLogic->getOrderGoodsSum($v['order_id'])['sum'];
+            $orderList[$k]['action_note'] = $orderLogic->getConfirmNote($v['order_id']);
+        }
         $strTable ='<table width="500" border="1">';
         $strTable .= '<tr>';
-        $strTable .= '<td style="text-align:center;font-size:12px;width:120px;">订单编号</td>';
-        $strTable .= '<td style="text-align:center;font-size:12px;" width="100">日期</td>';
-        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">收货人</td>';
-        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">收货地址</td>';
-        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">电话</td>';
-        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">订单金额</td>';
-        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">实际支付</td>';
-        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">支付方式</td>';
-        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">支付状态</td>';
-        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">发货状态</td>';
-        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">商品信息</td>';
-        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">司机</td>';
-        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">仓库</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;width:120px;">收货人</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="100">总金额</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">区县</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">地址</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">产品总数</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">客服备注</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">下单时间</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">分配次序</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">司机姓名</td>';
+        $strTable .= '<td style="text-align:center;font-size:12px;" width="*">司机电话</td>';
         $strTable .= '</tr>';
-        $api = new JxcapiController();
+       /* $api = new JxcapiController();
         $storageList = json_decode($api->getAllStorage(),TRUE);
         foreach ($storageList as $k=>$v){
             $storage[$v["id"]] = $v["name"];
 //            $storageList[$k]["regions"] =
-        }
+        }*/
         if(is_array($orderList)){
-            $region	= M('region')->getField('id,name');
             foreach($orderList as $k=>$val){
-                $orderStorage = M("storage_region")->where("region_id = ".$val['district'])->getField("storage_id");
-                $driverName="";
                 $strTable .= '<tr>';
-                $strTable .= '<td style="text-align:center;font-size:12px;">&nbsp;'.$val['order_sn'].'</td>';
-                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['create_time'].' </td>';
-                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['consignee'].'</td>';
-                $strTable .= '<td style="text-align:left;font-size:12px;">'."{$region[$val['province']]},{$region[$val['city']]},{$region[$val['district']]},{$region[$val['twon']]}{$val['address']}".' </td>';
-                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['mobile'].'</td>';
-                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['goods_price'].'</td>';
-                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['order_amount'].'</td>';
-                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['pay_name'].'</td>';
-                $strTable .= '<td style="text-align:left;font-size:12px;">'.$this->pay_status[$val['pay_status']].'</td>';
-                $strTable .= '<td style="text-align:left;font-size:12px;">'.$this->shipping_status[$val['shipping_status']].'</td>';
-                $orderGoods = D('order_goods')->where('order_id='.$val['order_id'])->select();
-                if($val['driver_id']) $driverName = D('drivers')->where('driver_id='.$val['driver_id'])->getField("driver_name");
-                $strGoods="";
-                foreach($orderGoods as $goods){
-                    $strGoods .= "商品编号：".$goods['goods_sn']." 商品名称：".$goods['goods_name'];
-                    if ($goods['spec_key_name'] != '') $strGoods .= " 规格：".$goods['spec_key_name'];
-                    $strGoods .= "<br />";
-                }
-                unset($orderGoods);
-                $strTable .= '<td style="text-align:left;font-size:12px;">'.$strGoods.' </td>';
-                $strTable .= '<td style="text-align:left;font-size:12px;">'.$driverName.' </td>';
-                $strTable .= '<td style="text-align:left;font-size:12px;">'.$storage[$orderStorage].' </td>';
+                $strTable .= '<td style="text-align:center;font-size:12px;">&nbsp;'.$val['consignee'].':'.$val['mobile'].'</td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['goods_price'].' </td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['district'].'</td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['address'].' </td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['product_sum'].'</td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['action_note'].'</td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;">'.date("Y-m-d H:i:s",$val['add_time']).'</td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['delivery_sort'].'</td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['driver_name'].'</td>';
+                $strTable .= '<td style="text-align:left;font-size:12px;">'.$val['driver_mobile'].'</td>';
                 $strTable .= '</tr>';
             }
         }
